@@ -16,6 +16,10 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
+import { LayoutComponent } from './dashboard/layout/layout.component';
+import { MainContentComponent } from './components/main-content/main-content.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { TopNavComponent } from './components/top-nav/top-nav.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -33,7 +37,11 @@ const appRoutes: Routes =  [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    LayoutComponent,
+    MainContentComponent,
+    SideNavComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,
