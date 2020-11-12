@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+declare var hum: any;
 
 @Component({
   selector: 'app-side-nav',
@@ -10,6 +12,14 @@ export class SideNavComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //Toggle Click Function
+    $("#menu-toggle").on("click", function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
   }
 
+  // onHumburgerClick(){
+  //   new hum();
+  // }  
 }
