@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #wrapper.toggled {
+    margin-left: 0;
+  }
+
+  @media (min-width: 768px) {
+
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+    }
+    #wrapper.toggled  {
+      margin-left: -15rem;
+    }
+  }
+  
+  .right {
+    display: flex;
+    flex-direction: column;
+    min-width: 700px;
+    width: 100%;
+    z-index: 0;
+    transition: margin-left 0.25s ease 0s;
+  }
+
+  .container{
+      max-width:100%
+  }
