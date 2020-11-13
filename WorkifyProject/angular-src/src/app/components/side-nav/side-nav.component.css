@@ -1,7 +1,11 @@
-body {
+/* body {
   overflow-x: hidden;
 }
+.sidebarCol{
+  background-color:#191f2b;
+}
 #sidebar-wrapper {
+  color: white;
   min-height: 100vh;
   margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
@@ -34,3 +38,137 @@ body {
     margin-left: -15rem;
   }
 }
+
+
+ */
+
+
+ 
+
+ .side {
+   min-width: 225px;
+   max-width: 225px;
+   height: 100vh;
+   border-right: 2px solid  #fefefe;
+   background-color: #191f2b;
+   position: fixed;
+   z-index: 1;
+   margin-left: 0px;
+   transition: margin-left 0.25s ease 0s;
+ }
+
+.top {
+     margin-top: 1.55rem;
+     padding-left: 0px;}
+ 
+.top li:hover {
+         cursor: pointer;
+    
+     }
+ 
+.hamburger-side-menu {
+       color: #fff;
+       display: flex;
+       justify-content: flex-end;
+       margin-right: 1rem;
+       transition: all 0.25s ease 0s;
+       font-size: 20px;
+       margin-bottom: 1rem;}
+
+.hamburger-side-menu:hover{
+  cursor: pointer;
+}
+ 
+     
+ 
+/* div a {
+       color: #fff;
+       width: 100%;
+       display: block;
+       transition: all 0.25s ease 0s;}
+ 
+       div a:hover {
+         cursor: pointer;
+         transition: all 0.25s ease 0s;
+       }
+ 
+       li {
+         padding: 0.75rem;
+         margin-bottom: 1rem;
+ 
+         &:hover {
+           background-color: #222a37;
+         }
+ 
+         .icon {
+           display: inline-block;
+           font-size: 16px;
+           vertical-align: text-bottom;
+           padding-right: 1rem;
+           padding-left: 1rem;
+           padding-top: 0.25rem;
+         }
+       }
+     }
+   }
+ } */
+ 
+ .invisibile {
+   margin-left: -225px;
+   transition: margin-left 0.25s ease 0s;
+ }
+ 
+ .active-page {
+   color: #fff !important;
+   background-color: #222a37;
+   transition: all 0.25s ease 0s;
+ }
+ 
+ .bottom {
+   margin-top: 4rem;
+   color: #fff;
+   padding-left: 3.8rem;
+ }
+ 
+ .side-projects-header {
+   font-family: "Oxygen Mono", monospace;
+ }
+ 
+ /* .project-listings {
+   height: 305px;
+   overflow: scroll;
+ 
+   &::-webkit-scrollbar {
+     -webkit-appearance: none;
+     width: 4px;
+   }
+ 
+   &::-webkit-scrollbar-thumb {
+     border-radius: 1rem;
+     background-color: $primaryBlue;
+   }
+ } */
+ 
+ .project-listing {
+   font-size: 14px;
+   padding-right: 1rem;
+   margin-top: 1.25rem;
+   transition: all 0.25s ease 0s;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+   width: 150px;}
+ 
+   .project-listing:hover {
+     cursor: pointer;
+   }
+ 
+   .project-listing a {
+     color: #fff;
+   }
+ 
+   .project-listing a:visited {
+     color: #fff;
+   }
+ 
+ 

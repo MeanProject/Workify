@@ -12,4 +12,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleModal(){
+    console.log("toggle modal cliked");
+  }
+  createTask(){
+    console.log("createTask cliked");
+  }
+  onClose(){
+    console.log("onClose cliked");
+  }
 }
