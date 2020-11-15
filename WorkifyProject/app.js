@@ -21,6 +21,8 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 const users=require('./routes/users');
+const projects=require('./routes/projects');
+const tasks=require('./routes/tasks');
 
 const port=process.env.PORT || 3000;
 
@@ -38,7 +40,10 @@ require('./config/passport')(passport);
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));//current directory +foldername
 
+//routes
 app.use('/users',users);
+app.use('/projects',projects);
+app.use('/tasks',tasks);
 
 app.get('/',(req,res)=>{
     res.send("hello");

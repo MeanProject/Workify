@@ -19,19 +19,7 @@ export class SideNavComponent implements OnInit {
     });
   }
 
-  toggleMenu() {
-    let sideNav = document.querySelector(".side");
-    sideNav.classList.add("invisibile");
 
-    let hamburger = document.querySelector(".hamburger-top-menu");
-    hamburger.classList.add("hamburger-visible");
-
-    let rightSide = document.querySelector(".right");
-    rightSide.classList.add("no-side");
-
-    let rightSideRight = document.querySelector(".right-top");
-    rightSideRight.classList.add("right-top-visibile");
-  };
   // onHumburgerClick(){
   //   new hum();
   // }  

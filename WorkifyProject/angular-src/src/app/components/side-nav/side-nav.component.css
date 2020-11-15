@@ -1,11 +1,10 @@
-/* body {
+body {
   overflow-x: hidden;
 }
-.sidebarCol{
+/* .sidebarCol{
   background-color:#191f2b;
-}
+} */
 #sidebar-wrapper {
-  color: white;
   min-height: 100vh;
   margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
@@ -40,12 +39,12 @@
 }
 
 
- */
+
 
 
  
 
- .side {
+ /* .side {
    min-width: 225px;
    max-width: 225px;
    height: 100vh;
@@ -111,7 +110,7 @@
        }
      }
    }
- } */
+ } 
  
  .invisibile {
    margin-left: -225px;
@@ -134,7 +133,7 @@
    font-family: "Oxygen Mono", monospace;
  }
  
- /* .project-listings {
+ .project-listings {
    height: 305px;
    overflow: scroll;
  
@@ -147,7 +146,7 @@
      border-radius: 1rem;
      background-color: $primaryBlue;
    }
- } */
+ }
  
  .project-listing {
    font-size: 14px;
@@ -171,4 +170,4 @@
      color: #fff;
    }
  
- 
+  */

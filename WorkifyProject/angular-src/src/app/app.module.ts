@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { MainContentComponent } from './components/main-content/main-content.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 const appRoutes: Routes =  [
@@ -40,7 +41,8 @@ const appRoutes: Routes =  [
     ProfileComponent,
     MainContentComponent,
     SideNavComponent,
-    TopNavComponent
+    TopNavComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

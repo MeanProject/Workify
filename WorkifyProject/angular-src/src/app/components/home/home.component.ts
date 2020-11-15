@@ -12,6 +12,23 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  // projects=[];
+  projects=[
+    {name:"first project",
+    owner:"sakshi",
+    teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
+  },
+  {name:"firsttt project",
+    owner:"sakshi",
+    teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
+  },
+  {name:"firstyttt project",
+    owner:"sakshi",
+    teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
+  }
+  ];
+  
+
   toggleModal(){
     console.log("toggle modal cliked");
   }
