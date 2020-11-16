@@ -1,0 +1,170 @@
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+font-family: 'Numans', sans-serif;
+background-image: url('../../../assets/project.png');
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+body{
+  height: 100%;
+}
+
+#loginContainer{
+  background-image: url('../../../assets/project2.png');
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+.social_icon a span{
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.social_icon .btn{
+    padding: .1875rem .375rem;
+    line-height: 0.75;
+    background:rgb(0,123,255);
+    font-weight: 200;
+    border: none;
+}
+
+.social_icon .btn:hover{
+    background: white;
+    color:rgb(0,123,255);  
+}
+
+/* heading------------------------ */
+
+.sandbox-correct-pronounciation {
+    padding: 0.8em 0 0.8em 0;
+    background-color: rgba(185, 30, 172, 0.5);
+  }
+  
+.heading-correct-pronounciation {
+
+  margin: auto;
+  text-align: center;
+  position: relative;
+  font-family: 'Cardo', serif;
+  font-size: 1.3em;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  line-height: 1.8em;
+  color:#fff;
+}
+
+em {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style:normal;
+  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+  
+}
+  
+
+
+/* card----------------------- */ 
+
+.login100-social-item {
+  font-size: 25px;
+  color: #3b5998;
+  display: -webkit-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(250, 250, 250);
+  margin: 5px;
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+
+.card-signin {
+  width:350px;
+  border: 0;
+  background: rgb(255, 255, 255,0.7);
+  border-radius: 2rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  font-weight: 300;
+  float: none; /* Added */
+}
+
+.headd{
+  font-weight: 500;
+  font-size: 2.2rem;
+  color: #3b5998;
+  font-family: Lobster,Cambria, Cochin, Georgia, Times, Times New Roman , serif ;
+
+}
+
+.card-body {
+  padding: 2rem;
+  padding-top: 1rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.form-signin .btn {
+  font-size: 100%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.4s;
+}
+.form-control{
+  border-radius: 2rem;
+  margin-left: 20px;
+  height: 3em;
+  width:100%;
+  font-size: 0.9rem;
+}
+.form-group{margin-top: .4em;
+
+}
+
+
+.linkk{
+  font-size: 18px;
+  color:#007bff;
+}
+
+.linkk:hover{
+  color:rgb(31, 46, 131);
+  text-decoration: underline;
+}
+.form-signin .btn{
+  padding: 0.8rem;
+  font-size:medium ;
+
+}
+.raisedb {
+  padding: 0.8rem;
+  font-size: large;
+  color:rgb(31, 46, 131);
+  border:1px solid rgb(31, 46, 131);
+  box-shadow: 0 3px 0 0 rgb(31, 46, 131);
+}
+
+.raisedb:hover{
+  background-color: rgb(110, 110, 202);
+  color: white;
+}
+
+
+

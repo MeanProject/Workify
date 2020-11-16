@@ -1,4 +1,4 @@
-<h2 class="page-header" >Login</h2>
+<!-- <h2 class="page-header" >Login</h2>
 <form class="form-signin" (submit)="onLoginSubmit()">
         <div class="form-group">
           <label for="Username">Username</label>
@@ -14,4 +14,92 @@
           </label>
         </div>
         <input class="btn btn-lg btn-primary" type="submit" value="Login">
-</form>
+</form> -->
+
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+<div class="container my-auto" id="loginContainer" style="width:100vw;height: 100vh;" >
+
+  <div class="sandbox sandbox-correct-pronounciation mt-3">
+    <h5 class="heading heading-correct-pronounciation">
+      The Project Management System
+      <em>Workify</em>
+      A portal for managing your project and tasks with your project members.
+    </h5>
+  </div>
+  <br>
+  <br>
+  <div class="row pb-2 ">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-auto d-flex ">
+      <div class="card card-signin my-auto">
+        <div class="card-body">
+          <h3 class="card-title text-center headd" >Sign In</h3>
+          <form class="form-signin"  class="form-signin" (submit)="onLoginSubmit()" style="width:100%">
+            
+            <div class="row" style="width:100%">
+              <span class="input-icon" style="width:15%">
+                <div class="login100-social-item">
+                 <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+              </span>
+              <div class="form-group"  style="width:85%" >
+                <input type="text" class="form-control" placeholder="Enter Username" [(ngModel)]="username" name="username">
+              </div>
+            </div>  
+            <div class="row" style="width:100%">
+              <span class="input-icon" style="width:15%">
+                <div class="login100-social-item">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </div>
+              </span>
+              <div class="form-group" style="width:85%">
+                <input type="password" class="form-control" id="inputPassword" placeholder=" Enter Password" [(ngModel)]="password" name="password">
+              </div>
+            </div>
+              <div class="checkbox center">
+                <label>
+                  <input type="checkbox" onclick="toggleFunction()"  id="exampleCheck1"> Show Password
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+            <br>
+            <button  name="submit" class="btn btn-lg btn-outline-primary btn-block text-uppercase raisedb" value="login" type="submit">Sign in</button>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Footer -->
+
+<!-- End of Footer -->
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
