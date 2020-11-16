@@ -10,23 +10,25 @@
 
 
 
-<div *ngIf="projects.length>0" class="main-content">
+<div *ngIf="projects!=null" class="main-content">
   <h1 class="header">Your Projects</h1>
-  <button class="main-btn" (click)="toggleModal()">Create another project</button>
+  <button class="main-btn" (click) = "show()">Create another project</button>
   <div class="modal-wrapper"></div>
   <div class="projects-wrapper">
-    <div key={project._id} class="project-icon" *ngFor="let project of projects">
+    <!-- (click)="getProjectData(project._id)" -->
+    <div key={project._id} [routerLink]="['/projects',project._id]" class="project-icon" *ngFor="let project of projects">
       <div class="project-name">{{project.name}}</div>
       <div class="project-info-button">Edit project</div>
       <div class="project-info-button">Go to project</div>
+      <!-- <a [routerLink]="['/projects',project._id]">details </a> -->
     </div>
   </div>
 </div>
-<div *ngIf="projects.length==0" class="main-content">
+<div *ngIf="projects==null" class="main-content">
   <div class="projects">
     <div class="no-projects">
       <h1 class="header">You have no projects</h1>
-      <button class="main-btn" (click)="toggleModal()">
+      <button class="main-btn" (click) = "show()">
         Create your first project
       </button>
       <div class="modal-wrapper">
@@ -36,3 +38,31 @@
   </div>
 </div>
 
+
+
+
+<!-- Create project Modal -->
+<div class="modal-wrapper">
+  <div class="modalPopup" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+    <span class="close-modal close" data-dismiss="modal" (click) = "hide()">×</span>
+    <h1 class="header">Create a project</h1>
+    <div class="form-group">
+      <label>
+        <div class="form-label">Project Name (required)</div>
+        <input id="projectName" type="text" placeholder="My Awesome Project" class="form-input" value="">
+      </label>
+    </div>
+    <div class="form-label">Add team members (optional)</div>
+    <button class="main-btn add-members">Add another member</button>
+    <div class="members">
+      <div class="split">
+        <label class="form-label" for="member-0">Name (required for teams)<input type="text" name="name" data-id="0" id="member-0" class="form-input" value=""></label>
+        <label class="form-label split-email" for="email-0">Email (required for teams)<input type="text" name="email" data-id="0" id="email-0" class="form-input" value=""></label>
+        <span class="delete">REMOVE</span>
+      </div>
+    </div>
+    <div>
+      <button class="main-btn create-project" >Create Project</button>
+    </div>
+  </div>
+</div>

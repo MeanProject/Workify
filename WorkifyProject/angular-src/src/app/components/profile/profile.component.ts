@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
+    //console.log("proinit called");
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
     },

@@ -20,6 +20,7 @@ import { MainContentComponent } from './components/main-content/main-content.com
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 
 const appRoutes: Routes =  [
@@ -27,7 +28,8 @@ const appRoutes: Routes =  [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'projects/:id', component: ProjectDetailsComponent},
 ]
 
 @NgModule({
@@ -42,7 +44,8 @@ const appRoutes: Routes =  [
     MainContentComponent,
     SideNavComponent,
     TopNavComponent,
-    ModalComponent
+    ModalComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,

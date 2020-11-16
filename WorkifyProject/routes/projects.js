@@ -11,6 +11,7 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("testing");
     let projectsArr = [];
 
     // Member projects
@@ -24,20 +25,22 @@ router.get(
               }
             });
         });
+        // console.log(projectsArr);
       })
       .catch(err => console.log(err));
 
     const OWNER = {
-      id: req.user.id,
       name: req.user.name,
-      email: req.user.email
+      email: req.user.email,
+      id: req.user.id,
     };
-
+    console.log("owner",OWNER);
     // Combine with owner projects
     await Project.find({ owner: OWNER })
       .then(projects => {
         let finalArr = [...projects, ...projectsArr];
         res.json(finalArr);
+        //console.log(finalArr);
       })
       .catch(err => console.log(err));
   }

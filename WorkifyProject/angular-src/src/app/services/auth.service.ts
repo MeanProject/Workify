@@ -45,6 +45,34 @@ export class AuthService {
     return this.http.get('http://localhost:3000/users/profile', httpOptions)
       .map(res => res);
   }
+  //specific user all projects
+  getProjects() {
+    console.log("hiii");
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get('http://localhost:3000/projects', httpOptions)
+      .map(res => res);
+  }
+
+
+   //specific project
+   getProjectDetails(id) {
+    console.log("hiii");
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get(`http://localhost:3000/projects/${id}`, httpOptions)
+      .map(res => res);
+  }
 
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);

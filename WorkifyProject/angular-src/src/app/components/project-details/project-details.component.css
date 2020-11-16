@@ -1,0 +1,181 @@
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.projects-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  width: 98%;
+}
+.main-content {
+  flex: 1 1 auto;
+  margin-left: 2rem;
+  background-color: #ffffff;
+  margin-top: 70px;
+}
+.main-btn {
+  height: 40px;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  background-color: #1652f0;
+  border-color: #1652f0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "Oxygen Mono", monospace;
+  transition: all 0.25s ease 0s;
+  padding: 0rem 1rem;
+  min-width: 200px;
+}
+.main-btn:hover {
+  background-color: #154de0;
+  border-color: #154de0;
+  transform: translateY(-2.5px);
+  cursor: pointer;
+  transition: all 0.25s ease 0s;
+}
+
+.project-header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: #212121;
+}
+
+.project-subheader {
+  text-align: center;
+}
+
+.project-spinner {
+  margin-bottom: 4rem;
+}
+
+.center-btn {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.tasks-container {
+  min-height: 600px;
+  margin: 0 auto;
+  width: 900px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+}
+
+.add-btn {
+  margin-bottom: 0.7rem;
+  margin-left: 1rem;
+  background-color: #fff;
+  color: #1652f0;
+}
+.add-btn:hover {
+  color: #fff;
+}
+
+.check-task {
+  transition: all 0.25s ease 0s;
+}
+.check-task:hover {
+  color: #154de0;
+  transition: all 0.25s ease 0s;
+}
+
+.project-tasks {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-tasks .project-task {
+  width: 92.5%;
+  outline: none;
+  border: none;
+  height: 36px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+.project-tasks .project-task:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+}
+
+.project-tasks div {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  height: 40px;
+  line-height: 1.5em;
+  outline: 0;
+  font-size: 16px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.project-tasks i {
+  color: #1652f0;
+}
+
+.project-tasks i:hover {
+  cursor: pointer;
+}
+
+.project-tasks .task-info {
+  font-size: 12px;
+  text-align: center;
+  padding: 0.2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.project-tasks .task-info:nth-of-type(1) {
+  margin-right: 2rem;
+  width: 100px;
+}
+
+.project-tasks .task-info:nth-of-type(2),
+:nth-of-type(3) {
+  width: 100px;
+}
+
+.project-tasks .task-info:hover {
+  cursor: pointer;
+  background-color: #fafafa;
+}
+
+.projects-first-row {
+  display: flex;
+  height: 75px;
+}
+
+.muted {
+  color: #616161;
+}
+
+.projects-column-headers {
+  font-family: "Oxygen Mono", monospace;
+  display: flex;
+  margin-left: auto;
+  font-size: 17px;
+  margin-right: 16px;
+  font-weight: 300;
+}
+
+.projects-column-headers > p:nth-of-type(1) {
+  margin-right: 1.3rem;
+  width: 100px;
+  text-align: center;
+}
+
+.projects-column-headers > p:nth-of-type(2) {
+  width: 55px;
+  text-align: center;
+  padding-right: 2rem;
+}
