@@ -24,10 +24,9 @@
       <li> <a href="#"><i class="fa fa-sign-out"></i> <span class="nav-label">Sign Out</span></a> </li>
       <li> <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active" ><i class="fa fa-table"></i> <span class="nav-label">Projects</span><span class="fa fa-chevron-left pull-right"></span></a>
         <ul  class="sub-menu collapse" id="tables" >
-          <li><a href=""> Flutter Project</a></li>
-          <li><a href=""> Employee project</a></li>
-          <li><a href=""> SE assignment</a></li>
-          <li><a href=""> OSSS assignment</a></li>
+          <div key={project._id} [routerLink]="['/projects',project._id]"  *ngFor="let project of projects">
+            <li><a href=""> {{project.name}}</a></li>
+          </div>
         </ul>
       </li>
     </ul>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { AuthService } from '../../services/auth.service';
 declare var hum: any;
 
 @Component({
@@ -8,10 +9,22 @@ declare var hum: any;
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-
-  constructor() { }
+  projects:Object;
+  constructor(  private authService:AuthService) { 
+  }
 
   ngOnInit() {
+    console.log("Itnit called");
+    this.authService.getProjects().subscribe(projectData => {
+    console.log(projectData);
+      this.projects = projectData;
+      console.log(":hejdhf");
+      console.log(projectData);
+  }, 
+     err => {
+       return false;
+     });
+
     //Toggle Click Function
     $("#menu-toggle").on("click", function (e) {
       e.preventDefault();

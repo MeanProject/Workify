@@ -9,7 +9,6 @@
 
 
 
-
 <div *ngIf="projects!=null" class="main-content">
   <h1 class="header">Your Projects</h1>
   <button class="main-btn" (click) = "show()">Create another project</button>
@@ -43,26 +42,26 @@
 
 <!-- Create project Modal -->
 <div class="modal-wrapper">
-  <div class="modalPopup" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+  <form class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModal ? 'block' : 'none'">
     <span class="close-modal close" data-dismiss="modal" (click) = "hide()">×</span>
     <h1 class="header">Create a project</h1>
     <div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
-        <input id="projectName" type="text" placeholder="My Awesome Project" class="form-input" value="">
+        <input id="projectName" name="projectName" [(ngModel)]="projectName" type="text" placeholder="My Awesome Project" class="form-input" value="">
       </label>
     </div>
-    <div class="form-label">Add team members (optional)</div>
-    <button class="main-btn add-members">Add another member</button>
-    <div class="members">
-      <div class="split">
-        <label class="form-label" for="member-0">Name (required for teams)<input type="text" name="name" data-id="0" id="member-0" class="form-input" value=""></label>
-        <label class="form-label split-email" for="email-0">Email (required for teams)<input type="text" name="email" data-id="0" id="email-0" class="form-input" value=""></label>
-        <span class="delete">REMOVE</span>
+    <div class="form-label" >Add team members (optional)</div>
+    <button class="main-btn add-members" (click)="addMemberField()" ng-click="count = count + 1" ng-init="count=0">Add another member</button>
+    <div class="members showInputField" id="memberList">
+      <div class="split" >
+        <label class="form-label" >Name<input type="text" name="memberName"  [(ngModel)]="memberName"    class="form-input m_email" value=""></label>
+        <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail"  class="form-input m_name" value=""></label>
+        <span class="delete" onclick="removeMemberField()">REMOVE</span>
       </div>
     </div>
     <div>
-      <button class="main-btn create-project" >Create Project</button>
+      <button class="main-btn create-project" type="submit" value="Submit" >Create Project</button>
     </div>
-  </div>
+  </form>
 </div>

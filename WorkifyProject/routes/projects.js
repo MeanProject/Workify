@@ -25,7 +25,7 @@ router.get(
               }
             });
         });
-        // console.log(projectsArr);
+        console.log(projectsArr);
       })
       .catch(err => console.log(err));
 
@@ -54,7 +54,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
-
+    console.log("get projects");
     Project.findById(id).then(project => res.json(project));
   }
 );
@@ -75,7 +75,7 @@ router.post(
     const NEW_PROJECT = await new Project({
       owner: OWNER,
       name: req.body.projectName,
-      teamMembers: req.body.members
+      teamMembers: req.body.teamMembers
     });
 
     NEW_PROJECT.save().then(project => res.json(project));

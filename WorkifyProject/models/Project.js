@@ -12,8 +12,7 @@ const ProjectSchema = new Schema({
     type: Object,
     required: true
   },
-  teamMembers: [
-    {
+  teamMembers: [    {
       email: {
         type: String
       },

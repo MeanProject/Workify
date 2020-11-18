@@ -12,7 +12,7 @@
   <div class="modal-wrapper">
   <div class="tasks-container">
     <div class="projects-first-row">
-      <button class="main-btn add-btn">Add task</button>
+      <button class="main-btn add-btn" (click) = "show()">Add task</button>
       <div class="projects-column-headers">
         <p>Assignee</p>
         <p>Due</p>
@@ -27,5 +27,64 @@
       </div>
     </div>
   </div>
+  </div>
+</div>
+
+
+<!-- Create task Modal -->
+<div class="modal-wrapper">
+  <div class="modalPopup" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+    <span class="close-modal close" data-dismiss="modal" (click) = "hide()">×</span>
+    <h1 class="header">Create Task</h1>
+    <div class="form-group">
+      <label>
+        <div class="form-label">Task Name (required)</div>
+        <input id="taskName" type="text" placeholder="What is the task ?" class="form-input" value="">
+      </label>
+    </div>
+    <div class="form-group">
+      <div class="split">
+        <label>
+         <div class="form-label">Assignee</div>
+          <!--  <select
+            onChange={this.onSelectChange}
+            value={this.state.assignee}
+            id="assignee"
+            type="text"
+            class="form-input task-input-split"
+          >
+            <option disabled value="">
+              Assign to
+            </option>
+            <option value={email}>{name + " (You)"}</option>
+            {membersOptions}
+          </select> -->
+        </label>
+        <label>
+          <div class="form-label">Due Date</div>
+          <div class="split">
+            <input required type="date" name="date" value=""  class="form-input task-input-split month-due">
+            <!-- <select
+              required={this.state.dayDue ? true : false}
+              onChange={this.onSelectChange}
+              value={this.state.monthDue}
+              id="monthDue"
+              type="text"
+              class="form-input task-input-split month-due"
+            >
+              <option disabled value="">
+                Month
+              </option>
+              {monthsOptions}
+            </select> -->
+
+          </div>
+        </label>
+      </div>
+    </div>
+   
+    <div>
+      <button class="main-btn create-task" >Create task</button>
+    </div>
   </div>
 </div>

@@ -33,6 +33,27 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/authenticate', user,httpOptions)
       .map(res => res);
   }
+  storeUserData(token, user) {
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
+  }
+
+  loadToken() {
+    const token = localStorage.getItem('id_token');
+    this.authToken = token;
+  }
+
+  loggedIn() {
+    return tokenNotExpired('id_token');
+  }
+
+  logout() {
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
 
   getProfile() {
     this.loadToken();
@@ -59,7 +80,6 @@ export class AuthService {
       .map(res => res);
   }
 
-
    //specific project
    getProjectDetails(id) {
     console.log("hiii");
@@ -74,25 +94,16 @@ export class AuthService {
       .map(res => res);
   }
 
-  storeUserData(token, user) {
-    localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
-  }
-
-  loadToken() {
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
-  }
-
-  loggedIn() {
-    return tokenNotExpired('id_token');
-  }
-
-  logout() {
-    this.authToken = null;
-    this.user = null;
-    localStorage.clear();
+  createProject(project) {
+    console.log(project);
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.post('http://localhost:3000/projects/create',project,httpOptions)
+      .map(res => res);
   }
 }
