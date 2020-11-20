@@ -78,7 +78,9 @@ router.post(
       teamMembers: req.body.teamMembers
     });
 
-    NEW_PROJECT.save().then(project => res.json(project));
+    NEW_PROJECT.save().
+    then(project => res.json({project,success: true, msg: 'New project created'}))
+    .catch(err => res.json({success: false, msg: 'Failed to create project!Try again'}));
   }
 );
 

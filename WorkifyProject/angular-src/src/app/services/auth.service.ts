@@ -106,4 +106,18 @@ export class AuthService {
     return this.http.post('http://localhost:3000/projects/create',project,httpOptions)
       .map(res => res);
   }
+
+  editProject(project) {
+    console.log(project);
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.patch('http://localhost:3000/projects/update',project,httpOptions)
+      .map(res => res);
+  }
+
 }

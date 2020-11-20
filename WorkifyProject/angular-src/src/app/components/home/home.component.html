@@ -11,14 +11,14 @@
 
 <div *ngIf="projects!=null" class="main-content">
   <h1 class="header">Your Projects</h1>
-  <button class="main-btn" (click) = "show()">Create another project</button>
+  <button class="main-btn" (click) = "showCreateProj()">Create another project</button>
   <div class="modal-wrapper"></div>
   <div class="projects-wrapper">
     <!-- (click)="getProjectData(project._id)" -->
-    <div key={project._id} [routerLink]="['/projects',project._id]" class="project-icon" *ngFor="let project of projects">
+    <div class="project-icon" *ngFor="let project of projects">
       <div class="project-name">{{project.name}}</div>
-      <div class="project-info-button">Edit project</div>
-      <div class="project-info-button">Go to project</div>
+      <div class="project-info-button" (click) = "showEditProj(project._id)">Edit project</div>
+      <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
       <!-- <a [routerLink]="['/projects',project._id]">details </a> -->
     </div>
   </div>
@@ -27,7 +27,7 @@
   <div class="projects">
     <div class="no-projects">
       <h1 class="header">You have no projects</h1>
-      <button class="main-btn" (click) = "show()">
+      <button class="main-btn" (click) = "showCreateProj()">
         Create your first project
       </button>
       <div class="modal-wrapper">
@@ -42,8 +42,8 @@
 
 <!-- Create project Modal -->
 <div class="modal-wrapper">
-  <form class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModal ? 'block' : 'none'">
-    <span class="close-modal close" data-dismiss="modal" (click) = "hide()">×</span>
+  <form class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
+    <span class="close-modal close" data-dismiss="modal" (click) = "hideCreateProj()">×</span>
     <h1 class="header">Create a project</h1>
     <div class="form-group">
       <label>
@@ -61,7 +61,42 @@
       </div>
     </div>
     <div>
-      <button class="main-btn create-project" type="submit" value="Submit" >Create Project</button>
+      <button class="main-btn create-project" type="submit" value="Submit" (click) = "hideCreateProj()">Create Project</button>
     </div>
   </form>
 </div>
+
+
+
+
+
+
+<!-- Edit project Modal -->
+<div class="modal-wrapper">
+  <form class="modalPopup" (submit)="onEditProject()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
+    <span class="close-modal close" data-dismiss="modal" (click) = "hideEditProj()">×</span>
+    <h1 class="header">Edit Project Info</h1>
+    <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p>
+    <div class="form-group">
+      <label>
+        <div class="form-label">Project Name (required)</div>
+        <input id="projectName" name="projectName"  type="text" placeholder="My Awesome Project" class="form-input" value={{projectDetails.name}}>
+      </label>
+    </div>
+    <div class="form-label" >Add team members (optional)</div>
+    <button class="main-btn add-members" (click)="addMemberField()" ng-click="count = count + 1" ng-init="count=0">Add another member</button>
+    <div class="members showInputField" id="memberList" >
+      <div class="split" >
+        <!-- *ngFor="let projectMember of projectDetails.teamMembers" -->
+        <label class="form-label" >Name<input type="text" name="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
+        <label class="form-label" >Email <input type="text"  name="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label>
+        <span class="delete" onclick="removeMemberField()">REMOVE</span>
+      </div>
+    </div>
+    <div>
+      <button class="main-btn create-project" type="submit" value="Submit" (click) = "hideEditProj()">Update Project</button>
+      <button class="main-btn delete-project">Delete Project</button>
+    </div>
+  </form>
+</div>
+

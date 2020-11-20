@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     memberName:any[]=[];
     memberEmail:any[]=[];
   projects:Object;
+
   // name:[];
   // email:[];
 
@@ -29,8 +30,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService:AuthService,
-     private router:Router,
-    private flashMessage: FlashMessagesService) { }
+    private router:Router,
+    private flashMessage: FlashMessagesService,
+    private _Activatedroute:ActivatedRoute) { }
 
   ngOnInit() {
     console.log("Itnit called");
@@ -38,31 +40,54 @@ export class HomeComponent implements OnInit {
       console.log(projectData);
        this.projects = projectData;
        console.log(projectData);
-       this.hide();
+       this.hideCreateProj();
+       //this.hideEditProj();
     }, 
      err => {
       //  console.log(err);
        return false;
      });
- 
-
   }
 
-  showModal: boolean;
+  projectDetails:Object;
+  // sub: any;
+  id: any;
+
+  showModalCreate: boolean;
+  showModalEdit: boolean;
   content: string;
   title: string;
 
   //Bootstrap Modal Open event
-  show()
+  showCreateProj()
   {
-    this.showModal = true; // Show-Hide Modal Check
+    this.showModalCreate = true; // Show-Hide Modal Check
     this.content = "This is content!!"; // Dynamic Data
     this.title = "This is title!!";    // Dynamic Data
   }
   //Bootstrap Modal Close event
-  hide()
+  hideCreateProj()
   {
-    this.showModal = false;
+    this.showModalCreate = false;
+  }
+
+  showEditProj(project_id)
+  {
+    this.id=project_id
+    this.showModalEdit = true;
+    this.authService.getProjectDetails(this.id).subscribe(projectData => {
+      console.log(projectData);
+     this.projectDetails = projectData;
+  }, 
+   err => {
+     console.log(err);
+     return false;
+   });
+
+  }
+  hideEditProj()
+  {
+    this.showModalEdit = false;
   }
   addMemberField(){ 
     let row = document.createElement('div'); 
@@ -100,15 +125,36 @@ export class HomeComponent implements OnInit {
       console.log(data);
       if(data['success']) {
         this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
-        // this.router.navigate(['/login']);
+        //this.router.navigate(['/']);
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        // this.router.navigate(['/register']);
+        //this.router.navigate(['/']);
       }
     });
     }
 
 
+    //edit project
+    onEditProject() {
+      const project={
+        projectName:this.projectName,
+        teamMembers:{
+          name:this.memberName,
+          email:this.memberEmail,
+        } 
+      }
+  
+      this.authService.editProject(project).subscribe(data => {
+        console.log(data);
+        if(data['success']) {
+          this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
+          //this.router.navigate(['/']);
+        } else {
+          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+          //this.router.navigate(['/']);
+        }
+      });
+      }
   
 
 
