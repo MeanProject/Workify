@@ -11,10 +11,10 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log("testing");
     let projectsArr = [];
 
     // Member projects
+
     await Project.find({})
       .then(projects => {
         projects.map(project => {
@@ -25,22 +25,17 @@ router.get(
               }
             });
         });
-        console.log(projectsArr);
       })
       .catch(err => console.log(err));
 
-    const OWNER = {
-      name: req.user.name,
-      email: req.user.email,
-      id: req.user.id,
-    };
-    console.log("owner",OWNER);
-    // Combine with owner projects
-    await Project.find({ owner: OWNER })
+    await Project.find({})
       .then(projects => {
-        let finalArr = [...projects, ...projectsArr];
-        res.json(finalArr);
-        //console.log(finalArr);
+        projects.map(project => {
+              if (project.owner.email == req.user.email) {
+                projectsArr.push(project);                
+              }
+            });
+            res.json(projectsArr);
       })
       .catch(err => console.log(err));
   }
@@ -54,7 +49,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
-    console.log("get projects");
     Project.findById(id).then(project => res.json(project));
   }
 );
@@ -92,9 +86,9 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let projectFields = {};
-
+    console.log(req.body)
     projectFields.name = req.body.projectName;
-    projectFields.teamMembers = req.body.members;
+    projectFields.teamMembers = req.body.team;
 
     Project.findOneAndUpdate(
       { _id: req.body.id },

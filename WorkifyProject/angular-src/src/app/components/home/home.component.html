@@ -61,14 +61,12 @@
       </div>
     </div>
     <div>
-      <button class="main-btn create-project" type="submit" value="Submit" (click) = "hideCreateProj()">Create Project</button>
+      <button class="main-btn create-project" type="submit" value="Submit" >Create Project</button>
     </div>
   </form>
 </div>
 
-
-
-
+<!-- (click) = "hideCreateProj()" -->
 
 
 <!-- Edit project Modal -->
@@ -77,10 +75,11 @@
     <span class="close-modal close" data-dismiss="modal" (click) = "hideEditProj()">×</span>
     <h1 class="header">Edit Project Info</h1>
     <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p>
+    <input type="text" value={{projectDetails._id}} [(ngModel)]="projectID" name="projectID">
     <div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
-        <input id="projectName" name="projectName"  type="text" placeholder="My Awesome Project" class="form-input" value={{projectDetails.name}}>
+        <input id="projectName" name="projectName" [(ngModel)]="projectName" type="text" class="form-input" value={{projectDetails.name}}>
       </label>
     </div>
     <div class="form-label" >Add team members (optional)</div>
@@ -88,14 +87,14 @@
     <div class="members showInputField" id="memberList" >
       <div class="split" >
         <!-- *ngFor="let projectMember of projectDetails.teamMembers" -->
-        <label class="form-label" >Name<input type="text" name="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
-        <label class="form-label" >Email <input type="text"  name="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label>
+        <label class="form-label" >Name<input type="text" name="memberName" [(ngModel)]="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
+        <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label>
         <span class="delete" onclick="removeMemberField()">REMOVE</span>
       </div>
     </div>
     <div>
-      <button class="main-btn create-project" type="submit" value="Submit" (click) = "hideEditProj()">Update Project</button>
-      <button class="main-btn delete-project">Delete Project</button>
+      <button class="main-btn create-project" type="submit" value="Submit" >Update Project</button>
+      <button class="main-btn delete-project" (click)="onDeleteProject()">Delete Project</button>
     </div>
   </form>
 </div>

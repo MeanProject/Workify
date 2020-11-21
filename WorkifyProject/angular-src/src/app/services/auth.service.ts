@@ -68,7 +68,6 @@ export class AuthService {
   }
   //specific user all projects
   getProjects() {
-    console.log("hiii");
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -82,7 +81,6 @@ export class AuthService {
 
    //specific project
    getProjectDetails(id) {
-    console.log("hiii");
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -108,7 +106,6 @@ export class AuthService {
   }
 
   editProject(project) {
-    console.log(project);
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -117,6 +114,18 @@ export class AuthService {
       })
     };
     return this.http.patch('http://localhost:3000/projects/update',project,httpOptions)
+      .map(res => res);
+  }
+
+  deleteProject(id) {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.delete(`http://localhost:3000/projects/delete/${id}`,httpOptions)
       .map(res => res);
   }
 

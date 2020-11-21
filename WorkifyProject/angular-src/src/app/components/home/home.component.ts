@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { combineAll } from 'rxjs/operator/combineAll';
+import { ThrowStmt } from '@angular/compiler';
 
 
 declare var angular: any;
@@ -13,13 +15,14 @@ declare var angular: any;
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  myStyle:string
+  projectID: String;
+  myStyle:string;
   projectName:String;
   teamMembers:Object;
   member:Object[];
   total:Number=1;
-    memberName:any[]=[];
-    memberEmail:any[]=[];
+  memberName:any[]=[];
+  memberEmail:any[]=[];
   projects:Object;
 
   // name:[];
@@ -35,13 +38,10 @@ export class HomeComponent implements OnInit {
     private _Activatedroute:ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("Itnit called");
     this.authService.getProjects().subscribe(projectData => {
-      console.log(projectData);
        this.projects = projectData;
-       console.log(projectData);
        this.hideCreateProj();
-       //this.hideEditProj();
+       this.hideEditProj();
     }, 
      err => {
       //  console.log(err);
@@ -78,6 +78,10 @@ export class HomeComponent implements OnInit {
     this.authService.getProjectDetails(this.id).subscribe(projectData => {
       console.log(projectData);
      this.projectDetails = projectData;
+     this.projectID = project_id
+    //  this.projectName = this.projectDetails['projectName']
+    //  this.teamMembers = this.projectDetails['teamMembers']
+    //  console.log(this.teamMembers)
   }, 
    err => {
      console.log(err);
@@ -113,6 +117,8 @@ export class HomeComponent implements OnInit {
   // }
  
   onCreateProject() {
+    
+    console.log(this.projectName)
     const project={
       projectName:this.projectName,
       teamMembers:{
@@ -125,10 +131,8 @@ export class HomeComponent implements OnInit {
       console.log(data);
       if(data['success']) {
         this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
-        //this.router.navigate(['/']);
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        //this.router.navigate(['/']);
       }
     });
     }
@@ -136,25 +140,44 @@ export class HomeComponent implements OnInit {
 
     //edit project
     onEditProject() {
+      if(this.projectName == undefined){
+        this.projectName = this.projectDetails['name']
+      }
+      if(this.memberEmail.length == 0){
+        this.memberEmail = this.projectDetails['teamMembers'][0]['email']
+      }
+      if(this.memberName.length == 0){
+        this.memberName = this.projectDetails['teamMembers'][0]['name']
+      }
       const project={
+        id: this.projectID,
         projectName:this.projectName,
         teamMembers:{
           name:this.memberName,
           email:this.memberEmail,
-        } 
+        },
       }
+      console.log(project)
   
       this.authService.editProject(project).subscribe(data => {
-        console.log(data);
         if(data['success']) {
-          this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
-          //this.router.navigate(['/']);
+          this.flashMessage.show('Project edited', {cssClass: 'alert-success', timeout: 3000});
         } else {
           this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-          //this.router.navigate(['/']);
         }
       });
-      }
+    }
+
+    onDeleteProject() {
+      const pid= this.projectID;
+      this.authService.deleteProject(pid).subscribe(data => {
+        if(data['success']) {
+          this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
+        } else {
+          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+        }
+      });
+    }
   
 
 
