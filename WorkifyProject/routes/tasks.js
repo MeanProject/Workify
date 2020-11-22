@@ -32,8 +32,8 @@ router.post(
     });
 
     NEW_TASK.save()
-      .then(task => res.json(task))
-      .catch(err => console.log(err));
+      .then(task => res.json({project,success: true, msg: 'New task created'}))
+      .catch(err => console.log({success: false, msg: 'try again'}));
   }
 );
 

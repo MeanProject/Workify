@@ -12,7 +12,7 @@
   <div class="modal-wrapper">
   <div class="tasks-container">
     <div class="projects-first-row">
-      <button class="main-btn add-btn" (click) = "show()">Add task</button>
+      <button class="main-btn add-btn" (click) = "showCreateTask()">Add task</button>
       <div class="projects-column-headers">
         <p>Assignee</p>
         <p>Due</p>
@@ -31,60 +31,61 @@
 </div>
 
 
+
+
+
+
 <!-- Create task Modal -->
+
 <div class="modal-wrapper">
-  <div class="modalPopup" id="myModal" [style.display]="showModal ? 'block' : 'none'">
-    <span class="close-modal close" data-dismiss="modal" (click) = "hide()">×</span>
-    <h1 class="header">Create Task</h1>
-    <div class="form-group">
+<form class="modalPopup" (submit)="onCreateTask()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
+<!-- <form class="modal"> -->
+  <span class="close-modal" data-dismiss="modal" (click) = "hideCreateTask()">×</span>
+  <h1 class="header">Create task</h1>
+  <div class="form-group">
+    <label>
+      <div class="form-label">Task Name (required)</div>
+      <input name="taskName" [(ngModel)]="taskName" id="taskName" type="text" placeholder="What is the task?" class="form-input" value="">
+    </label>
+  </div>
+  <div class="form-group">
+    <div class="split">
       <label>
-        <div class="form-label">Task Name (required)</div>
-        <input id="taskName" type="text" placeholder="What is the task ?" class="form-input" value="">
+        <div class="form-label">Assignee</div>
+        <select [(ngModel)]="assignee" name="assignee" id="assignee" type="text" class="form-input task-input-split">
+          <option disabled="" value="">Assign to</option>
+          <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
+        </select>
+      </label>
+      <label>
+        <div class="form-label">Due Date</div>
+        <div class="split">
+          <select [(ngModel)]="monthDue" name="monthDue" id="monthDue" type="text" class="form-input task-input-split month-due">
+            <option disabled="" value="">Month</option>
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <select [(ngModel)]="dayDue" name="dayDue" id="dayDue" type="text" class="form-input task-input-split day-due">
+            <option disabled="" value="">Day</option>
+            <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+          </select>
+        </div>
       </label>
     </div>
-    <div class="form-group">
-      <div class="split">
-        <label>
-         <div class="form-label">Assignee</div>
-          <!--  <select
-            onChange={this.onSelectChange}
-            value={this.state.assignee}
-            id="assignee"
-            type="text"
-            class="form-input task-input-split"
-          >
-            <option disabled value="">
-              Assign to
-            </option>
-            <option value={email}>{name + " (You)"}</option>
-            {membersOptions}
-          </select> -->
-        </label>
-        <label>
-          <div class="form-label">Due Date</div>
-          <div class="split">
-            <input required type="date" name="date" value=""  class="form-input task-input-split month-due">
-            <!-- <select
-              required={this.state.dayDue ? true : false}
-              onChange={this.onSelectChange}
-              value={this.state.monthDue}
-              id="monthDue"
-              type="text"
-              class="form-input task-input-split month-due"
-            >
-              <option disabled value="">
-                Month
-              </option>
-              {monthsOptions}
-            </select> -->
-
-          </div>
-        </label>
-      </div>
-    </div>
-   
-    <div>
-      <button class="main-btn create-task" >Create task</button>
-    </div>
   </div>
+  <div>
+    <button class="main-btn update-project" value="Submit" (click) = "hideCreateTask()"type="submit">Create Task</button>
+  </div>
+<!-- </form> -->
+</form>
 </div>

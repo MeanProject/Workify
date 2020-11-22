@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router'
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-project-details',
@@ -10,11 +11,17 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class ProjectDetailsComponent implements OnInit {
   
-  projectDetails:Object;
+  projectDetails:any;
+  taskdDetails:any;
+  taskName:any;
+  assignee:any;
+  monthDue:any;
+  dayDue:any;
+  dateDue:any;
   sub: any;
   id: any;
 
-  constructor(private authService:AuthService, private router:Router,private _Activatedroute:ActivatedRoute) { }
+  constructor(private authService:AuthService, private router:Router,private flashMessage: FlashMessagesService,private _Activatedroute:ActivatedRoute) { }
 
   ngOnInit() {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
@@ -30,33 +37,39 @@ export class ProjectDetailsComponent implements OnInit {
        });
    });
   }
-  showModal: boolean;
-  content: string;
-  title: string;
-  //Bootstrap Modal Open event
-  show()
+  showModalCreate: boolean;
+  showCreateTask()
   {
-    this.showModal = true; // Show-Hide Modal Check
-    this.content = "This is content!!"; // Dynamic Data
-    this.title = "This is title!!";    // Dynamic Data
+    this.showModalCreate = true;
   }
-  //Bootstrap Modal Close event
-  hide()
+  hideCreateTask()
   {
-    this.showModal = false;
+    this.showModalCreate = false;
   }
-  
-  toggleModal(){
-    console.log("toggle modal cliked");
-  }
-  createTask(){
-    console.log("createTask cliked");
-  }
-  onClose(){
-    console.log("onClose cliked");
-  }
-  
- 
+  months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  onCreateTask() {
+    const task={
+      project:this.projectDetails,
+      taskName:this.taskName,
+      dateDue:this.months[(this.monthDue-1)]+' '+this.dayDue,
+      assignee:this.assignee,
+    }
+    console.log(task);
+      this.authService.createTask(task).subscribe(data => {
+        //console.log(data);
+        if(data['success']) {
+          this.flashMessage.show('New task created', {cssClass: 'alert-success', timeout: 3000});
+          //this.router.navigate(['/']);
+        } else {
+          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+          //this.router.navigate(['/']);
+        }
+      });
+     }
+
+
+
+
 }
 
 

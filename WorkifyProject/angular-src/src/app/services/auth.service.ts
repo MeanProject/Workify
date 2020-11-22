@@ -130,4 +130,16 @@ export class AuthService {
       .map(res => res);
   }
 
+  createTask(task) {
+    console.log(task);
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.post('http://localhost:3000/tasks/create',task,httpOptions)
+      .map(res => res);
+  }
 }
