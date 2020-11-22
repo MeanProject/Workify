@@ -85,16 +85,12 @@ router.patch(
   "/update",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("project edit")
     let projectFields = {};
-    console.log(req.body)
     projectFields.name = req.body.projectName;
     projectFields.teamMembers = req.body.teamMembers;
 
     Project.findById(req.body.id).then(project => {
-      console.log(project.owner.email, req.user.email)
       if(project.owner.email == req.user.email){
-        console.log("Heyyaa")
         project.update({ $set: projectFields },
           { new: true })
       .then(project => {
@@ -102,7 +98,6 @@ router.patch(
       }).catch(err => console.log(err));
     }
     else{
-      console.log("nopeeee")
       res.json({project, success: false})
     }
   })
