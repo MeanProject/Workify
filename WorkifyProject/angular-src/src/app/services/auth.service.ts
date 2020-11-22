@@ -106,6 +106,7 @@ export class AuthService {
   }
 
   editProject(project) {
+    console.log("auth edit");
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({

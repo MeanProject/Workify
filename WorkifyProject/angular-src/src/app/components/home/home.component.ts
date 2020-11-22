@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   memberName:any[]=[];
   memberEmail:any[]=[];
   projects:Object;
+  email: String;
+  flag: Boolean;
 
   // name:[];
   // email:[];
@@ -39,7 +41,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProjects().subscribe(projectData => {
-       this.projects = projectData;
+       this.projects = projectData['projectArr'];
+       this.email = projectData['email']
        this.hideCreateProj();
        this.hideEditProj();
     }, 
@@ -76,9 +79,14 @@ export class HomeComponent implements OnInit {
     this.id=project_id
     this.showModalEdit = true;
     this.authService.getProjectDetails(this.id).subscribe(projectData => {
-      console.log(projectData);
-     this.projectDetails = projectData;
-     this.projectID = project_id
+    this.projectDetails = projectData;
+    this.projectID = project_id
+    if(projectData['owner']['email'] == this.email){
+      this.flag = true;
+    }
+    else{
+      this.flag = false;
+    }
     //  this.projectName = this.projectDetails['projectName']
     //  this.teamMembers = this.projectDetails['teamMembers']
     //  console.log(this.teamMembers)
@@ -140,6 +148,7 @@ export class HomeComponent implements OnInit {
 
     //edit project
     onEditProject() {
+      console.log("home edit")
       if(this.projectName == undefined){
         this.projectName = this.projectDetails['name']
       }
@@ -163,7 +172,7 @@ export class HomeComponent implements OnInit {
         if(data['success']) {
           this.flashMessage.show('Project edited', {cssClass: 'alert-success', timeout: 3000});
         } else {
-          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+          this.flashMessage.show('You cannot edit this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
         }
       });
     }
@@ -174,7 +183,7 @@ export class HomeComponent implements OnInit {
         if(data['success']) {
           this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
         } else {
-          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+          this.flashMessage.show('You cannot delete this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
         }
       });
     }

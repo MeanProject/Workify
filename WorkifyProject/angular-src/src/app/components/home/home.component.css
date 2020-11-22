@@ -108,9 +108,21 @@
   transition: all 0.25s ease 0s;
   padding: 0rem 1rem;
   min-width: 200px;
-
-
 }
+
+.main-btn-disabled {
+  height: 40px;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  background-color:  #3c3d3f;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "Oxygen Mono", monospace;
+  transition: all 0.25s ease 0s;
+  padding: 0rem 1rem;
+  min-width: 200px;
+}
+
 .main-btn:hover{
   background-color:  #154de0;
   border-color:  #154de0;
@@ -262,6 +274,11 @@
   border: 1px solid #d9605a;
 }
 
+.delete-project-disabled {
+  margin-left: 335px;
+  background-color: #3c3d3f;
+}
+
 .delete-project:hover {
     background-color: #d9605a;
     border: 1px solid #d9605a;
@@ -280,4 +297,23 @@
 .delete:hover {
     cursor: pointer;
     color: #d9605a;
+  }
+
+  
+  .main-btn-disabled .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .main-btn-disabled :hover .tooltiptext {
+    visibility: visible;
   }

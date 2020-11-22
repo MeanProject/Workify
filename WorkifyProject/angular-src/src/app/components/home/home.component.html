@@ -75,7 +75,7 @@
     <span class="close-modal close" data-dismiss="modal" (click) = "hideEditProj()">×</span>
     <h1 class="header">Edit Project Info</h1>
     <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p>
-    <input type="text" value={{projectDetails._id}} [(ngModel)]="projectID" name="projectID">
+    <!-- <input type="hidden" value={{projectDetails._id}} [(ngModel)]="projectID" name="projectID"> -->
     <div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
@@ -92,10 +92,15 @@
         <span class="delete" onclick="removeMemberField()">REMOVE</span>
       </div>
     </div>
-    <div>
-      <button class="main-btn create-project" type="submit" value="Submit" >Update Project</button>
-      <button class="main-btn delete-project" (click)="onDeleteProject()">Delete Project</button>
-    </div>
+    <div *ngIf="flag; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <button class="main-btn create-project" type="submit" value="Submit" >Update Project</button>
+        <button class="main-btn delete-project" (click)="onDeleteProject()">Delete Project</button>
+    </ng-template>
+    <ng-template #elseBlock>
+        <button class="main-btn-disabled create-project" type="submit" value="Submit" disabled>Update Project</button>
+        <button class="main-btn-disabled delete-project-disabled" (click)="onDeleteProject()" disabled>Delete Project</button>
+    </ng-template>
   </form>
 </div>
 

@@ -16,10 +16,7 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {
     console.log("Itnit called");
     this.authService.getProjects().subscribe(projectData => {
-    console.log(projectData);
-      this.projects = projectData;
-      console.log(":hejdhf");
-      console.log(projectData);
+    this.projects = projectData;
   }, 
      err => {
        return false;

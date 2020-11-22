@@ -35,7 +35,7 @@ router.get(
                 projectsArr.push(project);                
               }
             });
-            res.json(projectsArr);
+            res.json({projectArr: projectsArr, email: req.user.email});
       })
       .catch(err => console.log(err));
   }
@@ -85,20 +85,37 @@ router.patch(
   "/update",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("project edit")
     let projectFields = {};
     console.log(req.body)
     projectFields.name = req.body.projectName;
-    projectFields.teamMembers = req.body.team;
+    projectFields.teamMembers = req.body.teamMembers;
 
-    Project.findOneAndUpdate(
-      { _id: req.body.id },
-      { $set: projectFields },
-      { new: true }
-    )
+    Project.findById(req.body.id).then(project => {
+      console.log(project.owner.email, req.user.email)
+      if(project.owner.email == req.user.email){
+        console.log("Heyyaa")
+        project.update({ $set: projectFields },
+          { new: true })
       .then(project => {
-        res.json(project);
-      })
-      .catch(err => console.log(err));
+        res.json({project, success: true});
+      }).catch(err => console.log(err));
+    }
+    else{
+      console.log("nopeeee")
+      res.json({project, success: false})
+    }
+  })
+
+    // Project.findOneAndUpdate(
+    //   { _id: req.body.id },
+    //   { $set: projectFields },
+    //   { new: true }
+    // )
+    //   .then(project => {
+    //     res.json(project);
+    //   })
+    //   .catch(err => console.log(err));
   }
 );
 
@@ -110,7 +127,12 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Project.findById(req.params.id).then(project => {
-      project.remove().then(() => res.json({ success: true }));
+      if(project.owner.email == req.user.email){
+        project.remove().then(() => res.json({ success: true }));
+      }
+      else{
+        res.json({success: false})
+      }
     });
   }
 );
