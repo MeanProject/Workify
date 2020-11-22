@@ -7,12 +7,14 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "4.16.2",
-    "mongoose": "4.13.6",
     "bcryptjs": "2.4.3",
-    "cors": "2.8.4",
-    "jsonwebtoken": "8.1.0",
     "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.2",
+    "googleapis": "^65.0.0",
+    "jsonwebtoken": "8.1.0",
+    "mongoose": "4.13.6",
+    "nodemailer": "^6.4.16",
     "passport": "0.4.0",
     "passport-jwt": "3.0.1"
   },

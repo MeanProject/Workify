@@ -4,6 +4,11 @@ const passport = require("passport");
 
 const Project = require("../models/Project");
 
+const MailSender = require('../mail')
+
+// import {MailSender} from '../mail'
+
+
 // @route GET api/projects
 // @desc Get all projects for a specific user
 // @access Private
@@ -73,7 +78,17 @@ router.post(
     });
 
     NEW_PROJECT.save().
-    then(project => res.json({project,success: true, msg: 'New project created'}))
+    then(
+      project => {
+        console.log("project saved")
+        var msg = 'You\'re added to the project '+ project.name + ' by ' + project.owner.name
+        console.log(msg)
+        let project_mail = new MailSender(project.teamMembers[0].email,'Project Assigned',msg)
+        console.log("created")
+        project_mail.send();
+        res.json({project,success: true, msg: 'New project created'})
+      }
+      )
     .catch(err => res.json({success: false, msg: 'Failed to create project!Try again'}));
   }
 );
@@ -131,5 +146,6 @@ router.delete(
     });
   }
 );
+
 
 module.exports = router;
