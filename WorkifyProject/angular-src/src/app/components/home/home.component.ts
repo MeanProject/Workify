@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
      });
   }
 
-  projectDetails:Object;
+  projectDetails:any;
   // sub: any;
   id: any;
 
