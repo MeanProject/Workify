@@ -12,32 +12,47 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class ProjectDetailsComponent implements OnInit {
   
   projectDetails:any;
-  taskdDetails:any;
+  tasksOfProject:any;
+  taskDetails:any;
   taskName:any;
+  taskID:any;
   assignee:any;
   monthDue:any;
   dayDue:any;
   dateDue:any;
   sub: any;
-  id: any;
+  id: any;//project id
 
+  showModalCreate: boolean=false;
+  showModalEdit: boolean=false;
   constructor(private authService:AuthService, private router:Router,private flashMessage: FlashMessagesService,private _Activatedroute:ActivatedRoute) { }
 
   ngOnInit() {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
        this.id = params.get('id'); 
-       console.log(this.id);
        this.authService.getProjectDetails(this.id).subscribe(projectData => {
-          console.log(projectData);
          this.projectDetails = projectData;
+         //console.log("details"+this.projectDetails['_id']);
       }, 
        err => {
          console.log(err);
          return false;
        });
    });
+   
+    this.authService.getProjectTasks(this.id).subscribe(taskList => {
+      this.tasksOfProject = taskList;
+      console.log("task array"+this.tasksOfProject[0].assignee);
+    }, 
+    err => {
+      console.log(err);
+      return false;
+    });
+    this.showModalCreate=false;
+    this.showModalEdit=false;
+    
+
   }
-  showModalCreate: boolean;
   showCreateTask()
   {
     this.showModalCreate = true;
@@ -45,6 +60,31 @@ export class ProjectDetailsComponent implements OnInit {
   hideCreateTask()
   {
     this.showModalCreate = false;
+  }
+  showEditTask(task_id)
+  {
+    this.showModalEdit = true;
+    this.taskID=task_id;
+    this.authService.getTaskDetails(this.taskID).subscribe(taskData => {
+    this.taskDetails = taskData;
+    console.log( this.taskDetails);
+    //this.projectID = project_id
+    // if(projectData['owner']['email'] == this.email){
+    //   this.flag = true;
+    // }
+    // else{
+    //   this.flag = false;
+    // }
+  }, 
+   err => {
+     console.log(err);
+     return false;
+   });
+    
+  }
+  hideEditTask()
+  {
+    this.showModalEdit = false;
   }
   months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   onCreateTask() {
@@ -56,18 +96,46 @@ export class ProjectDetailsComponent implements OnInit {
     }
     console.log(task);
       this.authService.createTask(task).subscribe(data => {
-        //console.log(data);
         if(data['success']) {
           this.flashMessage.show('New task created', {cssClass: 'alert-success', timeout: 3000});
-          //this.router.navigate(['/']);
         } else {
           this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-          //this.router.navigate(['/']);
         }
       });
      }
 
+  onEditTask() {
+  this.showModalEdit = false;
+  const task={
+    _id:this.taskID,
+    project:this.projectDetails,
+    taskName:this.taskName,
+    dateDue:this.months[(this.monthDue-1)]+' '+this.dayDue,
+    assignee:this.assignee,
+  }
+  console.log("edited task"+task._id);
+  console.log("edited task"+task.taskName);
+  console.log("edited task"+task.assignee)
+  //console.log(task);
+    this.authService.editTask(task).subscribe(data => {
+      if(data['success']) {
+        this.flashMessage.show('Task updated successfully', {cssClass: 'alert-success', timeout: 3000});
+      } else {
+        this.flashMessage.show('Something went wrong!Try to edit task again', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
+    }
 
+    onDeleteTask() {
+      const pid= this.taskID;
+      this.authService.deleteTask(pid).subscribe(data => {
+        if(data['success']) {
+          this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
+        } else {
+          this.flashMessage.show('You cannot delete this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
+        }
+      });
+    }
 
 
 }

@@ -8,12 +8,25 @@ const Task = require("../models/Task");
 // @desc Get tasks for specific project
 // @access Private
 router.get(
-  "/:id",
+  "/project/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
 
     Task.find({ project: id }).then(tasks => res.json(tasks));
+  }
+);
+
+
+// @route GET api/tasks/:id
+// @desc Get specific task by id
+// @access Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let id = req.params.id;
+    Task.findById(id).then(task => res.json(task));
   }
 );
 
@@ -58,22 +71,22 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let taskFields = {};
-
     taskFields.taskName = req.body.taskName;
     if (req.body.dateDue && req.body.dateDue !== "Date undefined") {
       taskFields.dateDue = req.body.dateDue;
     }
     taskFields.assignee = req.body.assignee;
-
+    console.log("1inside tasks.js updta"+req.body.id);
     Task.findOneAndUpdate(
-      { _id: req.body.id },
+      { _id: req.body._id },
       { $set: taskFields },
       { new: true }
     )
       .then(task => {
-        res.json(task);
+        console.log("inside tasks.js updta"+task);
+        res.json({task,success: true, msg: 'task updated'});        
       })
-      .catch(err => console.log(err));
+      .catch(err => res.json({success: false, msg: 'task not updated'}));
   }
 );
 

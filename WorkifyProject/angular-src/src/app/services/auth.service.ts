@@ -130,6 +130,33 @@ export class AuthService {
       .map(res => res);
   }
 
+
+  //get taskS FOR SPECIFIC PROJECT===pass project id
+  getProjectTasks(id) {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get(`http://localhost:3000/tasks/project/${id}`, httpOptions)
+      .map(res => res);
+  }
+
+  //specific task ===pass task id
+  getTaskDetails(id) {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get(`http://localhost:3000/tasks/${id}`, httpOptions)
+      .map(res => res);
+  }
+
   createTask(task) {
     console.log(task);
     this.loadToken();
@@ -142,4 +169,30 @@ export class AuthService {
     return this.http.post('http://localhost:3000/tasks/create',task,httpOptions)
       .map(res => res);
   }
+
+  editTask(task) {
+    console.log("task edit"+task._id+" "+task.taskName);
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.patch('http://localhost:3000/tasks/update',task,httpOptions)
+      .map(res => res);
+  }
+
+  deleteTask(id) {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.delete(`http://localhost:3000/tasks/delete/${id}`,httpOptions)
+      .map(res => res);
+  }
+
 }

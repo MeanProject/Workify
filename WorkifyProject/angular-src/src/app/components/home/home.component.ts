@@ -95,7 +95,6 @@ export class HomeComponent implements OnInit {
      console.log(err);
      return false;
    });
-
   }
   hideEditProj()
   {
@@ -124,8 +123,7 @@ export class HomeComponent implements OnInit {
   //     // document.querySelector('.showInputField').removeChild(ele); 
   // }
  
-  onCreateProject() {
-    
+  onCreateProject() { 
     console.log(this.projectName)
     const project={
       projectName:this.projectName,
