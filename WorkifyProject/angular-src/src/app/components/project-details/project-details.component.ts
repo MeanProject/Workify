@@ -14,6 +14,8 @@ export class ProjectDetailsComponent implements OnInit {
   projectDetails:any;
   tasksOfProject:any;
   taskDetails:any;
+  // projectDetails:{};
+  taskdDetails:any;
   taskName:any;
   taskID:any;
   assignee:any;

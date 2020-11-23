@@ -74,7 +74,8 @@ router.post(
     const NEW_PROJECT = await new Project({
       owner: OWNER,
       name: req.body.projectName,
-      teamMembers: req.body.teamMembers
+      teamMembers: req.body.teamMembers,
+      dateDue: req.body.dateDue
     });
 
     NEW_PROJECT.save().
@@ -103,7 +104,7 @@ router.patch(
     let projectFields = {};
     projectFields.name = req.body.projectName;
     projectFields.teamMembers = req.body.teamMembers;
-
+    projectFields.dateDue = req.body.dateDue;
     Project.findById(req.body.id).then(project => {
       if(project.owner.email == req.user.email){
         project.update({ $set: projectFields },

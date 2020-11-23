@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
 import { combineAll } from 'rxjs/operator/combineAll';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -26,7 +27,12 @@ export class HomeComponent implements OnInit {
   projects:Object;
   email: String;
   flag: Boolean;
-
+  monthDue:any;
+  dayDue:any;
+  dateDue:any;
+  pname:any;
+  owner:any;
+  projectForm: FormGroup;
   // name:[];
   // email:[];
 
@@ -37,8 +43,34 @@ export class HomeComponent implements OnInit {
     private authService:AuthService,
     private router:Router,
     private flashMessage: FlashMessagesService,
-    private _Activatedroute:ActivatedRoute) { }
-
+    private _Activatedroute:ActivatedRoute,
+    private fb:FormBuilder) {
+      this.projectForm=this.fb.group({
+        pname:'',
+        monthDue:'',
+        dayDue:'',
+        members:this.fb.array([]),
+      });
+     }
+    
+    members() : FormArray {
+      return this.projectForm.get("members") as FormArray
+    }
+    newMember(): FormGroup {
+      return this.fb.group({
+        name: '',
+        email: '',
+      })
+    }
+     
+    addMember() {
+      this.members().push(this.newMember());
+    }
+     
+    removeMember(i:number) {
+      this.members().removeAt(i);
+    }
+    
   ngOnInit() {
     this.authService.getProjects().subscribe(projectData => {
        this.projects = projectData['projectArr'];
@@ -80,6 +112,7 @@ export class HomeComponent implements OnInit {
     this.showModalEdit = true;
     this.authService.getProjectDetails(this.id).subscribe(projectData => {
     this.projectDetails = projectData;
+    console.log(this.projectDetails);
     this.projectID = project_id
     if(projectData['owner']['email'] == this.email){
       this.flag = true;
@@ -87,9 +120,6 @@ export class HomeComponent implements OnInit {
     else{
       this.flag = false;
     }
-    //  this.projectName = this.projectDetails['projectName']
-    //  this.teamMembers = this.projectDetails['teamMembers']
-    //  console.log(this.teamMembers)
   }, 
    err => {
      console.log(err);
@@ -100,38 +130,18 @@ export class HomeComponent implements OnInit {
   {
     this.showModalEdit = false;
   }
-  addMemberField(){ 
-    let row = document.createElement('div'); 
-      row.className = 'split'; 
-      row.innerHTML = ` 
-        <label class="form-label">Name<input type="text" [(ngModel)]="memberName" name="name" data-id="0" id="member-0" class="form-input" value=""></label>
-        <label class="form-label split-email" for="email-0">Email<input type="text" [(ngModel)]="memberEmail" name="email" data-id="0" id="email-0" class="form-input" value=""></label>
-        <span class="delete">REMOVE</span>
-     `; 
-   
-      document.querySelector('.showInputField').appendChild(row); 
-  }
-
-  // removeMemberField($event){ 
-  //   let e =$event.target;
-  //   console.log(e);
-  //   // let e=event.currentTarget || event.srcElement;
-  //   let z=e.parent();
-  //   console.log(z);
-  // //  var x= document.getElementsByClassName('.m_email');
-  // //   console.log(x);
-  //     // document.querySelector('.showInputField').removeChild(ele); 
-  // }
  
-  onCreateProject() { 
-    console.log(this.projectName)
+  months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  onCreateProject() {
+    console.log(this.projectForm.value);
+
+    const temp=this.projectForm.value;
     const project={
-      projectName:this.projectName,
-      teamMembers:{
-        name:this.memberName,
-        email:this.memberEmail,
-      } 
+      projectName:temp.pname,
+      dateDue:this.months[(temp.monthDue-1)]+' '+temp.dayDue,
+      teamMembers:temp.members
     }
+    console.log(project);
 
     this.authService.createProject(project).subscribe(data => {
       console.log(data);
@@ -150,12 +160,16 @@ export class HomeComponent implements OnInit {
       if(this.projectName == undefined){
         this.projectName = this.projectDetails['name']
       }
+      if(this.projectDetails.owner.name == undefined){
+        this.projectDetails.owner.name= this.projectDetails['owner']['name']
+      }
       if(this.memberEmail.length == 0){
         this.memberEmail = this.projectDetails['teamMembers'][0]['email']
       }
       if(this.memberName.length == 0){
         this.memberName = this.projectDetails['teamMembers'][0]['name']
       }
+      
       const project={
         id: this.projectID,
         projectName:this.projectName,

@@ -42,27 +42,57 @@
 
 <!-- Create project Modal -->
 <div class="modal-wrapper">
-  <form class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
+  <form [formGroup]="projectForm" class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
     <span class="close-modal close" data-dismiss="modal" (click) = "hideCreateProj()">×</span>
     <h1 class="header">Create a project</h1>
     <div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
-        <input id="projectName" name="projectName" [(ngModel)]="projectName" type="text" placeholder="My Awesome Project" class="form-input" value="">
+        <input id="pname" name="pname" formControlName="pname" type="text" placeholder="My Awesome Project" class="form-input" value="">
       </label>
     </div>
+    <div class="form-group">
+      <label>
+        <div class="form-label">Due Date</div>
+        <div class="split">
+          <select formControlName="monthDue" name="monthDue" id="monthDue" type="text" class="form-input task-input-split month-due">
+            <option disabled="" value="">Month</option>
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <select formControlName="dayDue" name="dayDue" id="dayDue" type="text" class="form-input task-input-split day-due">
+            <option disabled="" value="">Day</option>
+            <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+          </select>
+        </div>
+      </label>
+
+    </div>
     <div class="form-label" >Add team members (optional)</div>
-    <button class="main-btn add-members" (click)="addMemberField()" ng-click="count = count + 1" ng-init="count=0">Add another member</button>
-    <div class="members showInputField" id="memberList">
-      <div class="split" >
-        <label class="form-label" >Name<input type="text" name="memberName"  [(ngModel)]="memberName"    class="form-input m_email" value=""></label>
-        <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail"  class="form-input m_name" value=""></label>
-        <span class="delete" onclick="removeMemberField()">REMOVE</span>
+    <div class="btn-secondary" (click)="addMember()" >Add another member</div>
+    <div formArrayName="members" class="members"   >
+      <div  *ngFor="let member of members().controls; let i=index" [formGroupName]="i" >
+        <div class="split" >
+          <label class="form-label" >Name<input type="text" name="name"  formControlName="name"    class="form-input m_email" value=""></label>
+          <label class="form-label" >Email <input type="text"  name="email" formControlName="email"  class="form-input m_name" value=""></label>
+          <span class="delete" (click)="removeMember(i)">REMOVE</span>
+        </div>
       </div>
     </div>
-    <div>
+    <br>
+   
       <button class="main-btn create-project" type="submit" value="Submit" >Create Project</button>
-    </div>
+   
   </form>
 </div>
 
@@ -70,24 +100,25 @@
 
 
 <!-- Edit project Modal -->
-<div class="modal-wrapper">
+<!-- <div class="modal-wrapper">
   <form class="modalPopup" (submit)="onEditProject()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
     <span class="close-modal close" data-dismiss="modal" (click) = "hideEditProj()">×</span>
     <h1 class="header">Edit Project Info</h1>
-    <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p>
+    <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p> -->
     <!-- <input type="hidden" value={{projectDetails._id}} [(ngModel)]="projectID" name="projectID"> -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
         <input id="projectName" name="projectName" [(ngModel)]="projectName" type="text" class="form-input" value={{projectDetails.name}}>
       </label>
     </div>
+   
     <div class="form-label" >Add team members (optional)</div>
     <button class="main-btn add-members" (click)="addMemberField()" ng-click="count = count + 1" ng-init="count=0">Add another member</button>
     <div class="members showInputField" id="memberList" >
-      <div class="split" >
+      <div class="split" > -->
         <!-- *ngFor="let projectMember of projectDetails.teamMembers" -->
-        <label class="form-label" >Name<input type="text" name="memberName" [(ngModel)]="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
+        <!-- <label class="form-label" >Name<input type="text" name="memberName" [(ngModel)]="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
         <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label>
         <span class="delete" onclick="removeMemberField()">REMOVE</span>
       </div>
@@ -103,4 +134,4 @@
     </ng-template>
   </form>
 </div>
-
+ -->

@@ -1,2 +1,40 @@
-<h2 class="page-header">Dashboard</h2>
+<!-- <h2 class="page-header">Dashboard</h2>
 <p>Welcome to your Dashboard</p>
+<div class="container">
+  
+    <h1>Angular FormArray Example - ItSolutionStuff.com</h1>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      
+      <p>
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" formControlName="name" class="form-control">
+      </p>
+    
+      <table class="table table-bordered" formArrayName="quantities">
+        <tr>
+          <th colspan="2">Add Multiple Quantity:</th>
+          <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>
+        </tr>
+        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+          <td>
+              Quantity :
+              <input type="text" formControlName="qty" class="form-control">
+          </td>
+          <td>
+              Price:
+              <input type="text" formControlName="price" class="form-control">
+          </td>
+          <td>
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
+          </td>
+        </tr>
+      </table>
+     
+      <button type="submit" class="btn btn-success">Submit</button>
+      
+    </form>
+      
+    <br/>
+    {{this.productForm.value | json}}
+  </div> -->
