@@ -45,7 +45,12 @@ router.post(
     });
 
     NEW_TASK.save()
-      .then(task => res.json({project,success: true, msg: 'New task created'}))
+      .then(task => {
+        var msg = 'You\'ve been assigned the task: '+ NEW_TASK.taskName 
+        let task_mail = new MailSender(NEW_TASK.assignee.email,'Task Assigned',msg)
+        task_mail.send();
+        res.json({NEW_TASK, success: true, msg: 'New task created'})}
+        )
       .catch(err => console.log({success: false, msg: 'try again'}));
   }
 );

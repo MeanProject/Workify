@@ -3,7 +3,7 @@
 
 html,body{
 font-family: 'Numans', sans-serif;
-background-image: url('../../../assets/project.png');
+/* background-image: url('../../../assets/project.png'); */
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
@@ -13,7 +13,7 @@ body{
 }
 
 #loginContainer{
-  background-image: url('../../../assets/project2.png');
+  /* background-image: url('../../../assets/project2.png'); */
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;

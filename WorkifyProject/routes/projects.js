@@ -81,15 +81,16 @@ router.post(
     NEW_PROJECT.save().
     then(
       project => {
-        console.log("project saved")
+        console.log("heyy")
         var msg = 'You\'re added to the project '+ project.name + ' by ' + project.owner.name
-        console.log(msg)
-        let project_mail = new MailSender(project.teamMembers[0].email,'Project Assigned',msg)
-        console.log("created")
-        project_mail.send();
+        for (let index = 0; index < NEW_PROJECT.teamMembers.length; index++) {
+          console.log(index)
+          let project_mail = new MailSender(project.teamMembers[index].email,'Project Assigned',msg)
+          project_mail.send();
+        }
         res.json({project,success: true, msg: 'New project created'})
       }
-      )
+    )
     .catch(err => res.json({success: false, msg: 'Failed to create project!Try again'}));
   }
 );
