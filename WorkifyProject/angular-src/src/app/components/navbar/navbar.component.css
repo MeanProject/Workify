@@ -1,0 +1,48 @@
+.email {
+    font-size: 10px;
+    margin-right: 1rem;
+    color: #616161;
+    text-align: right;
+    line-height: 0.5rem;
+}
+
+.bg-dark{
+    /* background-color: #3e3f3a!important; */
+    background-color: #070707!important;
+}
+
+.navCus{
+    text-transform: none !important;
+    font-weight: bolder;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.brand-header {
+    margin-left: 2rem;
+    font-weight: 500;
+    font-family:  "Oxygen Mono", monospace;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    user-select: none;
+  }
+
+
+  .avatar-circle {
+    width: 35px;
+    height: 35px;
+    background-color: rgb(175, 77, 77);
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+  }
+
+  .initials {
+    top: 15px; 
+    font-size: 25px; 
+    /* line-height: 50px;  */
+    color: #fff;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+  }

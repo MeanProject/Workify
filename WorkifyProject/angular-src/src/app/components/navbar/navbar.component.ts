@@ -9,6 +9,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  user: any;
 
   constructor(
     private authService: AuthService,
@@ -16,14 +17,21 @@ export class NavbarComponent implements OnInit {
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile['user'];
+    },
+     err => {
+       console.log(err);
+       return false;
+     });
   }
 
-  onLogoutClick() {
-    this.authService.logout();
-    this.flashMessage.show('You are logged out', {
-      cssClass: 'alert-success', timeout: 3000
-    });
-    this.router.navigate(['/login']);
-    return false;
-  }
+  // onLogoutClick() {
+  //   this.authService.logout();
+  //   this.flashMessage.show('You are logged out', {
+  //     cssClass: 'alert-success', timeout: 3000
+  //   });
+  //   this.router.navigate(['/login']);
+  //   return false;
+  // }
 }

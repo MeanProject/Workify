@@ -3,7 +3,7 @@
 
 html,body{
 font-family: 'Numans', sans-serif;
-/* background-image: url('../../../assets/project.png'); */
+background-image: url('../../../assets/project.png');
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;

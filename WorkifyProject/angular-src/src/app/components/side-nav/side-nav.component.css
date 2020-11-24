@@ -74,9 +74,9 @@ h1,h2,h3,h4,h5,h6,p,ul,ol{ margin:0px; padding:0px;}
 }
 
 /***********************  TOP Bar ********************/
-.sidebar{ width:250px;  background-color:#000;transition: all 0.5s  ease-in-out; }
+.sidebar{ width:280px;  background-color:#000;transition: all 0.5s  ease-in-out; }
 .sidebar img{
-  height: auto;
+  height: 210px;
   width: 100%;
 }
 .bg-defoult{background-color:#222;}

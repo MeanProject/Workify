@@ -15,14 +15,15 @@
 
 
   
-  <div class="sidebar left ">
+  <div *ngIf="authService.loggedIn()" class="sidebar left ">
     <ul class="list-sidebar bg-defoult">
       <!-- <br>
       <br> -->
       <img src="./assets/project.png" alt="">
-      <li> <a href="/dashboard"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a> </li>
-      <li> <a href="#"><i class="fa fa-sign-out"></i> <span class="nav-label">Sign Out</span></a> </li>
-      <li> <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active" ><i class="fa fa-table"></i> <span class="nav-label">Projects</span><span class="fa fa-chevron-left pull-right"></span></a>
+      <li> <a [routerLink]="['/']"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a> </li>
+      <li> <a [routerLink]="['/profile']"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a> </li>
+      <li> <a (click)="onLogoutClick()" ><i class="fa fa-sign-out"></i> <span class="nav-label">Sign Out</span></a> </li>
+      <li> <a data-toggle="collapse" data-target="#tables" class="collapsed active" ><i class="fa fa-table"></i> <span class="nav-label">Projects</span><span class="fa fa-chevron-left pull-right"></span></a>
         <ul  class="sub-menu collapse" id="tables" >
           <div *ngFor="let project of projects">
             <li><a key={project._id} [routerLink]="['/projects',project._id]">{{project.name}}</a></li>

@@ -13,7 +13,9 @@ body{
     background: rgba(0,0,0,0);
     color: #4E5155;
 }
-
+.alert{
+    background-color: #3505BD !important;
+}
 label.btn {
     margin-bottom: 0;
 }
@@ -32,19 +34,10 @@ label.btn {
     color: #babbbc !important;
 }
 
-.btn-facebook {
-    border-color: rgba(0,0,0,0);
-    background: #3B5998;
-    color: #fff;
-}
 
-.btn-instagram {
-    border-color: rgba(0,0,0,0);
-    background: #000;
-    color: #fff;
-}
 
 .card {
+    width:550px;
     background-clip: padding-box;
     box-shadow: 0 1px 4px rgba(24,28,33,0.012);
 }

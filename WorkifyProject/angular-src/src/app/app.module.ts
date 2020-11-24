@@ -25,10 +25,10 @@ import { CreateProjectComponent } from './components/create-project/create-proje
 
 
 const appRoutes: Routes =  [
-  {path:'', component: HomeComponent},
+  {path:'', component: HomeComponent,canActivate:[AuthGuard]},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
-  {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  //{path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'projects/:id', component: ProjectDetailsComponent},
   {path:'create',component:HomeComponent}

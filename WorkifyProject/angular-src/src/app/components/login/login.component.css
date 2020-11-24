@@ -1,19 +1,18 @@
-
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-font-family: 'Numans', sans-serif;
-/* background-image: url('../../../assets/project.png'); */
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
+  font-family: 'Numans', sans-serif;
+  background-image: url('../../../assets/project.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 body{
   height: 100%;
 }
 
 #loginContainer{
-  /* background-image: url('../../../assets/project2.png'); */
+/* background-image: url('../../../assets/darkbg.jpg'); */
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { AuthService } from '../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 declare var hum: any;
 
 @Component({
@@ -10,7 +12,9 @@ declare var hum: any;
 })
 export class SideNavComponent implements OnInit {
   projects:Object;
-  constructor(  private authService:AuthService) { 
+  constructor(  private authService:AuthService,
+    private router: Router,
+    private flashMessage: FlashMessagesService) { 
   }
 
   ngOnInit() {
@@ -29,7 +33,14 @@ export class SideNavComponent implements OnInit {
     });
   }
 
-
+  onLogoutClick() {
+    this.authService.logout();
+    this.flashMessage.show('You are logged out', {
+      cssClass: 'alert-success', timeout: 3000
+    });
+    this.router.navigate(['/login']);
+    return false;
+  }
   // onHumburgerClick(){
   //   new hum();
   // }  
