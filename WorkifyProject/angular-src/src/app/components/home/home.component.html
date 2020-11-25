@@ -42,7 +42,7 @@
 
 <!-- Create project Modal -->
 <div class="modal-wrapper">
-  <form [formGroup]="projectForm" class="modalPopup" (submit)="onCreateProject()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
+  <form [formGroup]="projectForm" class="modalPopup"  id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
     <span class="close-modal close" data-dismiss="modal" (click) = "hideCreateProj()">×</span>
     <h1 class="header">Create a project</h1>
     <div class="form-group">
@@ -78,9 +78,10 @@
       </label>
 
     </div>
+    <div class="form-group ">
     <div class="form-label" >Add team members (optional)</div>
-    <div class="btn-secondary" (click)="addMember()" >Add another member</div>
-    <div formArrayName="members" class="members"   >
+    <button class="main-btn btn-secondary" (click)="addMember()" >Add another member</button>
+    <div formArrayName="members" class="members">
       <div  *ngFor="let member of members().controls; let i=index" [formGroupName]="i" >
         <div class="split" >
           <label class="form-label" >Name<input type="text" name="name"  formControlName="name"    class="form-input m_email" value=""></label>
@@ -88,12 +89,13 @@
           <span class="delete" (click)="removeMember(i)">REMOVE</span>
         </div>
       </div>
+      </div>
     </div>
-    <br>
-   
-      <button class="main-btn create-project" type="submit" value="Submit" >Create Project</button>
-   
-  </form>
+   <div class="modal-footer" style=" border-top: none;">
+      <button class="main-btn create-project" type="submit"(click)="onCreateProject()" value="Submit" >Create Project</button>
+</div>
+   </form>
+  
 </div>
 
 <!-- (click) = "hideCreateProj()" -->

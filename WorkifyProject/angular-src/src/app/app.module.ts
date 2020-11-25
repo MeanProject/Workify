@@ -22,6 +22,7 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { MytasksComponent } from './components/mytasks/mytasks.component';
 
 
 const appRoutes: Routes =  [
@@ -48,7 +49,8 @@ const appRoutes: Routes =  [
     TopNavComponent,
     ModalComponent,
     ProjectDetailsComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    MytasksComponent
   ],
   imports: [
     BrowserModule,

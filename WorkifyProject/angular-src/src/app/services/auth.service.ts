@@ -54,6 +54,19 @@ export class AuthService {
     this.user = null;
     localStorage.clear();
   }
+  
+  getUsers() {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get('http://localhost:3000/users', httpOptions)
+      .map(res => res);
+  }
+
 
   getProfile() {
     this.loadToken();
