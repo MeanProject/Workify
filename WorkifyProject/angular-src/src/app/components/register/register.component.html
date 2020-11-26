@@ -13,8 +13,8 @@
   </div> -->
   <br>
   <br>
-  <div class="row pb-2 ">
-    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-auto d-flex ">
+  <div class="row pb-2 "  style="padding-top: 60px;">
+    <div class="col-sm-12 col-md-7 col-lg-5 mx-auto my-auto d-flex ">
       <div class="card card-signin my-auto">
         <div class="card-body">
           <h3 class="card-title text-center headd" >Sign Up</h3>
@@ -64,13 +64,12 @@
                 <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword" placeholder=" Enter Password">
               </div>
             </div> 
-              <div class="checkbox center">
-                <label>
-                  <input type="checkbox" onclick="toggleFunction()"  id="exampleCheck1"> Show Password
-                </label>
-              </div>
+            <div >
+              <input type="checkbox" onclick="toggleFunction()"  id="box-3">
+              <label for="box-3">Show Password</label>
+            </div>
             <br>
-            <button  name="submit" class="btn btn-lg btn-outline-primary btn-block text-uppercase raisedb" value="login" type="submit">Sign in</button>
+            <button  name="submit" class="btn btn-lg btn-outline-primary btn-block text-uppercase raisedb" value="login" type="submit">Sign Up</button>
             <br>
           </form>
         </div>

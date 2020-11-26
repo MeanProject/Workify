@@ -2,10 +2,11 @@
 
 html,body{
   font-family: 'Numans', sans-serif;
-  background-image: url('../../../assets/project.png');
+  background-image: url('../../../assets/bg3.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  margin-top:-10px;
 }
 body{
   height: 100%;
@@ -99,8 +100,51 @@ em {
   opacity: 1;
   font-weight: 300;
   float: none; /* Added */
+  height:450px;
+}
+/*Checkboxes styles*/
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  font: 18px ;
+  color: rgb(15, 14, 44);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3b5998;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 .headd{
   font-weight: 500;
   font-size: 2.2rem;

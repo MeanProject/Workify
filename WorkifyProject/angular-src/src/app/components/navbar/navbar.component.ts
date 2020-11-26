@@ -11,6 +11,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class NavbarComponent implements OnInit {
   user: any;
 
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -19,6 +20,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
+      console.log(this.user);
     },
      err => {
        console.log(err);

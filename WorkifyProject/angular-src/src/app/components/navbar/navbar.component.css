@@ -31,7 +31,7 @@
   .avatar-circle {
     width: 35px;
     height: 35px;
-    background-color: rgb(175, 77, 77);
+    background-color: rgb(81, 195, 230);
     text-align: center;
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -45,4 +45,5 @@
     color: #fff;
     font-family: "Courier New", monospace;
     font-weight: bold;
+    text-transform: capitalize;
   }

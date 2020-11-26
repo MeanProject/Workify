@@ -11,7 +11,7 @@ declare var hum: any;
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-  projects:Object;
+  projects:any;
   constructor(  private authService:AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService) { 
@@ -20,7 +20,8 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {
     console.log("Itnit called");
     this.authService.getProjects().subscribe(projectData => {
-    this.projects = projectData;
+    this.projects = projectData['projectArr'];
+    console.log(projectData);
   }, 
      err => {
        return false;

@@ -63,15 +63,24 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 });
 
 //Users
-router.get('/users', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  User.getUsers((err, users) => {
-    if(err) throw err;
-    if(!users) {
-      return res.json({success: false, msg: 'Users not found'});
-    }
-  });
-  // res.json({user: req.user});
-});
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let usersArr = [];
+    // Member users
 
+    await User.find({})
+      .then(users => {
+        users.map(user => {
+              if (user.email != req.user.email) {
+                usersArr.push(user);                
+              }
+            });
+            res.json({userArr: usersArr});
+      })
+      .catch(err => console.log(err));
+  }
+);
 
 module.exports = router;

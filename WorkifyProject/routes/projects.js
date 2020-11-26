@@ -17,7 +17,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     let projectsArr = [];
-
     // Member projects
 
     await Project.find({})

@@ -25,9 +25,6 @@ const ProjectSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  dateDue: {
-    type: String
-  }
 });
 
 module.exports = Project = mongoose.model("projects", ProjectSchema);

@@ -31,11 +31,11 @@
   </div> -->
   <br>
   <br>
-  <div class="row pb-2 ">
+  <div class="row pb-2 " style="padding-top: 70px;">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-auto d-flex ">
       <div class="card card-signin my-auto">
         <div class="card-body">
-          <h3 class="card-title text-center headd" >Sign In</h3>
+          <h3 class="card-title text-center headd" style="margin-top: 1rem;" >Sign In</h3>
           <form class="form-signin"  class="form-signin" (submit)="onLoginSubmit()" style="width:100%">
             
             <div class="row" style="width:100%">
@@ -58,15 +58,14 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder=" Enter Password" [(ngModel)]="password" name="password">
               </div>
             </div>
-              <div class="checkbox center">
-                <label>
-                  <input type="checkbox" onclick="toggleFunction()"  id="exampleCheck1"> Show Password
-                </label>
+              <div >
+                <input type="checkbox" onclick="toggleFunction()"  id="box-3">
+                <label for="box-3">Show Password</label>
               </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me"> Remember me
-                </label>
+              <br>
+              <div >
+                <input type="checkbox" value="remember-me" id="box-4">
+                <label for="box-4">Remember me</label>
               </div>
             <br>
             <button  name="submit" class="btn btn-lg btn-outline-primary btn-block text-uppercase raisedb" value="login" type="submit">Sign in</button>
