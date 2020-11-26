@@ -30,10 +30,10 @@ export class HomeComponent implements OnInit {
   flag: Boolean;
   monthDue:any;
   dayDue:any;
+ 
   pname:any;
   owner:any;
   projectForm: FormGroup;
-  editProjectForm: FormGroup;
   // name:[];
   // email:[];
 
@@ -48,14 +48,12 @@ export class HomeComponent implements OnInit {
     private fb:FormBuilder) {
       this.projectForm=this.fb.group({
         pname:'',
+        monthDue:'',
+        dayDue:'',
         members:this.fb.array([]),
       });
-      this.editProjectForm=this.fb.group({
-        pname:'',
-        editMembers:this.fb.array([]),
-      });
      }
-    //create modal
+    
     members() : FormArray {
       return this.projectForm.get("members") as FormArray
     }
@@ -72,20 +70,6 @@ export class HomeComponent implements OnInit {
      
     removeMember(i:number) {
       this.members().removeAt(i);
-    }
-
-    //edit modal
-    editMembers() : FormArray {
-      return this.editProjectForm.get("editMembers") as FormArray
-    }
-   
-     
-    addEditMember() {
-      this.editMembers().push(this.newMember());
-    }
-     
-    removeEditMember(i:number) {
-      this.editMembers().removeAt(i);
     }
     project:any;
     adminProjects:any[]=[];

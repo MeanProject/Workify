@@ -76,15 +76,14 @@
 }
 
 .header {
-  font-size: 24px;
+  font-size: 27px;
   font-weight: 500;
   color: #212121;
 }
-
-.projects {
-  width: 97.5%;
-  height: auto;
-  border: 1px solid  #e0e0e0;
+.subheader {
+  font-size: 20px;
+  font-weight: 500;
+  color: #212121;
 }
 
 .no-projects {

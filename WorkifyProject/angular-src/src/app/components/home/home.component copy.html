@@ -100,41 +100,26 @@
 
 <!-- Edit project Modal -->
  <div class="modal-wrapper">
-  <form [formGroup]="projectForm" class="modalPopup" (submit)="onEditProject()" id="myEditModal" [style.display]="showModalEdit ? 'block' : 'none'">
+  <form class="modalPopup" (submit)="onEditProject()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
     <span class="close-modal close" data-dismiss="modal" (click) = "hideEditProj()">×</span>
     <h1 class="header">Edit Project Info</h1>
     <p class="created-by">Created by {{projectDetails.owner.name}} ({{projectDetails.owner.email}})</p> 
-    <div class="form-group">
+    <!-- <input type="hidden" value={{projectDetails._id}} [(ngModel)]="projectID" name="projectID"> -->
+    <<div class="form-group">
       <label>
         <div class="form-label">Project Name (required)</div>
-        <input id="projectName" name="pname" formControlName="pname" type="text" class="form-input" value={{projectDetails.name}}>
+        <input id="projectName" name="projectName" [(ngModel)]="projectName" type="text" class="form-input" value={{projectDetails.name}}>
       </label>
     </div>
    
     <div class="form-label" >Add team members (optional)</div>
-    <div class="main-btn btn-secondary" (click)="addEditMember()" >Add another member</div>
-    <div formArrayName="editMembers" class="members">
-      <div  *ngFor="let member of editMembers().controls; let i=index" [formGroupName]="i" >
+    <button class="main-btn add-members" (click)="addMemberField()" ng-click="count = count + 1" ng-init="count=0">Add another member</button>
+    <div class="members showInputField" id="memberList" >
       <div class="split" > 
         <!-- *ngFor="let projectMember of projectDetails.teamMembers" -->
-     <!-- <label class="form-label" >Name<input type="text" name="memberName" [(ngModel)]="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label> -->
-      <label>
-        <div class="form-label">Member email</div>
-        <select formControlName="email"  name="assignee" id="assignee" type="text" class="form-input task-input-split">
-          <option disabled="" value="">abc@gmail.com</option>
-          <option *ngFor="let user of users" value={{user.email}} >{{user.email}}</option>
-        </select>
-      </label>
-      <label>
-        <div class="form-label">Member name</div>
-        <select formControlName="name"  name="name" id="assignee" type="text" class="form-input task-input-split">
-          <option disabled="" value="">abc</option>
-          <option *ngFor="let user of users" value={{user.name}} >{{user.name}}</option>
-        </select>
-      </label>
-      <!-- <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label> -->
-        <span class="delete" (click)="removeEditMember(i)">REMOVE</span>
-      </div>
+      - <label class="form-label" >Name<input type="text" name="memberName" [(ngModel)]="memberName" class="form-input m_name" value={{projectDetails.teamMembers[0].name}}></label>
+        <label class="form-label" >Email <input type="text"  name="memberEmail" [(ngModel)]="memberEmail" class="form-input m_email" value={{projectDetails.teamMembers[0].email}}></label>
+        <span class="delete" onclick="removeMemberField()">REMOVE</span>
       </div>
     </div>
     <div *ngIf="flag; then thenBlock else elseBlock"></div>

@@ -67,12 +67,15 @@ a:active, a:hover {
 	outline: 0;
 }
 
-h1,h2,h3,h4,h5,h6,p,ul,ol{ margin:0px; padding:0px;}
-.left{
+h1,h2,h3,h4,h5,h6,p,ul,ol{ margin:0px; padding:0px;}.left
+{
   height: 100vh;
   /* min-height: 100%; */
 }
+.left{
+  height: 100%;
 
+}
 /***********************  TOP Bar ********************/
 .sidebar{ width:280px;  background-color:#000;transition: all 0.5s  ease-in-out; }
 .sidebar img{
