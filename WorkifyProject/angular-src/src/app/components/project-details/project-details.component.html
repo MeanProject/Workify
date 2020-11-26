@@ -15,15 +15,18 @@
       <button class="main-btn add-btn" (click) = "showCreateTask()">Add task</button>
       <div class="projects-column-headers">
         <p>Assignee</p>
+        <pre>            </pre>
         <p>Due</p>
+        <pre>    </pre>
       </div>
     </div>
     <div class="project-tasks">
       <div class="task-input" *ngFor="let task of tasksOfProject" (click)="showEditTask(task._id)">
         <i class="fa fa-check-circle" aria-hidden="true"></i>
         <span id="0" name="task" class="project-task">{{task.taskName}}</span>
+        <span id="0" name="task" class="task-info muted">{{task.taskDesc}}</span>
         <span class="task-info muted">{{task.assignee}}</span>
-        <span class="task-info muted">{{task.dateDue}}</span>
+        <span class="task-info muted">{{task.dueDate}}</span>
       </div>
     </div>
   </div>
@@ -33,64 +36,75 @@
 
 <!-- Create task Modal -->
 <div class="modal-wrapper">
-<form class="modalPopup" (submit)="onCreateTask()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
+<form class="modalPopup" ngNativeValidate (submit)="onCreateTask()" id="myModal" [style.display]="showModalCreate ? 'block' : 'none'">
 <!-- <form class="modal"> -->
   <span class="close-modal" data-dismiss="modal" (click) = "hideCreateTask()">×</span>
   <h1 class="header">Create task</h1>
-  <div class="form-group">
-    <label>
-      <div class="form-label">Task Name (required)</div>
-      <input name="taskName" [(ngModel)]="taskName" id="taskName" type="text" placeholder="What is the task?" class="form-input" value="">
-    </label>
+  <hr>
+  <div class="form-group col-sm-4">
+      <div class="form-label">Task Name*</div>
+      <input name="taskName" [(ngModel)]="taskName" id="taskName" type="text" required placeholder="Enter Task name" class="form-control" value="">
   </div>
-  <div class="form-group">
-    <div class="split">
-      <label>
-        <div class="form-label">Assignee</div>
-        <select [(ngModel)]="assignee" name="assignee" id="assignee" type="text" class="form-input task-input-split">
+  <div class="form-group col-sm-4">
+      <div class="form-label">Task Description*</div>
+      <input name="taskDesc" [(ngModel)]="taskDesc" id="taskDesc" max="3" type="text" required placeholder="What is the task?" class="form-control" value="">
+  </div>
+  <div class="form-group col-sm-4">
+        <div class="form-label">Assignee*</div>
+        <select [(ngModel)]="assignee" required name="assignee" id="assignee" type="text" class="form-control task-input-split">
           <option disabled="" value="">Assign to</option>
           <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
         </select>
-      </label>
-      <label>
-        <div class="form-label">Due Date</div>
-        <div class="split">
-          <select [(ngModel)]="monthDue" name="monthDue" id="monthDue" type="text" class="form-input task-input-split month-due">
-            <option disabled="" value="">Month</option>
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-          <select [(ngModel)]="dayDue" name="dayDue" id="dayDue" type="text" class="form-input task-input-split day-due">
-            <option disabled="" value="">Day</option>
-            <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-          </select>
-        </div>
-      </label>
-    </div>
+  </div>
+  <div class="form-group col-sm-4">
+      <div class="form-label">Task DueDate*</div>
+      <input required class="form-control" type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue">
   </div>
   <div>
     <button class="main-btn update-project" value="Submit" (click) = "hideCreateTask()"type="submit">Create Task</button>
   </div>
-<!-- </form> -->
 </form>
 </div>
 
 
-
 <!-- Edit task Modal -->
 <div class="modal-wrapper">
+  <form class="modalPopup" ngNativeValidate (submit)="onEditTask()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
+    <span class="close-modal" data-dismiss="modal" (click) = "hideEditTask()">×</span>
+    <h1 class="header">Edit task</h1>
+    <hr>
+    <div class="col-sm-4 form-group">
+        <div class="form-label">Task Name*</div>
+        <input required name="taskName" [(ngModel)]="taskName" id="taskName" type="text" placeholder="Enter Task name" class="form-control" value="{{taskDetails.taskName}}">
+    </div>
+    <div class="col-sm-4 form-group">
+        <div class="form-label">Task Description*</div>
+        <input name="taskDesc" [(ngModel)]="taskDesc" id="taskDesc" type="text" required placeholder="What is the task?" class="form-control" value="{{taskDetails.taskDesc}}">
+    </div>
+    <div class="col-sm-4 form-group">
+          <div class="form-label">Assignee</div>
+          <select [(ngModel)]="assignee" name="assignee" required id="assignee" type="text" class="form-control ">
+            <option disabled="" value="">Assign to</option>
+            <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
+          </select>
+    </div>
+    <div class="col-sm-4 form-group pmd-textfield pmd-textfield-floating-label">
+      <label class="control-label">Select DueDate</label>
+        <!-- <div class="form-label">Select Due Date</div> -->
+        <input class="form-control" required type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue" value="{{taskDetails.taskDue}}">
+      </div>
+    <div>
+      <button class="main-btn update-project" value="Submit" type="submit">Update Task</button>
+      <button class="main-btn delete-project" (click) = "hideEditTask()" (click)="onDeleteTask()">Delete Task</button>
+    </div>
+  </form>
+  </div>
+  
+  
+
+<!-- Edit task Modal -->
+<!-- <div class="modal-wrapper">
   <form class="modalPopup" (submit)="onEditTask()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
-  <!-- <form class="modal"> -->
     <span class="close-modal" data-dismiss="modal" (click) = "hideEditTask()">×</span>
     <h1 class="header">Edit task</h1>
     <div class="form-group">
@@ -138,8 +152,6 @@
       <button class="main-btn update-project" type="submit" value="Submit" value="Submit" type="submit">Update Task</button>
       <button class="main-btn delete-project" (click) = "hideEditTask()" (click)="onDeleteTask()">Delete Task</button>
     </div>
-  <!-- </form> -->
-  </form>
-</div>
-
-
+  </form> -->
+  <!-- </form>
+</div> -->

@@ -15,13 +15,13 @@ export class ProjectDetailsComponent implements OnInit {
   tasksOfProject:any;
   taskDetails:any;
   // projectDetails:{};
-  taskdDetails:any;
-  taskName:any;
+  // taskdDetails:any;
+  taskDesc:String;
+  taskName:String;
   taskID:any;
   assignee:any;
-  monthDue:any;
-  dayDue:any;
-  dateDue:any;
+  taskDue:Date;
+  flag: boolean;
   sub: any;
   id: any;//project id
 
@@ -52,9 +52,8 @@ export class ProjectDetailsComponent implements OnInit {
     });
     this.showModalCreate=false;
     this.showModalEdit=false;
-    
-
   }
+
   showCreateTask()
   {
     this.showModalCreate = true;
@@ -93,7 +92,8 @@ export class ProjectDetailsComponent implements OnInit {
     const task={
       project:this.projectDetails,
       taskName:this.taskName,
-      dateDue:this.months[(this.monthDue-1)]+' '+this.dayDue,
+      taskDesc:this.taskDesc,
+      taskDue:this.taskDue,
       assignee:this.assignee,
     }
     console.log(task);
@@ -107,18 +107,35 @@ export class ProjectDetailsComponent implements OnInit {
      }
 
   onEditTask() {
+    console.log("name", this.taskName);
+    console.log("desc", this.taskDesc);
+    console.log("due", this.taskDue);
+    console.log("ass", this.assignee);
+    if(this.taskName == undefined){
+      this.taskName = this.taskDetails.taskName
+    }
+    if(this.taskDesc == undefined){
+      this.taskDesc = this.taskDetails.taskDesc
+    }
+    if(this.taskDue == undefined){
+      console.log("hello")
+      this.taskDue = this.taskDetails.taskDue
+    }
+    if(this.assignee == undefined){
+      this.assignee = this.taskDetails.assignee
+    }
   this.showModalEdit = false;
+  if(this.taskDetails.assignee == this.assignee){
+    this.flag = true;
+  }
   const task={
     _id:this.taskID,
     project:this.projectDetails,
     taskName:this.taskName,
-    dateDue:this.months[(this.monthDue-1)]+' '+this.dayDue,
     assignee:this.assignee,
+    taskDesc: this.taskDesc,
+    taskDue: this.taskDue
   }
-  console.log("edited task"+task._id);
-  console.log("edited task"+task.taskName);
-  console.log("edited task"+task.assignee)
-  //console.log(task);
     this.authService.editTask(task).subscribe(data => {
       if(data['success']) {
         this.flashMessage.show('Task updated successfully', {cssClass: 'alert-success', timeout: 3000});

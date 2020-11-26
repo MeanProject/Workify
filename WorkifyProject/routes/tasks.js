@@ -3,6 +3,8 @@ const router = express.Router();
 const passport = require("passport");
 
 const Task = require("../models/Task");
+const MailSender = require('../mail')
+
 
 // @route GET api/tasks/:id
 // @desc Get tasks for specific project
@@ -40,18 +42,19 @@ router.post(
     const NEW_TASK = new Task({
       project: req.body.project,
       taskName: req.body.taskName,
-      dateDue: req.body.dateDue,
+      dueDate: req.body.taskDue,
+      taskDesc: req.body.taskDesc,
       assignee: req.body.assignee
     });
 
     NEW_TASK.save()
       .then(task => {
         var msg = 'You\'ve been assigned the task: '+ NEW_TASK.taskName 
-        let task_mail = new MailSender(NEW_TASK.assignee.email,'Task Assigned',msg)
+        let task_mail = new MailSender(NEW_TASK.assignee,'Task Assigned',msg)
         task_mail.send();
         res.json({NEW_TASK, success: true, msg: 'New task created'})}
         )
-      .catch(err => console.log({success: false, msg: 'try again'}));
+      .catch(err => console.log(err));
   }
 );
 
@@ -77,19 +80,19 @@ router.patch(
   (req, res) => {
     let taskFields = {};
     taskFields.taskName = req.body.taskName;
-    if (req.body.dateDue && req.body.dateDue !== "Date undefined") {
-      taskFields.dateDue = req.body.dateDue;
+    if (req.body.taskDue && req.body.taskDue !== "Date undefined") {
+      taskFields.taskDue = req.body.taskDue;
     }
     taskFields.assignee = req.body.assignee;
+    taskFields.taskDesc = req.body.taskDesc;
     console.log("1inside tasks.js updta"+req.body.id);
     Task.findOneAndUpdate(
       { _id: req.body._id },
       { $set: taskFields },
       { new: true }
-    )
-      .then(task => {
+    ).then(task => {
         console.log("inside tasks.js updta"+task);
-        res.json({task,success: true, msg: 'task updated'});        
+        res.json({task, success: true, msg: 'task updated'});        
       })
       .catch(err => res.json({success: false, msg: 'task not updated'}));
   }

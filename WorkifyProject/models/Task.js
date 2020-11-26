@@ -7,14 +7,19 @@ const TaskSchema = new Schema({
   project: {
     type: Schema.Types.ObjectId,
     ref: "projects",
-    required: true,
+    required: true
   },
   taskName: {
     type: String,
     required: true
   },
-  dateDue: {
-    type: Date
+  taskDesc:{
+    type: String,
+    required:true
+  },
+  dueDate: {
+    type: Date,
+    required: true
   },
   assignee: {
     type: String
@@ -23,13 +28,10 @@ const TaskSchema = new Schema({
     type: Date,
     default: Date.now
   },
-    description:{
-      type:String
-    },
-      isDone:{
-        type:Boolean,
-        required:true
-      }
+  isDone: {
+    type:Boolean,
+    default: false
+  }
 });
 
 module.exports = Task = mongoose.model("tasks", TaskSchema);

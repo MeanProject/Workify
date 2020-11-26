@@ -91,7 +91,7 @@
 }
 
 .project-tasks .project-task {
-  width: 92.5%;
+  width: 25%;
   outline: none;
   border: none;
   height: 36px;
@@ -137,12 +137,12 @@
 
 .project-tasks .task-info:nth-of-type(1) {
   margin-right: 2rem;
-  width: 100px;
+  width: 20%;
 }
 
 .project-tasks .task-info:nth-of-type(2),
 :nth-of-type(3) {
-  width: 100px;
+  width: 35%;
 }
 
 .project-tasks .task-info:hover {
