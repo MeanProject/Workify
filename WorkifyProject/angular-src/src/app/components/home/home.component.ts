@@ -115,8 +115,6 @@ export class HomeComponent implements OnInit {
            this.teamMemberProjects.push(project);
          }
       }
-      console.log(this.adminProjects);
-      console.log(this.teamMemberProjects);
 
       this.hideCreateProj();
       this.hideEditProj();
@@ -190,6 +188,26 @@ export class HomeComponent implements OnInit {
       console.log(data);
       if(data['success']) {
         this.showModalCreate = false;
+        this.authService.getProjects().subscribe(projectData => {
+          this.projects = projectData['projectArr'];
+          this.email = projectData['email']
+          for(var project of this.projects){
+            // console.log(project)
+             if(project['owner']['email']==this.email){
+               this.adminProjects.push(project);
+             }
+             else{
+               this.teamMemberProjects.push(project);
+             }
+          }
+    
+          this.hideCreateProj();
+          this.hideEditProj();
+       }, 
+         err => {
+          //  console.log(err);
+           return false;
+         });
         this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
@@ -243,38 +261,6 @@ export class HomeComponent implements OnInit {
         }
       });
     }
-  
-
-
-  // getProjectData(id){
-  //   this.authService.getProjectDetails(id).subscribe(projectData => {
-  //     console.log(projectData);
-  //      this.projectDetails = projectData;
-  //   }, 
-  //    err => {
-  //      console.log(err);
-  //      return false;
-  //    });
-  // }
-  // projects=[];
-  // projects=[
-  //   {name:"first project",
-  //   owner:"sakshi",
-  //   teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
-  // },
-  // {name:"firsttt project",
-  //   owner:"sakshi",
-  //   teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
-  // },
-  // {name:"firstyttt project",
-  //   owner:"sakshi",
-  //   teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
-  // }
-//   {name:"firstyttt project",
-//   owner:"hetvi",
-//   teamMembers:[{"email":"hiral@gmai.com","name":"hiral"}],
-// }
-  // ];
   
 
   toggleModal(){

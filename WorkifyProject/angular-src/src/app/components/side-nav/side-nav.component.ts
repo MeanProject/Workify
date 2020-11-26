@@ -12,6 +12,7 @@ declare var hum: any;
 })
 export class SideNavComponent implements OnInit {
   projects:any;
+  user:any
   constructor(  private authService:AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService) { 
@@ -19,6 +20,15 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {
     console.log("Itnit called");
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile['user'];
+      console.log(this.user);
+    },
+     err => {
+       console.log(err);
+       return false;
+     });
+
     this.authService.getProjects().subscribe(projectData => {
     this.projects = projectData['projectArr'];
     console.log(projectData);

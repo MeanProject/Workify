@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router'
@@ -27,7 +27,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   showModalCreate: boolean=false;
   showModalEdit: boolean=false;
-  constructor(private authService:AuthService, private router:Router,private flashMessage: FlashMessagesService,private _Activatedroute:ActivatedRoute) { }
+  constructor(private zone:NgZone,private authService:AuthService, private router:Router,private flashMessage: FlashMessagesService,private _Activatedroute:ActivatedRoute) { }
 
   ngOnInit() {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
@@ -99,6 +99,14 @@ export class ProjectDetailsComponent implements OnInit {
     console.log(task);
       this.authService.createTask(task).subscribe(data => {
         if(data['success']) {
+          this.authService.getProjectTasks(this.id).subscribe(taskList => {
+            this.tasksOfProject = taskList;
+            console.log("task array"+this.tasksOfProject[0].assignee);
+          }, 
+          err => {
+            console.log(err);
+            return false;
+          });
           this.flashMessage.show('New task created', {cssClass: 'alert-success', timeout: 3000});
         } else {
           this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
