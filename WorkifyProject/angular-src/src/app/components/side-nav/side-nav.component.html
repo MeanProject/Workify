@@ -1,20 +1,5 @@
 
-  <!-- <div class="sidebarCol border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Workify </div>
-    <div class="list-group list-group-flush">
-      <a href="#" class="list-group-item list-group-item-action sidebarCol"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-      <a href="#" class="list-group-item list-group-item-action sidebarCol"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
 
-      <a href="#works" class="dropdown-toggle project"  data-toggle="dropdown">Works <span class="caret"></span></a>
-      <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#">Mean project</a></li>
-       <li><a href="#">Flutter Project</a></li>
-       </ul>
-    </div>
-  </div> -->
-
-
-  
   <div *ngIf="authService.loggedIn()" class="sidebar left ">
     <ul class="list-sidebar bg-defoult">
       <!-- <br>
@@ -22,8 +7,8 @@
       <img src="./assets/project.png" alt="">
       <li> <a [routerLink]="['/']"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a> </li>
       <li> <a [routerLink]="['/profile']"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a> </li>
-      <li> <a (click)="onLogoutClick()" ><i class="fa fa-sign-out"></i> <span class="nav-label">Sign Out</span></a> </li>
-      <li> <a data-toggle="collapse" data-target="#tables" class="collapsed active" ><i class="fa fa-table"></i> <span class="nav-label">Projects</span><span class="fa fa-chevron-left pull-right"></span></a>
+      <li > <a (click)="onLogoutClick()" class="pointer"><i class="fa fa-sign-out"></i> <span class="nav-label ">Sign Out</span></a> </li>
+      <li> <a data-toggle="collapse" data-target="#tables" class="collapsed active context-menu" ><i class="fa fa-table"></i> <span class=" nav-label">Projects</span><span class="fa fa-chevron-left pull-right"></span></a>
         <ul  class="sub-menu collapse" id="tables" >
           <div *ngFor="let project of projects">
             <li><a key={project._id} [routerLink]="['/projects',project._id]">{{project.name}}</a></li>
@@ -32,34 +17,3 @@
       </li>
     </ul>
   </div>
-
-
-<!-- <nav className="side">
-  <ul className="top">
-    <li>
-      <i (click)="toggleMenu()" className="material-icons hamburger-side-menu">
-        menu
-      </i>
-    </li>
-
-    <li>
-      <i className="material-icons icon">home</i>Home
-    </li>
-
-    <li>
-      <i className="material-icons icon">check_circle</i>My Tasks
-    </li>
-
-    <div className="sign-out" onClick={this.onLogoutClick}>
-      <li>
-        <i className="material-icons icon">arrow_back</i>Sign Out
-      </li>
-    </div>
-  </ul>
-  <ul className="bottom">
-    <li>
-      <h4 className="side-projects-header">Projects</h4>
-    </li>
-    <div className="project-listings">projectData</div>
-  </ul>
-</nav> -->

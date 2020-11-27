@@ -90,6 +90,27 @@ export class HomeComponent implements OnInit {
     project:any;
     adminProjects:any[]=[];
     teamMemberProjects:any[]=[];
+    getProjects(){
+      this.adminProjects=[];
+      this.teamMemberProjects=[];
+      this.authService.getProjects().subscribe(projectData => {
+        this.projects = projectData['projectArr'];
+        this.email = projectData['email']
+        for(var project of this.projects){
+          // console.log(project)
+           if(project['owner']['email']==this.email){
+             this.adminProjects.push(project);
+           }
+           else{
+             this.teamMemberProjects.push(project);
+           }
+        }
+     }, 
+       err => {
+        //  console.log(err);
+         return false;
+       });
+    }
   ngOnInit() {
 
     this.authService.getUsers().subscribe(userData => {
@@ -102,27 +123,9 @@ export class HomeComponent implements OnInit {
      //  console.log(err);
       return false;
     });
-
-    this.authService.getProjects().subscribe(projectData => {
-      this.projects = projectData['projectArr'];
-      this.email = projectData['email']
-      for(var project of this.projects){
-        // console.log(project)
-         if(project['owner']['email']==this.email){
-           this.adminProjects.push(project);
-         }
-         else{
-           this.teamMemberProjects.push(project);
-         }
-      }
-
-      this.hideCreateProj();
-      this.hideEditProj();
-   }, 
-     err => {
-      //  console.log(err);
-       return false;
-     });
+    this.getProjects();
+    this.hideCreateProj();
+    this.hideEditProj();
   }
 
   projectDetails:any;
@@ -147,6 +150,7 @@ export class HomeComponent implements OnInit {
   {
     this.showModalCreate = false;
   }
+
 
   showEditProj(project_id)
   {
@@ -183,36 +187,6 @@ export class HomeComponent implements OnInit {
       teamMembers:temp.members
     }
     console.log(project);
-
-    this.authService.createProject(project).subscribe(data => {
-      console.log(data);
-      if(data['success']) {
-        this.showModalCreate = false;
-        this.authService.getProjects().subscribe(projectData => {
-          this.projects = projectData['projectArr'];
-          this.email = projectData['email']
-          for(var project of this.projects){
-            // console.log(project)
-             if(project['owner']['email']==this.email){
-               this.adminProjects.push(project);
-             }
-             else{
-               this.teamMemberProjects.push(project);
-             }
-          }
-    
-          this.hideCreateProj();
-          this.hideEditProj();
-       }, 
-         err => {
-          //  console.log(err);
-           return false;
-         });
-        this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
-      } else {
-        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-      }
-    });
     }
 
 

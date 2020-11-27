@@ -18,7 +18,6 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { MainContentComponent } from './components/main-content/main-content.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
@@ -46,7 +45,6 @@ const appRoutes: Routes =  [
     ProfileComponent,
     MainContentComponent,
     SideNavComponent,
-    TopNavComponent,
     ModalComponent,
     ProjectDetailsComponent,
     CreateProjectComponent,

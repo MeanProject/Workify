@@ -15,7 +15,7 @@ export class ProjectDetailsComponent implements OnInit {
   tasksOfProject:any;
   taskDetails:any;
   taskDesc:String;
-  taskName:String;
+  taskName:String='';
   taskID:any;
   assignee:any;
   taskDue:Date;
@@ -25,11 +25,20 @@ export class ProjectDetailsComponent implements OnInit {
   user: any;
   taskflag: boolean;
   taskDone: boolean;
-
+owner:any;
   showModalCreate: boolean=false;
   showModalEdit: boolean=false;
   constructor(private zone:NgZone,private authService:AuthService, private router:Router,private flashMessage: FlashMessagesService,private _Activatedroute:ActivatedRoute) { }
-
+  getTasks(){
+    this.authService.getProjectTasks(this.id).subscribe(taskList => {
+      this.tasksOfProject = taskList;
+      console.log("task array"+this.tasksOfProject[0].assignee);
+    }, 
+    err => {
+      console.log(err);
+      return false;
+    });
+   }
   ngOnInit() {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
        this.id = params.get('id'); 
@@ -49,14 +58,7 @@ export class ProjectDetailsComponent implements OnInit {
        });
    });
    
-    this.authService.getProjectTasks(this.id).subscribe(taskList => {
-      this.tasksOfProject = taskList;
-      console.log("task array"+this.tasksOfProject[0].assignee);
-    }, 
-    err => {
-      console.log(err);
-      return false;
-    });
+    this.getTasks();
     this.showModalCreate=false;
     this.showModalEdit=false;
   }
@@ -99,14 +101,7 @@ export class ProjectDetailsComponent implements OnInit {
     console.log(task);
       this.authService.createTask(task).subscribe(data => {
         if(data['success']) {
-          this.authService.getProjectTasks(this.id).subscribe(taskList => {
-            this.tasksOfProject = taskList;
-            console.log("task array"+this.tasksOfProject[0].assignee);
-          }, 
-          err => {
-            console.log(err);
-            return false;
-          });
+        this.getTasks();
           this.flashMessage.show('New task created', {cssClass: 'alert-success', timeout: 3000});
         } else {
           this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
@@ -114,6 +109,7 @@ export class ProjectDetailsComponent implements OnInit {
       });
      }
 
+    
   onEditTask() {
     if(this.taskName == undefined){
       this.taskName = this.taskDetails.taskName
@@ -142,6 +138,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
     this.authService.editTask(task).subscribe(data => {
       if(data['success']) {
+        this.getTasks();
         this.flashMessage.show('Task updated successfully', {cssClass: 'alert-success', timeout: 3000});
       } else {
         this.flashMessage.show('Something went wrong!Try to edit task again', {cssClass: 'alert-danger', timeout: 3000});
@@ -153,6 +150,7 @@ export class ProjectDetailsComponent implements OnInit {
       const pid= this.taskID;
       this.authService.deleteTask(pid).subscribe(data => {
         if(data['success']) {
+          this.getTasks();
           this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
         } else {
           this.flashMessage.show('You cannot delete this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
@@ -168,6 +166,7 @@ export class ProjectDetailsComponent implements OnInit {
         this.authService.checkTask(task).subscribe(data => {
           if(data['success']) {
             this.flashMessage.show('Task updated', {cssClass: 'alert-success', timeout: 3000});
+            this.getTasks();
           } else {
             this.flashMessage.show('Something went wrong!Try to edit task again', {cssClass: 'alert-danger', timeout: 3000});
           }

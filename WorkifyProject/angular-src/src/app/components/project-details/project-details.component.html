@@ -19,7 +19,9 @@
       <div class="projects-column-headers">
         <p>Assignee</p>
         <p>Due</p>
-        <p>Done?</p>
+        <p>Is Done?</p>
+        <p>Delete Task</p>
+
       </div>
     </div>
     <div class="project-tasks">
@@ -28,7 +30,8 @@
         <span id="0" name="task" class="project-task" (click)="showEditTask(task._id)">{{task.taskName}}</span>
         <span id="0" name="task" class="task-info muted">{{task.taskDesc}}</span>
         <span class="task-info muted">{{task.assignee}}</span>
-        <span class="task-info muted">{{task.dueDate}}</span>
+        <!-- <label ng-bind="formatDate(date) |  date:'MM/dd/yyyy'"></label> -->
+        <span class="task-info muted">{{task.dueDate |  date:'dd/MM/yyyy'}}</span>
         <form (change)="onCheckTask(task._id)" id="taskDoneform">
         <div *ngIf="task.assignee === user.email; then thenBlock else elseBlock"></div>
         <ng-template #thenBlock>
@@ -41,8 +44,14 @@
           <ng-template #cBlock> <input type="checkbox" checked disabled></ng-template>
           <ng-template #unBlock> <input type="checkbox" disabled></ng-template>
         </ng-template>
-          <!-- <input type="checkbox" disabled> -->
         </form>
+         <i class="fa fa-trash" aria-hidden="true"></i>
+         <div *ngIf="flag; then xBlock "></div>
+         <ng-template #tBlock>
+           <div>
+            <i class="fa fa-trash" aria-hidden="true"  (click)="onDeleteTask()"></i>
+           </div>
+         </ng-template>
       </div>
     </div>
   </div>
@@ -69,6 +78,7 @@
         <div class="form-label">Assignee*</div>
         <select [(ngModel)]="assignee" required name="assignee" id="assignee" type="text" class="form-control task-input-split">
           <option disabled="" value="">Assign to</option>
+          <option  value="{{projectDetails.owner.email}}">{{projectDetails.owner.name}}({{projectDetails.owner.email}})</option>
           <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
         </select>
   </div>
@@ -85,7 +95,7 @@
 
 <!-- Edit task Modal -->
 <div class="modal-wrapper">
-  <form class="modalPopup" ngNativeValidate (submit)="onEditTask()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
+  <form class="modalPopup"  (submit)="onEditTask()" id="myModal" [style.display]="showModalEdit ? 'block' : 'none'">
     <span class="close-modal" data-dismiss="modal" (click) = "hideEditTask()">×</span>
     <h1 class="header">Edit task</h1>
     <hr>
