@@ -12,24 +12,44 @@ const MailSender = require('../mail')
 router.get(
   "/all",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  async (req, res) => {
     let email = req.user.email;
-    //console.log("hereeee"+req.user.email);
-    Task.find({assignee:email}).then(tasks => res.json(tasks));
-  }
-);
+    let tasksArr = [];
+    let allTasks=[];
 
-// @route GET api/tasks/:id
-// @desc Get tasks for specific project
-// @access Private
-router.get(
-  "/project/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    let id = req.params.id;
-    Task.find({ project: id }).then(tasks => res.json(tasks));
-  }
-);
+    await Task.find({assignee:email}).then(tasks=>{
+      tasksArr=tasks;
+    });
+    //console.log(tasksArr);
+
+    await Project.find({})
+    .then(projects => {
+      projects.map(project => {
+        tasksArr.map(task=>{
+          //console.log(project._id +"   "+task.project)
+          if (project._id.equals(task.project)) {
+            //console.log(project)
+            allTasks.push({task:task,project:project});                
+          }
+        });    
+      });
+      res.json({allTasks: allTasks});
+    })
+    .catch(err => console.log(err));
+    //console.log("hereeee"+req.user.email);
+    // await Task.find({assignee:email}).then(tasks => {
+    //   tasks.map(task=>{
+    //     console.log(task.project)
+    //     Project.findById(task.project).then(project=>{
+    //       console.log(project['name']);
+    //       tasksArr.push({project: project, task:task});
+    //     });
+    //     console.log(tasksArr);
+    //     res.json({tasksArr: tasksArr});
+    //   });
+    // });
+  });
+
 
 // @route GET api/tasks/:id
 // @desc Get specific task by id

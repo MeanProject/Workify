@@ -16,11 +16,14 @@ export class MytasksComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private _Activatedroute:ActivatedRoute,) { }
   allTasks:any;
+  projectDet:any;
   ngOnInit() {
     this.authService.getAllTasks().subscribe(allTaskData => {
-      this.allTasks = allTaskData;
+      this.allTasks = allTaskData['allTasks'];
+      //this.projectDet=allTaskData['projectArr'];
+      console.log(this.allTasks);
       for(var task of this.allTasks){
-        console.log(task['taskName']);
+        console.log(task);
       }
       //this.email = projectData['email']
    }, 
