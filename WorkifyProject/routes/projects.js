@@ -53,7 +53,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
-    Project.findById(id).then(project => res.json(project));
+    Project.findById(id).then(task => res.json({'task':task, 'user':req.user}));
   }
 );
 

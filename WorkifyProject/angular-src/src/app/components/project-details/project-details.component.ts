@@ -14,8 +14,6 @@ export class ProjectDetailsComponent implements OnInit {
   projectDetails:any;
   tasksOfProject:any;
   taskDetails:any;
-  // projectDetails:{};
-  // taskdDetails:any;
   taskDesc:String;
   taskName:String;
   taskID:any;
@@ -24,6 +22,9 @@ export class ProjectDetailsComponent implements OnInit {
   flag: boolean;
   sub: any;
   id: any;//project id
+  user: any;
+  taskflag: boolean;
+  taskDone: boolean;
 
   showModalCreate: boolean=false;
   showModalEdit: boolean=false;
@@ -33,8 +34,14 @@ export class ProjectDetailsComponent implements OnInit {
     this.sub=this._Activatedroute.paramMap.subscribe(params => { 
        this.id = params.get('id'); 
        this.authService.getProjectDetails(this.id).subscribe(projectData => {
-         this.projectDetails = projectData;
-         //console.log("details"+this.projectDetails['_id']);
+         this.projectDetails = projectData['task'];
+         this.user = projectData['user'];
+         if(this.user.email == this.projectDetails.owner.email){
+           this.flag = true;
+           console.log("hello")
+         }else{
+           this.flag = false;
+         }
       }, 
        err => {
          console.log(err);
@@ -69,13 +76,6 @@ export class ProjectDetailsComponent implements OnInit {
     this.authService.getTaskDetails(this.taskID).subscribe(taskData => {
     this.taskDetails = taskData;
     console.log( this.taskDetails);
-    //this.projectID = project_id
-    // if(projectData['owner']['email'] == this.email){
-    //   this.flag = true;
-    // }
-    // else{
-    //   this.flag = false;
-    // }
   }, 
    err => {
      console.log(err);
@@ -115,10 +115,6 @@ export class ProjectDetailsComponent implements OnInit {
      }
 
   onEditTask() {
-    console.log("name", this.taskName);
-    console.log("desc", this.taskDesc);
-    console.log("due", this.taskDue);
-    console.log("ass", this.assignee);
     if(this.taskName == undefined){
       this.taskName = this.taskDetails.taskName
     }
@@ -162,6 +158,20 @@ export class ProjectDetailsComponent implements OnInit {
           this.flashMessage.show('You cannot delete this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
         }
       });
+    }
+
+    onCheckTask(task_id){
+      const task={
+        _id: task_id,
+        isDone: this.taskDone,
+      }
+        this.authService.checkTask(task).subscribe(data => {
+          if(data['success']) {
+            this.flashMessage.show('Task updated', {cssClass: 'alert-success', timeout: 3000});
+          } else {
+            this.flashMessage.show('Something went wrong!Try to edit task again', {cssClass: 'alert-danger', timeout: 3000});
+          }
+        });
     }
 
 

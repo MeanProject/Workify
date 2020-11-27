@@ -171,7 +171,6 @@ export class AuthService {
   }
 
   createTask(task) {
-    console.log(task);
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -184,7 +183,6 @@ export class AuthService {
   }
 
   editTask(task) {
-    console.log("task edit"+task._id+" "+task.taskName);
     this.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -193,6 +191,18 @@ export class AuthService {
       })
     };
     return this.http.patch('http://localhost:3000/tasks/update',task,httpOptions)
+      .map(res => res);
+  }
+
+  checkTask(task) {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+    return this.http.patch('http://localhost:3000/tasks/check',task,httpOptions)
       .map(res => res);
   }
 

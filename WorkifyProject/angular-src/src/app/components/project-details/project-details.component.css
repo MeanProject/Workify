@@ -28,6 +28,21 @@
   padding: 0rem 1rem;
   min-width: 200px;
 }
+
+.main-btn-disabled {
+  height: 40px;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  background-color: rgb(97,97,97);
+  border-color: #1652f0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "Oxygen Mono", monospace;
+  transition: all 0.25s ease 0s;
+  padding: 0rem 1rem;
+  min-width: 200px;
+}
+
 .main-btn:hover {
   background-color: #154de0;
   border-color: #154de0;
@@ -65,6 +80,13 @@
   width: 900px;
   background-color: #fff;
   border: 1px solid #e0e0e0;
+}
+
+.add-btn-disabled {
+  margin-bottom: 0.7rem;
+  margin-left: 1rem;
+  background-color: rgb(97, 97, 97);
+  color: #ffffff;
 }
 
 .add-btn {
@@ -306,6 +328,14 @@
 .create-project,
 .update-project,
 .delete-project {
+  position: fixed;
+  bottom: 1.25rem;
+}
+
+.delete-project-disabled {
+  margin-left: 335px;
+  background-color: rgb(97,97,97);
+  border: 1px solid  rgb(97,97,97);
   position: fixed;
   bottom: 1.25rem;
 }

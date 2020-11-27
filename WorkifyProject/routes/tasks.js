@@ -14,7 +14,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
-
     Task.find({ project: id }).then(tasks => res.json(tasks));
   }
 );
@@ -78,23 +77,40 @@ router.patch(
   "/update",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("edit")
     let taskFields = {};
     taskFields.taskName = req.body.taskName;
     if (req.body.taskDue && req.body.taskDue !== "Date undefined") {
-      taskFields.taskDue = req.body.taskDue;
+      taskFields.dueDate = req.body.taskDue;
     }
     taskFields.assignee = req.body.assignee;
     taskFields.taskDesc = req.body.taskDesc;
-    console.log("1inside tasks.js updta"+req.body.id);
     Task.findOneAndUpdate(
       { _id: req.body._id },
       { $set: taskFields },
       { new: true }
     ).then(task => {
-        console.log("inside tasks.js updta"+task);
         res.json({task, success: true, msg: 'task updated'});        
       })
       .catch(err => res.json({success: false, msg: 'task not updated'}));
+  }
+);
+
+router.patch(
+  "/check",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let taskFields = {};
+    taskFields.isDone = req.body.isDone;
+    console.log(req.body._id);
+    Task.findOneAndUpdate(
+      { _id: req.body._id },
+      { $set: taskFields },
+      { new: true }
+    ).then(task => {
+        res.json({task, success: true, msg: 'task completed'});        
+      })
+      .catch(err => res.json({success: false, msg: 'something went wrong'}));
   }
 );
 

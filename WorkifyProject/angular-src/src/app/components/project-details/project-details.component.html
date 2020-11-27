@@ -12,21 +12,37 @@
   <div class="modal-wrapper">
   <div class="tasks-container">
     <div class="projects-first-row">
-      <button class="main-btn add-btn" (click) = "showCreateTask()">Add task</button>
+      <div *ngIf="flag; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock><button class="main-btn add-btn" (click) = "showCreateTask()">Add task</button></ng-template>
+        <ng-template #elseBlock><button disabled class="main-btn-disabled add-btn-disabled" (click) = "showCreateTask()">Add task</button></ng-template>
+      <!-- <button class="main-btn add-btn" (click) = "showCreateTask()">Add task</button> -->
       <div class="projects-column-headers">
         <p>Assignee</p>
-        <pre>            </pre>
         <p>Due</p>
-        <pre>    </pre>
+        <p>Done?</p>
       </div>
     </div>
     <div class="project-tasks">
-      <div class="task-input" *ngFor="let task of tasksOfProject" (click)="showEditTask(task._id)">
+      <div class="task-input" *ngFor="let task of tasksOfProject">
         <i class="fa fa-check-circle" aria-hidden="true"></i>
-        <span id="0" name="task" class="project-task">{{task.taskName}}</span>
+        <span id="0" name="task" class="project-task" (click)="showEditTask(task._id)">{{task.taskName}}</span>
         <span id="0" name="task" class="task-info muted">{{task.taskDesc}}</span>
         <span class="task-info muted">{{task.assignee}}</span>
         <span class="task-info muted">{{task.dueDate}}</span>
+        <form (change)="onCheckTask(task._id)" id="taskDoneform">
+        <div *ngIf="task.assignee === user.email; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <div *ngIf="task.isDone; then checkBlock else uncheckBlock"></div>
+          <ng-template #checkBlock><input checked type="checkbox"></ng-template>
+          <ng-template #uncheckBlock><input type="checkbox" name="taskDone" [(ngModel)]="taskDone" id="taskDone"></ng-template>
+        </ng-template>
+        <ng-template #elseBlock>
+          <div *ngIf="task.isDone; then cBlock else unBlock"></div>
+          <ng-template #cBlock> <input type="checkbox" checked disabled></ng-template>
+          <ng-template #unBlock> <input type="checkbox" disabled></ng-template>
+        </ng-template>
+          <!-- <input type="checkbox" disabled> -->
+        </form>
       </div>
     </div>
   </div>
@@ -91,12 +107,25 @@
     <div class="col-sm-4 form-group pmd-textfield pmd-textfield-floating-label">
       <label class="control-label">Select DueDate</label>
         <!-- <div class="form-label">Select Due Date</div> -->
-        <input class="form-control" required type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue" value="{{taskDetails.taskDue}}">
+        <input class="form-control" required type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue" value="{{taskDetails.dueDate}}">
       </div>
-    <div>
+      <div *ngIf="flag; then tBlock else eBlock"></div>
+        <ng-template #tBlock>
+          <div>
+            <button class="main-btn update-project" value="Submit" type="submit">Update Task</button>
+            <button class="main-btn delete-project" (click) = "hideEditTask()" (click)="onDeleteTask()">Delete Task</button>
+          </div>
+        </ng-template>
+        <ng-template #eBlock>
+          <div>
+            <button class="main-btn-disabled update-project" value="Submit" type="submit" disabled>Update Task</button>
+            <button class="main-btn-disabled delete-project-disabled" (click) = "hideEditTask()" (click)="onDeleteTask()" disabled>Delete Task</button>
+          </div>
+        </ng-template>
+    <!-- <div>
       <button class="main-btn update-project" value="Submit" type="submit">Update Task</button>
-      <button class="main-btn delete-project" (click) = "hideEditTask()" (click)="onDeleteTask()">Delete Task</button>
-    </div>
+          <button class="main-btn delete-project" (click) = "hideEditTask()" (click)="onDeleteTask()">Delete Task</button>
+    </div> -->
   </form>
   </div>
   
