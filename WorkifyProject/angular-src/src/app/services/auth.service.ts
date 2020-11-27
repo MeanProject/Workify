@@ -218,4 +218,15 @@ export class AuthService {
       .map(res => res);
   }
 
+  getAllTasks() {
+    this.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+         'Authorization': this.authToken
+      })
+    };
+    return this.http.get('http://localhost:3000/tasks/all', httpOptions)
+      .map(res => res);
+  }
 }

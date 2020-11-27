@@ -7,7 +7,7 @@
 
 
 <div class="main-content">
-  <h1 class="project-header">{{projectDetails.name}}</h1>
+  <h1 class="project-header">{{projectDetails?.name}}</h1>
   <button class="main-btn center-btn">Edit Project Info</button>
   <div class="modal-wrapper">
   <div class="tasks-container">
@@ -27,27 +27,27 @@
     <div class="project-tasks">
       <div class="task-input" *ngFor="let task of tasksOfProject">
         <i class="fa fa-check-circle" aria-hidden="true"></i>
-        <span id="0" name="task" class="project-task" (click)="showEditTask(task._id)">{{task.taskName}}</span>
-        <span id="0" name="task" class="task-info muted">{{task.taskDesc}}</span>
-        <span class="task-info muted">{{task.assignee}}</span>
+        <span id="0" name="task" class="project-task" (click)="showEditTask(task._id)">{{task?.taskName}}</span>
+        <span id="0" name="task" class="task-info muted">{{task?.taskDesc}}</span>
+        <span class="task-info muted">{{task?.assignee}}</span>
         <!-- <label ng-bind="formatDate(date) |  date:'MM/dd/yyyy'"></label> -->
-        <span class="task-info muted">{{task.dueDate |  date:'dd/MM/yyyy'}}</span>
+        <span class="task-info muted">{{task?.dueDate |  date:'dd/MM/yyyy'}}</span>
         <form (change)="onCheckTask(task._id)" id="taskDoneform">
-        <div *ngIf="task.assignee === user.email; then thenBlock else elseBlock"></div>
+        <div *ngIf="task?.assignee === user?.email; then thenBlock else elseBlock"></div>
         <ng-template #thenBlock>
           <div *ngIf="task.isDone; then checkBlock else uncheckBlock"></div>
           <ng-template #checkBlock><input checked type="checkbox"></ng-template>
           <ng-template #uncheckBlock><input type="checkbox" name="taskDone" [(ngModel)]="taskDone" id="taskDone"></ng-template>
         </ng-template>
         <ng-template #elseBlock>
-          <div *ngIf="task.isDone; then cBlock else unBlock"></div>
+          <div *ngIf="task?.isDone; then cBlock else unBlock"></div>
           <ng-template #cBlock> <input type="checkbox" checked disabled></ng-template>
           <ng-template #unBlock> <input type="checkbox" disabled></ng-template>
         </ng-template>
         </form>
          <i class="fa fa-trash" aria-hidden="true"></i>
          <div *ngIf="flag; then xBlock "></div>
-         <ng-template #tBlock>
+         <ng-template #xBlock>
            <div>
             <i class="fa fa-trash" aria-hidden="true"  (click)="onDeleteTask()"></i>
            </div>
@@ -78,8 +78,8 @@
         <div class="form-label">Assignee*</div>
         <select [(ngModel)]="assignee" required name="assignee" id="assignee" type="text" class="form-control task-input-split">
           <option disabled="" value="">Assign to</option>
-          <option  value="{{projectDetails.owner.email}}">{{projectDetails.owner.name}}({{projectDetails.owner.email}})</option>
-          <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
+          <option  value="{{projectDetails?.owner.email}}">{{projectDetails?.owner.name}}({{projectDetails?.owner.email}})</option>
+          <option *ngFor="let projectMember of projectDetails?.teamMembers" value={{projectMember.email}} >{{projectMember?.name}}({{projectMember?.email}})   </option>
         </select>
   </div>
   <div class="form-group col-sm-4">
@@ -101,23 +101,23 @@
     <hr>
     <div class="col-sm-4 form-group">
         <div class="form-label">Task Name*</div>
-        <input required name="taskName" [(ngModel)]="taskName" id="taskName" type="text" placeholder="Enter Task name" class="form-control" value="{{taskDetails.taskName}}">
+        <input required name="taskName" [(ngModel)]="taskName" id="taskName" type="text" placeholder="Enter Task name" class="form-control" value="{{taskDetails?.taskName}}">
     </div>
     <div class="col-sm-4 form-group">
         <div class="form-label">Task Description*</div>
-        <input name="taskDesc" [(ngModel)]="taskDesc" id="taskDesc" type="text" required placeholder="What is the task?" class="form-control" value="{{taskDetails.taskDesc}}">
+        <input name="taskDesc" [(ngModel)]="taskDesc" id="taskDesc" type="text" required placeholder="What is the task?" class="form-control" value="{{taskDetails?.taskDesc}}">
     </div>
     <div class="col-sm-4 form-group">
           <div class="form-label">Assignee</div>
           <select [(ngModel)]="assignee" name="assignee" required id="assignee" type="text" class="form-control ">
             <option disabled="" value="">Assign to</option>
-            <option *ngFor="let projectMember of projectDetails.teamMembers" value={{projectMember.email}} >{{projectMember.name}}({{projectMember.email}})   </option>
+            <option *ngFor="let projectMember of projectDetails?.teamMembers" value={{projectMember?.email}} >{{projectMember?.name}}({{projectMember?.email}})   </option>
           </select>
     </div>
     <div class="col-sm-4 form-group pmd-textfield pmd-textfield-floating-label">
       <label class="control-label">Select DueDate</label>
         <!-- <div class="form-label">Select Due Date</div> -->
-        <input class="form-control" required type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue" value="{{taskDetails.dueDate}}">
+        <input class="form-control" required type = "Date" [(ngModel)]="taskDue" name="taskDue" id="taskDue" value="{{taskDetails?.dueDate}}">
       </div>
       <div *ngIf="flag; then tBlock else eBlock"></div>
         <ng-template #tBlock>

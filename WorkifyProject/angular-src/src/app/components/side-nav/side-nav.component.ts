@@ -31,7 +31,7 @@ export class SideNavComponent implements OnInit {
 
     this.authService.getProjects().subscribe(projectData => {
     this.projects = projectData['projectArr'];
-    console.log(projectData);
+    //console.log(projectData);
   }, 
      err => {
        return false;
@@ -54,5 +54,5 @@ export class SideNavComponent implements OnInit {
   }
   // onHumburgerClick(){
   //   new hum();
-  // }  
+  // } 
 }

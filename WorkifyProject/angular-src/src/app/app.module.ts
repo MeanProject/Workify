@@ -30,6 +30,7 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   //{path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'all', component: MytasksComponent},
   {path:'projects/:id', component: ProjectDetailsComponent},
   {path:'create',component:HomeComponent}
 ]

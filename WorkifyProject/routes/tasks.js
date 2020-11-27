@@ -6,6 +6,19 @@ const Task = require("../models/Task");
 const MailSender = require('../mail')
 
 
+// @route GET api/tasks/all
+// @desc Get tasks for logged in assignee
+// @access Private
+router.get(
+  "/all",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let email = req.user.email;
+    //console.log("hereeee"+req.user.email);
+    Task.find({assignee:email}).then(tasks => res.json(tasks));
+  }
+);
+
 // @route GET api/tasks/:id
 // @desc Get tasks for specific project
 // @access Private
@@ -17,7 +30,6 @@ router.get(
     Task.find({ project: id }).then(tasks => res.json(tasks));
   }
 );
-
 
 // @route GET api/tasks/:id
 // @desc Get specific task by id
