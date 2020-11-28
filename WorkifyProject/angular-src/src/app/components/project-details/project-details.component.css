@@ -374,3 +374,8 @@
   .clickable-td:hover{
     background-color: rgb(220,220,220);
   }
+
+.del:hover{
+  cursor: pointer;
+  color:red !important;
+}

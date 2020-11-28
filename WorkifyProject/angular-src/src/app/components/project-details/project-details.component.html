@@ -21,7 +21,6 @@
       <table class="table">
         <thead>
         <tr>
-          <th>ooo</th>
           <th>Task Name</th>
           <th>Task Description</th>
           <th>Task Assignee</th>
@@ -32,7 +31,6 @@
         </thead>
         <tbody *ngFor="let task of tasksOfProject">
             <tr>
-            <td><i class="fa fa-check-circle" aria-hidden="true"></i></td>
             <td class="clickable-td"><span id="0" name="task" class="project-task" (click)="showEditTask(task._id)">{{task?.taskName}}</span></td>
             <td>{{task?.taskDesc}}</td>
             <td>{{task?.assignee}}</td>
@@ -53,7 +51,7 @@
             </form>
           </td>
              <div *ngIf="flag; then xBlock else yBlock"></div>
-             <ng-template #xBlock><td><i class="fa fa-trash" style="color: blue;" (click)="onDeleteTask(task._id)"></i></td></ng-template>
+             <ng-template #xBlock><td><i class="del fa fa-trash" style="color: blue;" (click)="onDeleteTask(task._id)"></i></td></ng-template>
              <ng-template #yBlock><td><i class="fa fa-trash"></i></td></ng-template>
              </tr>
           </tbody>
