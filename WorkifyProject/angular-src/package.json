@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "@types/jquery": "^3.3.1",
+    "angular-6-datatable": "^0.8.0",
     "angular2-flash-messages": "^2.0.4",
     "angular2-jwt": "^0.2.3",
     "bootstrap": "^4.5.3",
@@ -29,6 +30,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "rxjs": "^5.5.2",
+    "sort-nested-json": "^0.2.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

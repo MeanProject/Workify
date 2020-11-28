@@ -1,34 +1,54 @@
+<div class="cusCont">
+    <h1 class="header">Task Summary</h1>
+    <table class="table table-striped" [mfData]="allTaskData" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 15%">          
+           Task Name
+        </th>
+        <th style="width: 30%">
+            Task Decription
+        </th>
+        <th style="width: 10%">
+            Due Date
+        </th>
+        <th style="width: 8%">
+            isDone
+        </th>
+        <th style="width: 18%">
+            project name
+        </th>
+        <th style="width: 20%">
+        project Admin name
+        </th>
+        <th style="width: 20%">
+        project Admin email
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let taskdetails of mf.data">
+        <td>{{taskdetails.task.taskName}}</td>
+        <td>{{taskdetails.task.taskDesc}}</td>
+        <td>{{taskdetails.task.dueDate | date:'dd/MM/yyyy'}}</td>
+        <div *ngIf="taskdetails.task.isDone;then check else cross"></div>
+        <ng-template #check><td ><i class="fa fa-check" style="color: green;" aria-hidden="true"></i></td></ng-template>
+        <ng-template #cross><td ><i class="fa fa-times" style="color:red;" aria-hidden="true"></i></td></ng-template>
+        <td>{{taskdetails.project.name}}</td>
+        <td>{{taskdetails.project.owner.name}}</td>
+        <td>{{taskdetails.project.owner.email}}</td>
 
+        <!-- <td class="text-right">{{task.age}}</td> -->
+        <!-- <td>{{task.city | uppercase}}</td> -->
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="7">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+    </table>
+</div>
 
-<table width="100%" cellspacing="0" id="user_table" class="users list dtable" border="1">   
-  <thead id="TblHead">  
-      <tr>  
-          <td>Sr. No.</td>  
-          <td>Task name</td>  
-          <td>Task Description</td>  
-          <td>Due date</td>  
-          <td>Project name</td>  
-          <td>Is done</td>  
-          <td>Date created</td>  
-          <td>Owner of prjoject</td>  
-      </tr>  
-  </thead>  
-  <tbody>  
-      <!-- <tr *ngFor="MyTask in MyTasks" ng-click="count = count + 1" ng-init="count=1">  
-          <td><a title='Click to view' href="#" target='_blank' class='btn btn-info btn-md'><span class='glyphicon glyphicon-user'></span> View</a></td>  
-          <td> count</td>  
-          <td>{{MyTask.Vendor}}</td>  
-          <td>{{MyTask.DateRequired | date}}</td>  
-          <td>{{MyTask.RequisitionDate | date}}</td>  
-          <td>{{MyTask.WorkStatus}}</td>  
-          <td>{{MyTask.OrderStatus}}</td>  
-          <td>Notify</td>  
-      </tr>   -->
-  </tbody>  
-</table> 
-<script>
-  angular.element(document).ready(function() {  
-    dTable = $('#user_table')  
-    dTable.DataTable();  
-});  
-  </script>

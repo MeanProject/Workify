@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
+import {DataTableModule} from "angular-6-datatable";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -54,6 +55,7 @@ const appRoutes: Routes =  [
   imports: [
     BrowserModule,
     FormsModule,
+    DataTableModule,
     ReactiveFormsModule ,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
