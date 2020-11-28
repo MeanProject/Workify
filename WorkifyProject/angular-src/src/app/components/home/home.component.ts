@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   memberEmail:any[]=[];
   projects:any;
   users:Object;
+  editUsers:any;
   email: String;
   flag: Boolean;
   monthDue:any;
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
   owner:any;
   projectForm: FormGroup;
   editProjectForm: FormGroup;
+  del:any;
   // name:[];
   // email:[];
 
@@ -87,6 +89,10 @@ export class HomeComponent implements OnInit {
     removeEditMember(i:number) {
       this.editMembers().removeAt(i);
     }
+    deleteMember(i:number){
+      // this.del=this.update;
+      // console.log(this.del);
+    }
     project:any;
     adminProjects:any[]=[];
     teamMemberProjects:any[]=[];
@@ -107,7 +113,6 @@ export class HomeComponent implements OnInit {
         }
      }, 
        err => {
-        //  console.log(err);
          return false;
        });
     }
@@ -131,11 +136,13 @@ export class HomeComponent implements OnInit {
   projectDetails:any;
   // sub: any;
   id: any;
+  arr:any;
 
   showModalCreate: boolean;
   showModalEdit: boolean;
   content: string;
   title: string;
+  updateMembers:any;
 
   //Bootstrap Modal Open event
   showCreateProj()
@@ -150,28 +157,36 @@ export class HomeComponent implements OnInit {
   {
     this.showModalCreate = false;
   }
-
+ 
 
   showEditProj(project_id)
   {
-    this.id=project_id
-    this.showModalEdit = true;
-    this.authService.getProjectDetails(this.id).subscribe(projectData => {
-    this.projectDetails = projectData;
-    console.log(this.projectDetails);
-    this.projectID = project_id
-    if(projectData['owner']['email'] == this.email){
-      this.flag = true;
-    }
-    else{
-      this.flag = false;
-    }
-  }, 
-   err => {
-     console.log(err);
-     return false;
-   });
+      this.id=project_id
+      this.showModalEdit = true;
+      this.authService.getProjectDetails(this.id).subscribe(projectData => {
+        console.log('project details')
+      this.projectDetails = projectData;
+      console.log(this.projectDetails);
+        this.updateMembers=this.projectDetails['project']['teamMembers'];
+        console.log('update');
+        console.log(this.updateMembers);
+        this.editUsers=[];
+        console.log(this.users);
+        console.log(this.updateMembers);
+        for(var i in this.users)
+        {
+        for(var k in this.updateMembers){
+          if(this.users[i].name != this.updateMembers[k].name){
+              this.editUsers.push(this.users[i]);
+          }
+        }
+
+      }
+      console.log(this.editUsers);        
+          
+        });
   }
+
   hideEditProj()
   {
     this.showModalEdit = false;
@@ -181,44 +196,59 @@ export class HomeComponent implements OnInit {
   onCreateProject() {
     console.log(this.projectForm.value);
 
+
     const temp=this.projectForm.value;
     const project={
       projectName:temp.pname,
       teamMembers:temp.members
     }
     console.log(project);
+    this.authService.createProject(project).subscribe(data => {
+      console.log(data);
+      if(data['success']) {
+        this.showModalCreate = false;
+        this.getProjects();
+        this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
+      } else {
+        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
     }
 
+deleteOld(){
 
+}
     //edit project
     onEditProject() {
       console.log("home edit")
-      if(this.projectName == undefined){
-        this.projectName = this.projectDetails['name']
+      if(this.pname == undefined){
+        this.pname = this.projectDetails['project']['name'];
+        console.log(this.projectDetails['project']['name']);
       }
-      if(this.projectDetails.owner.name == undefined){
-        this.projectDetails.owner.name= this.projectDetails['owner']['name']
-      }
-      if(this.memberEmail.length == 0){
-        this.memberEmail = this.projectDetails['teamMembers'][0]['email']
-      }
-      if(this.memberName.length == 0){
-        this.memberName = this.projectDetails['teamMembers'][0]['name']
+      this.projectID=this.projectDetails['project']['_id'];
+      console.log(this.projectID);
+      console.log(this.editProjectForm.value);
+      const temp=this.editProjectForm.value;
+      let array=temp.editMembers;
+      for(let i in this.updateMembers){
+        array.push(this.updateMembers[i]);
       }
       
-      const project={
-        id: this.projectID,
-        projectName:this.projectName,
-        teamMembers:{
-          name:this.memberName,
-          email:this.memberEmail,
-        },
+    console.log(array);
+
+      const projectupdate={
+        id:this.projectID,
+        projectName:this.pname,
+        teamMembers:array
       }
-      console.log(project)
+     
+      console.log(projectupdate);
   
-      this.authService.editProject(project).subscribe(data => {
+      this.authService.editProject(projectupdate).subscribe(data => {
+        this.hideEditProj();
         if(data['success']) {
           this.flashMessage.show('Project edited', {cssClass: 'alert-success', timeout: 3000});
+
         } else {
           this.flashMessage.show('You cannot edit this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
         }
@@ -226,8 +256,11 @@ export class HomeComponent implements OnInit {
     }
 
     onDeleteProject() {
+      this.projectID=this.projectDetails['project']['_id'];
       const pid= this.projectID;
+      console.log(pid);
       this.authService.deleteProject(pid).subscribe(data => {
+        this.hideEditProj();
         if(data['success']) {
           this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
         } else {

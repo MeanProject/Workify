@@ -68,7 +68,6 @@ router.post(
       owner: OWNER,
       name: req.body.projectName,
       teamMembers: req.body.teamMembers,
-      dateDue: req.body.dateDue
     });
 
     NEW_PROJECT.save().
@@ -97,12 +96,14 @@ router.patch(
     let projectFields = {};
     projectFields.name = req.body.projectName;
     projectFields.teamMembers = req.body.teamMembers;
-    projectFields.dateDue = req.body.dateDue;
+    console.log("ProjectFilelds");
+    console.log(projectFields);
     Project.findById(req.body.id).then(project => {
       if(project.owner.email == req.user.email){
         project.update({ $set: projectFields },
           { new: true })
       .then(project => {
+        console.log(project);
         res.json({project, success: true});
       }).catch(err => console.log(err));
     }
@@ -110,16 +111,6 @@ router.patch(
       res.json({project, success: false})
     }
   })
-
-    // Project.findOneAndUpdate(
-    //   { _id: req.body.id },
-    //   { $set: projectFields },
-    //   { new: true }
-    // )
-    //   .then(project => {
-    //     res.json(project);
-    //   })
-    //   .catch(err => console.log(err));
   }
 );
 
@@ -129,6 +120,7 @@ router.delete(
   "/delete/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log(req.params.id);
     Project.findById(req.params.id).then(project => {
       if(project.owner.email == req.user.email){
         project.remove().then(() => res.json({ success: true }));
