@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const config = require('../config/database');
 const Schema = mongoose.Schema;
 
-// Create Schema
 const TaskSchema = new Schema({
   project: {
     type: Schema.Types.ObjectId,
@@ -22,7 +21,8 @@ const TaskSchema = new Schema({
     required: true
   },
   assignee: {
-    type: String
+    type: String,
+    required: true
   },
   dateCreated: {
     type: Date,

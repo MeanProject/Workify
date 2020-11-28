@@ -75,7 +75,7 @@
 }
 
 .tasks-container {
-  min-height: 600px;
+  /* min-height: 600px; */
   margin: 0 auto;
   width: 900px;
   background-color: #fff;
@@ -164,7 +164,7 @@
 
 .project-tasks .task-info:nth-of-type(2),
 :nth-of-type(3) {
-  width: 35%;
+  width: 25%;
 }
 
 .project-tasks .task-info:hover {
@@ -364,4 +364,13 @@
 .delete:hover {
     cursor: pointer;
     color: #d9605a;
+  }
+
+  .clickable-td{
+    font-size: 12px;
+    /* background-color: rgb(220,220,220); */
+  }
+
+  .clickable-td:hover{
+    background-color: rgb(220,220,220);
   }

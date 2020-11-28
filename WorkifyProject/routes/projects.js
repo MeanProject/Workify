@@ -3,15 +3,11 @@ const router = express.Router();
 const passport = require("passport");
 
 const Project = require("../models/Project");
-
 const MailSender = require('../mail')
 
-// import {MailSender} from '../mail'
 
-
-// @route GET api/projects
+// @route GET http://localhost:3000/projects
 // @desc Get all projects for a specific user
-// @access Private
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -45,21 +41,19 @@ router.get(
   }
 );
 
-// @route GET api/projects/:id
+// @route GET http://localhost:3000/projects/:id
 // @desc Get specific project by id
-// @access Private
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let id = req.params.id;
-    Project.findById(id).then(task => res.json({'task':task, 'user':req.user}));
+    Project.findById(id).then(project => res.json({'project':project, 'user':req.user}));
   }
 );
 
-// @route POST api/projects/create
+// @route POST http://localhost:3000/projects/create
 // @desc Create a new project
-// @access Private
 router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
@@ -94,9 +88,8 @@ router.post(
   }
 );
 
-// @route PATCH api/projects/update
+// @route PATCH http://localhost:3000/projects/update
 // @desc Update an existing project
-// @access Private
 router.patch(
   "/update",
   passport.authenticate("jwt", { session: false }),
@@ -130,9 +123,8 @@ router.patch(
   }
 );
 
-// @route DELETE api/projects/delete/:id
+// @route DELETE http://localhost:3000/projects/delete/:id
 // @desc Delete an existing project
-// @access Private
 router.delete(
   "/delete/:id",
   passport.authenticate("jwt", { session: false }),

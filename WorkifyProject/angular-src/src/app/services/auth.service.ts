@@ -55,6 +55,7 @@ export class AuthService {
     localStorage.clear();
   }
   
+  // get all users
   getUsers() {
     this.loadToken();
     const httpOptions = {
@@ -67,7 +68,7 @@ export class AuthService {
       .map(res => res);
   }
 
-
+  // get user profile
   getProfile() {
     this.loadToken();
     const httpOptions = {
@@ -79,6 +80,7 @@ export class AuthService {
     return this.http.get('http://localhost:3000/users/profile', httpOptions)
       .map(res => res);
   }
+
   //specific user all projects
   getProjects() {
     this.loadToken();
@@ -105,6 +107,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  //create project
   createProject(project) {
     console.log(project);
     this.loadToken();
@@ -118,6 +121,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  // edit project
   editProject(project) {
     console.log("auth edit");
     this.loadToken();
@@ -130,7 +134,8 @@ export class AuthService {
     return this.http.patch('http://localhost:3000/projects/update',project,httpOptions)
       .map(res => res);
   }
-
+  
+  // delete project
   deleteProject(id) {
     this.loadToken();
     const httpOptions = {
@@ -170,6 +175,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  // create task
   createTask(task) {
     this.loadToken();
     const httpOptions = {
@@ -182,6 +188,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  // edit task
   editTask(task) {
     this.loadToken();
     const httpOptions = {
@@ -194,6 +201,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  // mark task as done/undone
   checkTask(task) {
     this.loadToken();
     const httpOptions = {
@@ -205,7 +213,8 @@ export class AuthService {
     return this.http.patch('http://localhost:3000/tasks/check',task,httpOptions)
       .map(res => res);
   }
-
+  
+  // delete task
   deleteTask(id) {
     this.loadToken();
     const httpOptions = {
@@ -218,6 +227,7 @@ export class AuthService {
       .map(res => res);
   }
 
+  // get all tasks
   getAllTasks() {
     this.loadToken();
     const httpOptions = {

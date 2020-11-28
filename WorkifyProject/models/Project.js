@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const config = require('../config/database');
 const Schema = mongoose.Schema;
 
-// Create Schema
 const ProjectSchema = new Schema({
   name: {
     type: String,

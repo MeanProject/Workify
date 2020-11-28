@@ -6,9 +6,8 @@ const Task = require("../models/Task");
 const MailSender = require('../mail')
 
 
-// @route GET api/tasks/all
+// @route GET http://localhost:3000/tasks/all
 // @desc Get tasks for logged in assignee
-// @access Private
 router.get(
   "/all",
   passport.authenticate("jwt", { session: false }),
@@ -51,9 +50,8 @@ router.get(
   });
 
 
-// @route GET api/tasks/:id
+// @route GET http://localhost:3000/tasks/:id
 // @desc Get specific task by id
-// @access Private
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
@@ -63,9 +61,19 @@ router.get(
   }
 );
 
-// @route POST api/tasks/create
+// @route GET http://localhost:3000/tasks/project/:id
+// @desc Get tasks of specific project
+router.get(
+  "/project/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let id = req.params.id;
+
+    Task.find({ project: id }).then(tasks => res.json(tasks));
+  });
+
+// @route POST http://localhost:3000/tasks/create
 // @desc Create a new task
-// @access Private
 router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
@@ -89,9 +97,8 @@ router.post(
   }
 );
 
-// @route POST api/tasks/delete
+// @route POST http://localhost:3000/tasks/delete
 // @desc Delete an existing task
-// @access Private
 router.delete(
   "/delete/:id",
   passport.authenticate("jwt", { session: false }),
@@ -102,9 +109,8 @@ router.delete(
   }
 );
 
-// @route PATCH api/tasks/update
+// @route PATCH http://localhost:3000/tasks/update
 // @desc Update an existing task
-// @access Private
 router.patch(
   "/update",
   passport.authenticate("jwt", { session: false }),
@@ -128,6 +134,8 @@ router.patch(
   }
 );
 
+// @route PATCH http://localhost:3000/tasks/check
+// @desc mark existing task as done or not done
 router.patch(
   "/check",
   passport.authenticate("jwt", { session: false }),
