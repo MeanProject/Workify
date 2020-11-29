@@ -55,7 +55,7 @@ export class AuthService {
     localStorage.clear();
   }
   
-  // get all users
+  // get all users excluding logged in user
   getUsers() {
     this.loadToken();
     const httpOptions = {
@@ -65,6 +65,17 @@ export class AuthService {
       })
     };
     return this.http.get('http://localhost:3000/users', httpOptions)
+      .map(res => res);
+  }
+
+  // get all registered users 
+  getAllUsers() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    return this.http.get('http://localhost:3000/users/all', httpOptions)
       .map(res => res);
   }
 

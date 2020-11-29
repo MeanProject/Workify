@@ -43,6 +43,20 @@ export class RegisterComponent implements OnInit {
     this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
+
+    // Validate Email already exists case
+    if(this.validateService.checkEmailAlreadyExist(user.email)) {
+      console.log(user.email)
+      this.flashMessage.show('User registered with entered Email !Please use another email', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
+    // Validate username already exists case
+    if(this.validateService.checkUsernameAlreadyExist(user.username)) {
+    this.flashMessage.show('User registered with entered Username!Please use another username', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
     // Register user
     this.authService.registerUser(user).subscribe(data => {
     console.log(data);

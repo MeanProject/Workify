@@ -62,14 +62,13 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
-//Users
+//Users not including logged in user
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     let usersArr = [];
     // Member users
-
     await User.find({})
       .then(users => {
         users.map(user => {
@@ -82,5 +81,15 @@ router.get(
       .catch(err => console.log(err));
   }
 );
+
+//all existing users
+router.get('/all', async(req, res, next) => {
+  await User.find({})
+  .then(users => {
+    console.log(users)
+    res.json({users:users});
+  })
+  .catch(err => console.log(err));
+});
 
 module.exports = router;
