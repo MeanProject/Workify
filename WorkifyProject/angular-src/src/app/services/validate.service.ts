@@ -11,10 +11,24 @@ export class ValidateService {
     private router:Router,
     private flashMessage: FlashMessagesService,) { }
 
+    ngInit(){
+    }
+
+  async allUsers(){
+    await this.authService.getAllUsers().subscribe(userData => {
+      this.users = userData['users'];
+      console.log(this.users)
+   }, 
+    err => {
+      console.log(err);
+    });
+  }
+
   validateRegister(user) {
     if(user.name == undefined || user.email == undefined || user.username == undefined || user.password == undefined) {
-        return false;
+      return false;
     } else {
+      console.log(this.users)
       return true;
     }
   }
@@ -24,38 +38,45 @@ export class ValidateService {
     return re.test(email);
   }
 
-  checkEmailAlreadyExist(email) {
-    this.authService.getAllUsers().subscribe(userData => {
-      console.log(userData)
-      this.users = userData['users'];
-      console.log(this.users)
-      for(var fetchedUser of this.users){
+  flag1:any;
+   checkEmailAlreadyExist(email) {
+    this.flag1=0;
+    console.log(this.users);
+    for(var fetchedUser of this.users){
+      console.log(email+" "+fetchedUser['email'])
+      if(email==fetchedUser['email']){
         console.log(email+" "+fetchedUser['email'])
-        if(email==fetchedUser['email']){
-          console.log(email+" "+fetchedUser['email'])
-          return true;
-        }
-      }
-   }, 
-    err => {
-      return false;
-    });
-    return false;
-  }
-
-  checkUsernameAlreadyExist(username) {
-    this.authService.getAllUsers().subscribe(userData => {
-      this.users = userData['usersArr'];
-   }, 
-    err => {
-      return false;
-    });
-    for(var fetchedUser in this.users){
-      if(username==fetchedUser['username']){
-        return true;
+        this.flag1=1;
       }
     }
-    return false;
+    if(this.flag1==1){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
+
+
+  flag2:any;
+  checkUsernameAlreadyExist(email) {
+   this.flag2=0;
+   console.log(this.users);
+   for(var fetchedUser of this.users){
+     console.log(email+" "+fetchedUser['username'])
+     if(email==fetchedUser['username']){
+       console.log(email+" "+fetchedUser['username'])
+       this.flag2=1;
+     }
+   }
+   if(this.flag2==1){
+     return true;
+   }
+   else{
+     return false;
+   }
+ }
+
+  
 
 }

@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    this.validateService.allUsers();
   }
 
   onRegisterSubmit() {
@@ -31,7 +32,6 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       password: this.password
     }
-
     // Required Fields
     if(!this.validateService.validateRegister(user)) {
       this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
@@ -47,17 +47,17 @@ export class RegisterComponent implements OnInit {
     // Validate Email already exists case
     if(this.validateService.checkEmailAlreadyExist(user.email)) {
       console.log(user.email)
-      this.flashMessage.show('User registered with entered Email !Please use another email', {cssClass: 'alert-danger', timeout: 3000});
+      this.flashMessage.show('User registered with entered Email !Please use another email', {cssClass: 'alert-danger', timeout: 4000});
       return false;
     }
 
     // Validate username already exists case
     if(this.validateService.checkUsernameAlreadyExist(user.username)) {
-    this.flashMessage.show('User registered with entered Username!Please use another username', {cssClass: 'alert-danger', timeout: 3000});
+    this.flashMessage.show('User registered with entered Username!Please use another username', {cssClass: 'alert-danger', timeout: 4000});
       return false;
     }
 
-    // Register user
+    //Register user
     this.authService.registerUser(user).subscribe(data => {
     console.log(data);
     if(data['success']) {
