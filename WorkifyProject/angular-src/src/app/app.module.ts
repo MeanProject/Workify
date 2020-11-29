@@ -19,16 +19,14 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { MytasksComponent } from './components/mytasks/mytasks.component';
 
-
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent,canActivate:[AuthGuard]},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
-  //{path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'all', component: MytasksComponent},
-  {path:'projects/:id', component: ProjectDetailsComponent},
-  {path:'create',component:HomeComponent}
+  {path:'all', component: MytasksComponent,canActivate:[AuthGuard]},
+  {path:'projects/:id', component: ProjectDetailsComponent,canActivate:[AuthGuard]},
+  {path:'create',component:HomeComponent,canActivate:[AuthGuard]}
 ]
 
 @NgModule({

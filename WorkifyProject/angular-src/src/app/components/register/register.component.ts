@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
 
     // Validate Email already exists case
     if(this.validateService.checkEmailAlreadyExist(user.email)) {
-      console.log(user.email)
       this.flashMessage.show('User registered with entered Email !Please use another email', {cssClass: 'alert-danger', timeout: 4000});
       return false;
     }
@@ -59,7 +58,6 @@ export class RegisterComponent implements OnInit {
 
     //Register user
     this.authService.registerUser(user).subscribe(data => {
-    console.log(data);
     if(data['success']) {
       this.flashMessage.show('You are now registered and can now login', {cssClass: 'alert-success', timeout: 3000});
       this.router.navigate(['/login']);

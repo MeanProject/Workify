@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpHeaders} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
@@ -10,9 +9,7 @@ export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http: HttpClient) {
-      //this.isDev = false;  // Change to false before deployment
-    }
+  constructor(private http: HttpClient) {}
 
   registerUser(user) {
     const httpOptions = {
