@@ -36,18 +36,18 @@ export class HomeComponent implements OnInit {
   projectForm: FormGroup;
   editProjectForm: FormGroup;
   del:any;
-  // name:[];
-  // email:[];
+  project:any;
+  adminProjects:any[]=[];
+  teamMemberProjects:any[]=[];
 
- 
-  //projectDetails:Object;
 
   constructor(
     private authService:AuthService,
     private router:Router,
     private flashMessage: FlashMessagesService,
     private _Activatedroute:ActivatedRoute,
-    private fb:FormBuilder) {
+    private fb:FormBuilder) 
+    {
       this.projectForm=this.fb.group({
         pname:'',
         members:this.fb.array([]),
@@ -66,12 +66,11 @@ export class HomeComponent implements OnInit {
         name: '',
         email: '',
       })
-    }
-     
+    } 
+    
     addMember() {
       this.members().push(this.newMember());
-    }
-     
+    } 
     removeMember(i:number) {
       this.members().removeAt(i);
     }
@@ -81,7 +80,6 @@ export class HomeComponent implements OnInit {
       return this.editProjectForm.get("editMembers") as FormArray
     }
    
-     
     addEditMember() {
       this.editMembers().push(this.newMember());
     }
@@ -90,12 +88,9 @@ export class HomeComponent implements OnInit {
       this.editMembers().removeAt(i);
     }
     deleteMember(i:number){
-      // this.del=this.update;
-      // console.log(this.del);
+      delete this.updateMembers[i];
+      console.log(this.updateMembers);
     }
-    project:any;
-    adminProjects:any[]=[];
-    teamMemberProjects:any[]=[];
     getProjects(){
       this.adminProjects=[];
       this.teamMemberProjects=[];
@@ -175,16 +170,19 @@ export class HomeComponent implements OnInit {
         console.log(this.updateMembers);
         for(var i in this.users)
         {
-        for(var k in this.updateMembers){
-          if(this.users[i].name != this.updateMembers[k].name){
-              this.editUsers.push(this.users[i]);
+          let isNotMember=true;
+          for(var k in this.updateMembers){
+            if(this.users[i].name == this.updateMembers[k].name){
+                isNotMember=false;
+            }
           }
-        }
-
+          if(isNotMember){
+            this.editUsers.push(this.users[i]);
+          }
       }
       console.log(this.editUsers);        
           
-        });
+    });
   }
 
   hideEditProj()
@@ -195,8 +193,6 @@ export class HomeComponent implements OnInit {
   months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   onCreateProject() {
     console.log(this.projectForm.value);
-
-
     const temp=this.projectForm.value;
     const project={
       projectName:temp.pname,
@@ -205,9 +201,10 @@ export class HomeComponent implements OnInit {
     console.log(project);
     this.authService.createProject(project).subscribe(data => {
       console.log(data);
+      this.getProjects();
       if(data['success']) {
         this.showModalCreate = false;
-        this.getProjects();
+      
         this.flashMessage.show('New Project created', {cssClass: 'alert-success', timeout: 3000});
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
@@ -215,10 +212,7 @@ export class HomeComponent implements OnInit {
     });
     }
 
-deleteOld(){
-
-}
-    //edit project
+  //edit project
     onEditProject() {
       console.log("home edit")
       if(this.pname == undefined){
@@ -246,6 +240,7 @@ deleteOld(){
   
       this.authService.editProject(projectupdate).subscribe(data => {
         this.hideEditProj();
+        this.getProjects();
         if(data['success']) {
           this.flashMessage.show('Project edited', {cssClass: 'alert-success', timeout: 3000});
 
@@ -256,6 +251,7 @@ deleteOld(){
     }
 
     onDeleteProject() {
+      this.getProjects();
       this.projectID=this.projectDetails['project']['_id'];
       const pid= this.projectID;
       console.log(pid);

@@ -104,16 +104,17 @@
     </div>
     <div *ngFor="let update of updateMembers; let j=index" >
       <div class="split">
-          <span>Member:{{update?.name}} - {{update?.email}}  <span class="delete" (click)=deleteMember(j)>Delete</span></span>
-       
+          <span>Member {{j+1}} :{{update?.name}} - {{update?.email}} <i class="del fa fa-trash ml-2" style="color: blue;" (click)="deleteMember(j)"></i></span>
       </div>
     </div>
     <div class="form-group ">
+      <br>
     <div class="form-label" >Add team members (optional)</div>
     <button class="main-btn btn-secondary" (click)="addEditMember()" >Add another member</button>
+
     <div formArrayName="editMembers" class="members">
       <div  *ngFor="let member of editMembers().controls; let i=index" [formGroupName]="i" >
-        <div class="split"  >
+        <div class="splitt"  >
           <label>
             <div class="form-label">Member email</div>
             <select formControlName="email"  name="assignee" id="assignee" type="text" class="form-input task-input-split">
@@ -135,10 +136,10 @@
     </div>
     <div class="row" style=" border-top: none;">
       <div class="col-md-6">
-        <button class="main-btn btn-dark" value="Submit"  (click)="onEditProject()" type="submit">Update Project</button>
+        <button class="main-btn update-project" value="Submit"  (click)="onEditProject()" type="submit">Update Project</button>
       </div>
       <div class="col-md-6">
-        <button class="main-btn btn-danger" (click) = "hideEditProj()" (click)="onDeleteProject()" >Delete Project</button>
+        <button class="main-btn  delete-project" (click) = "hideEditProj()" (click)="onDeleteProject()" >Delete Project</button>
       </div>
     </div>
    </form>

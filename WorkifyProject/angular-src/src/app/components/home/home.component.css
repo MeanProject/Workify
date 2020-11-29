@@ -9,6 +9,10 @@
   margin-top: 1rem;
   width: 98%;
 }
+.del:hover{
+  cursor: pointer;
+  color:red !important;
+}
 
 .project-icon {
   height: 150px;
@@ -108,7 +112,6 @@
   padding: 0rem 1rem;
   min-width: 200px;
 }
-
 .main-btn-disabled {
   height: 40px;
   color: #ffffff;
@@ -129,17 +132,33 @@
   cursor: pointer;
   transition: all 0.25s ease 0s;
 }
+.delete-project {
+  background-color: #d9605a;
+  border: 1px solid #df4941;
+}
+
+.delete-project:hover {
+    background-color: #df4941;
+    border: 1px solid #d9605a;
+
+  }
+
+  .update-project{
+    margin-left:30px;
+    background-color: #4530bb;
+    border: 1px solid #2b0a85;
+  }
+  .update-project:hover{
+    background-color: #2b0a85;
+    border: 1px solid #4530bb;
+  }
+
 
 .split {
   display: flex;
 }
 
-
-
-
 /* create project modal  */
-
-
 .modalPopup {
   width: 650px;
   background: white;
@@ -223,6 +242,10 @@
   display: flex;
   justify-content: space-between;
 }
+.splitt {
+  display: flex;
+  justify-content: space-around;
+}
 
 .split-input {
   width: 47.5%;
@@ -263,37 +286,16 @@
     color: #fff;
   }
 
-.create-project,
-.update-project,
-.delete-project {
-  position: fixed;
-  bottom: 1.25rem;
-}
 
-.delete-project {
-  margin-left: 335px;
-  background-color: #d9605a;
-  border: 1px solid #d9605a;
-}
 
-.delete-project-disabled {
-  margin-left: 335px;
-  background-color: #3c3d3f;
-}
-
-.delete-project:hover {
-    background-color: #d9605a;
-    border: 1px solid #d9605a;
-    opacity: 0.9;
-  }
 
 .delete {
   display: flex;
   align-items: center;
 
   color: #212121;
-  font-size: 0.5rem;
-  margin-top: 0.5rem;
+  font-size: 0.6rem;
+  margin-top: 1.5rem;
 }
 
 .delete:hover {
@@ -301,7 +303,7 @@
     color: #d9605a;
   }
 
-  
+ 
   .main-btn-disabled .tooltiptext {
     visibility: hidden;
     width: 120px;
