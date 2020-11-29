@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
         editMembers:this.fb.array([]),
       });
      }
+
   ngOnInit() {
 
     this.authService.getUsers().subscribe(userData => {
@@ -73,7 +74,6 @@ export class HomeComponent implements OnInit {
     this.authService.getProjects().subscribe(projectData => {
       this.projects = projectData['projectArr'];
       this.email = projectData['email']
-      console.log(this.projects);
       for(var project of this.projects){
           if(project['owner']['email']==this.email){
             this.adminProjects.push(project);
@@ -87,9 +87,20 @@ export class HomeComponent implements OnInit {
         return false;
       });
   }
-  
 
- 
+  resetCreateForm(){
+    this.projectForm=this.fb.group({
+      pname:'',
+      members:this.fb.array([]),
+    });
+  }
+
+   resetEditForm(){
+    this.editProjectForm=this.fb.group({
+      pname:'',
+      editMembers:this.fb.array([]),
+    });
+  }
   newMember(): FormGroup {
     return this.fb.group({
       name: '',
@@ -126,7 +137,6 @@ export class HomeComponent implements OnInit {
   //Create Project Modal Open event
   showCreateProj()
   {
-    // this.addMember();
     this.showModalCreate = true; 
   }
 
@@ -144,6 +154,7 @@ export class HomeComponent implements OnInit {
     }
     this.authService.createProject(project).subscribe(data => {
       this.getProjects();
+      this.resetCreateForm();
       if(data['success']) {
         this.showModalCreate = false;
       
@@ -168,6 +179,7 @@ export class HomeComponent implements OnInit {
     this.authService.getProjectDetails(this.id).subscribe(projectData => {
       this.projectDetails = projectData;
       this.oldMembers=this.projectDetails['project']['teamMembers'];
+      this.pname=this.projectDetails['project'].name;
       this.editUsers=[];
       for(var i in this.users)
       {
@@ -201,6 +213,7 @@ export class HomeComponent implements OnInit {
     this.authService.editProject(projectupdate).subscribe(data => {
       this.hideEditProj();
       this.getProjects();
+      this.resetEditForm();
       if(data['success']) {
         this.flashMessage.show('Project edited', {cssClass: 'alert-success', timeout: 3000});
 
