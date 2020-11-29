@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
-declare var hum: any;
 
 @Component({
   selector: 'app-side-nav',
@@ -19,10 +17,8 @@ export class SideNavComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Itnit called");
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
-      console.log(this.user);
     },
      err => {
        console.log(err);
@@ -31,17 +27,10 @@ export class SideNavComponent implements OnInit {
 
     this.authService.getProjects().subscribe(projectData => {
     this.projects = projectData['projectArr'];
-    //console.log(projectData);
   }, 
      err => {
        return false;
      });
-
-    //Toggle Click Function
-    $("#menu-toggle").on("click", function (e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
   }
 
   onLogoutClick() {
@@ -52,7 +41,4 @@ export class SideNavComponent implements OnInit {
     this.router.navigate(['/login']);
     return false;
   }
-  // onHumburgerClick(){
-  //   new hum();
-  // } 
 }
