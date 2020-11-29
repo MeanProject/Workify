@@ -21,7 +21,6 @@ import { MainContentComponent } from './components/main-content/main-content.com
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
-import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { MytasksComponent } from './components/mytasks/mytasks.component';
 
 
