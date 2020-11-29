@@ -1,36 +1,22 @@
-<!-- <div class="jumbotron text-center">
-  <h1>Workify App</h1>
-  <p class="lead">Welcome to WORKIFYY </p>
-  <div>
-    <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
-    <a class="btn btn-dark" [routerLink]="['/login']">Login</a>
-  </div>
-</div> -->
 
-
-
-<div *ngIf="projects!=null" class="main-content">
+<div *ngIf="projects!=null" class="main-content ">
   <h1 class="header">Your Projects</h1>
   <button class="main-btn" (click) = "showCreateProj()">Create another project</button>
   <div class="modal-wrapper"></div>
   <br>
   <h1 class="subheader">As Admin</h1>
-  <div class="projects-wrapper">
-    <!-- (click)="getProjectData(project._id)" -->
+  <div class="projects-wrapper box effect1 ">
     <div class="project-icon" *ngFor="let project of adminProjects" >
       <div class="project-name">{{project?.name}}</div>
       <div class="project-info-button" (click) = "showEditProj(project._id)">Edit project</div>
       <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
-      <!-- <a [routerLink]="['/projects',project._id]">details </a> -->
     </div>
   </div>
   <h1 class="subheader">As Team Member</h1>
-  <div class="projects-wrapper">
+  <div class="projects-wrapper box effect1 ">
     <div class="project-icon" *ngFor="let project of teamMemberProjects">
       <div class="project-name">{{project?.name}}</div>
-      <!-- <div class="project-info-button" (click) = "showEditProj(project._id)">Edit project</div> -->
       <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
-      <!-- <a [routerLink]="['/projects',project._id]">details </a> -->
     </div>
   </div>
 </div>
@@ -41,9 +27,6 @@
       <button class="main-btn" (click) = "showCreateProj()">
         Create your first project
       </button>
-      <div class="modal-wrapper">
-        <!-- <Modal onClose={this.toggleModal} modal={this.state.modal} /> -->
-      </div>
     </div>
   </div>
 </div>
@@ -102,9 +85,9 @@
         <input id="pname" name="pname" formControlName="pname" type="text"  class="form-input" value="{{projectDetails?.project.name}}">
       </label>
     </div>
-    <div *ngFor="let update of updateMembers; let j=index" >
+    <div *ngFor="let old of oldMembers; let j=index" >
       <div class="split">
-          <span>Member {{j+1}} :{{update?.name}} - {{update?.email}} <i class="del fa fa-trash ml-2" style="color: blue;" (click)="deleteMember(j)"></i></span>
+          <span>Member {{j+1}} :{{old?.name}} - {{old?.email}} <i class="del fa fa-trash ml-2" style="color: blue;" (click)="deleteMember(j)"></i></span>
       </div>
     </div>
     <div class="form-group ">

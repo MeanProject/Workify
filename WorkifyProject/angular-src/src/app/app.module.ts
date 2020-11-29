@@ -10,16 +10,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
-import { MainContentComponent } from './components/main-content/main-content.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { MytasksComponent } from './components/mytasks/mytasks.component';
 
@@ -42,13 +38,9 @@ const appRoutes: Routes =  [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    DashboardComponent,
     ProfileComponent,
-    MainContentComponent,
     SideNavComponent,
-    ModalComponent,
     ProjectDetailsComponent,
-    CreateProjectComponent,
     MytasksComponent
   ],
   imports: [

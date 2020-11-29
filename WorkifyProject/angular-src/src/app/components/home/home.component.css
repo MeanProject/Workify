@@ -13,6 +13,21 @@
   cursor: pointer;
   color:red !important;
 }
+.box {
+  background:#FFF;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding-left: 20px;
+}
+
+.effect1{
+	-webkit-box-shadow: 2px 2px 2px 2px rgb(145, 142, 142);
+	   -moz-box-shadow: 2px 2px 2px 2px rgb(145, 142, 142);
+	        box-shadow: 2px 2px 2px 2px rgb(145, 142, 142);
+}
+
+                 
+
 
 .project-icon {
   height: 150px;
@@ -74,9 +89,9 @@
 /* maincontent scss file of teams */
 .main-content {
   flex: 1 1 auto;
-  margin-left: 2rem;
+  margin:4em;
   background-color: #ffffff;
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 .header {
