@@ -5,15 +5,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <!-- <ul class="navbar-nav mr-auto">
-          <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-            <a class="nav-link" [routerLink]="['/']">Home <span></span></a>
-          </li>
-        </ul> -->
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-            <a class="nav-link" [routerLink]="['/dashboard']">Dashboard </a>
-          </li> -->
           <li *ngIf="authService.loggedIn()">
             <div class="avatar-circle">
               <span class="initials">{{user?.name[0]}}</span>
@@ -28,8 +20,6 @@
           <li class="nav-item" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
             <a class="nav-link" [routerLink]="['/register']">Register</a>
           </li>
-          <!-- <li class="nav-item" *ngIf="authService.loggedIn()"><a class="nav-link" (click)="onLogoutClick()" href="#">Logout</a>
-          </li> -->
         </ul>
       </div>
     </nav>
