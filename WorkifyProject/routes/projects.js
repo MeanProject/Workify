@@ -103,6 +103,7 @@ router.patch(
         project.update({ $set: projectFields },
           { new: true })
       .then(project => {
+        console.log("new project");
         console.log(project);
         res.json({project, success: true});
       }).catch(err => console.log(err));

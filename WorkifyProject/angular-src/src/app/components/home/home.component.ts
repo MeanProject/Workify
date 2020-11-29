@@ -89,7 +89,6 @@ export class HomeComponent implements OnInit {
     }
     deleteMember(i:number){
       delete this.updateMembers[i];
-      console.log(this.updateMembers);
     }
     getProjects(){
       this.adminProjects=[];
@@ -98,7 +97,6 @@ export class HomeComponent implements OnInit {
         this.projects = projectData['projectArr'];
         this.email = projectData['email']
         for(var project of this.projects){
-          // console.log(project)
            if(project['owner']['email']==this.email){
              this.adminProjects.push(project);
            }
@@ -115,12 +113,8 @@ export class HomeComponent implements OnInit {
 
     this.authService.getUsers().subscribe(userData => {
       this.users = userData['userArr'];
-      console.log("read thiss");
-      // console.log(userData);
-      // this.email = userData['email'];
    }, 
     err => {
-     //  console.log(err);
       return false;
     });
     this.getProjects();
@@ -153,21 +147,16 @@ export class HomeComponent implements OnInit {
     this.showModalCreate = false;
   }
  
-
   showEditProj(project_id)
   {
       this.id=project_id
       this.showModalEdit = true;
       this.authService.getProjectDetails(this.id).subscribe(projectData => {
-        console.log('project details')
       this.projectDetails = projectData;
       console.log(this.projectDetails);
         this.updateMembers=this.projectDetails['project']['teamMembers'];
-        console.log('update');
-        console.log(this.updateMembers);
         this.editUsers=[];
-        console.log(this.users);
-        console.log(this.updateMembers);
+
         for(var i in this.users)
         {
           let isNotMember=true;
@@ -180,7 +169,7 @@ export class HomeComponent implements OnInit {
             this.editUsers.push(this.users[i]);
           }
       }
-      console.log(this.editUsers);        
+      
           
     });
   }
@@ -192,15 +181,14 @@ export class HomeComponent implements OnInit {
  
   months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   onCreateProject() {
-    console.log(this.projectForm.value);
+
     const temp=this.projectForm.value;
     const project={
       projectName:temp.pname,
       teamMembers:temp.members
     }
-    console.log(project);
+
     this.authService.createProject(project).subscribe(data => {
-      console.log(data);
       this.getProjects();
       if(data['success']) {
         this.showModalCreate = false;
@@ -214,30 +202,24 @@ export class HomeComponent implements OnInit {
 
   //edit project
     onEditProject() {
-      console.log("home edit")
+
       if(this.pname == undefined){
         this.pname = this.projectDetails['project']['name'];
-        console.log(this.projectDetails['project']['name']);
+
       }
       this.projectID=this.projectDetails['project']['_id'];
-      console.log(this.projectID);
-      console.log(this.editProjectForm.value);
       const temp=this.editProjectForm.value;
       let array=temp.editMembers;
       for(let i in this.updateMembers){
         array.push(this.updateMembers[i]);
       }
       
-    console.log(array);
-
       const projectupdate={
         id:this.projectID,
-        projectName:this.pname,
+        projectName:temp.pname,
         teamMembers:array
       }
      
-      console.log(projectupdate);
-  
       this.authService.editProject(projectupdate).subscribe(data => {
         this.hideEditProj();
         this.getProjects();
@@ -254,7 +236,6 @@ export class HomeComponent implements OnInit {
       this.getProjects();
       this.projectID=this.projectDetails['project']['_id'];
       const pid= this.projectID;
-      console.log(pid);
       this.authService.deleteProject(pid).subscribe(data => {
         this.hideEditProj();
         if(data['success']) {
