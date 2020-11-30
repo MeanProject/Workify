@@ -1,35 +1,40 @@
 
-<div *ngIf="projects!=null" class="main-content ">
-  <h1 class="header">Your Projects</h1>
-  <button class="main-btn" (click) = "showCreateProj()">Create another project</button>
-  <div class="modal-wrapper"></div>
-  <br>
-  <h1 class="subheader">As Admin</h1>
-  <div class="projects-wrapper box effect1 ">
-    <div class="project-icon" *ngFor="let project of adminProjects" >
-      <div class="project-name">{{project?.name}}</div>
-      <div class="project-info-button" (click) = "showEditProj(project._id)">Edit project</div>
-      <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
+<div *ngIf="projects.length!=0; then nonempty else empty"></div>
+<ng-template #nonempty>
+  <div class="main-content ">
+    <h1 class="header">Your Projects</h1>
+    <button class="main-btn" (click) = "showCreateProj()">Create another project</button>
+    <div class="modal-wrapper"></div>
+    <br>
+    <h1 class="subheader">As Admin</h1>
+    <div class="projects-wrapper box">
+      <div class="project-icon" *ngFor="let project of adminProjects" >
+        <div class="project-name">{{project?.name}}</div>
+        <div class="project-info-button" (click) = "showEditProj(project._id)">Edit project</div>
+        <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
+      </div>
+    </div>
+    <h1 class="subheader">As Team Member</h1>
+    <div class="projects-wrapper box">
+      <div class="project-icon" *ngFor="let project of teamMemberProjects">
+        <div class="project-name">{{project?.name}}</div>
+        <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
+      </div>
     </div>
   </div>
-  <h1 class="subheader">As Team Member</h1>
-  <div class="projects-wrapper box effect1 ">
-    <div class="project-icon" *ngFor="let project of teamMemberProjects">
-      <div class="project-name">{{project?.name}}</div>
-      <div class="project-info-button" key={project._id} [routerLink]="['/projects',project._id]">Go to project</div>
+</ng-template>
+<ng-template #empty>
+  <div class="main-content">
+    <div class="projects">
+      <div class="no-projects">
+        <h1 class="header">You have no projects</h1>
+        <button class="main-btn" (click) = "showCreateProj()">
+          Create your first project
+        </button>
+      </div>
     </div>
   </div>
-</div>
-<div *ngIf="projects==null" class="main-content">
-  <div class="projects">
-    <div class="no-projects">
-      <h1 class="header">You have no projects</h1>
-      <button class="main-btn" (click) = "showCreateProj()">
-        Create your first project
-      </button>
-    </div>
-  </div>
-</div>
+</ng-template>
 
 
 <!-- Create project Modal -->

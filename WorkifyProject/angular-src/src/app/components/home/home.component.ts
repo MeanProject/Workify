@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   showModalCreate: boolean;
   showModalEdit: boolean;
   oldMembers:any;
+  projectname:String;
 
   constructor(
     private authService:AuthService,
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit {
     this.hideEditProj();
   }
   getProjects(){
+    this.projects=[];
     this.adminProjects=[];
     this.teamMemberProjects=[];
     this.authService.getProjects().subscribe(projectData => {
@@ -201,15 +203,24 @@ export class HomeComponent implements OnInit {
     this.pname = this.projectDetails['project']['name'];
     this.projectID=this.projectDetails['project']['_id'];
     const temp=this.editProjectForm.value;
+    console.log(this.pname);
+    console.log(temp.pname);
     let array=temp.editMembers;
     for(let i in this.oldMembers){
       array.push(this.oldMembers[i]);
     }
+    this.projectname=temp.pname;
+    if(temp.pname=''){
+      this.projectname=this.pname;
+      console.log(this.projectname);
+    }
+
     const projectupdate={
       id:this.projectID,
-      projectName:temp.pname,
+      projectName:this.projectname,
       teamMembers:array
     }
+    console.log(projectupdate);
     this.authService.editProject(projectupdate).subscribe(data => {
       this.hideEditProj();
       this.getProjects();
@@ -225,12 +236,13 @@ export class HomeComponent implements OnInit {
 
   //delete project
   onDeleteProject() {
-    this.getProjects();
+   
     this.projectID=this.projectDetails['project']['_id'];
     const pid= this.projectID;
     this.authService.deleteProject(pid).subscribe(data => {
       this.hideEditProj();
       if(data['success']) {
+        this.getProjects();
         this.flashMessage.show('Project deleted', {cssClass: 'alert-success', timeout: 3000});
       } else {
         this.flashMessage.show('You cannot delete this project.. You are not the owner', {cssClass: 'alert-danger', timeout: 3000});
