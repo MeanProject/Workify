@@ -42,10 +42,5 @@ class MailSender{
 
 }
 
-// const project_mail = new MailSender('urvi.bheda@somaiya.edu','Project Assigned','You\'re added to the project '+ 'Workify' + ' by ' + 'Urvi')
-// project_mail.send();
-
-console.log("hello")
-
 module.exports = MailSender;
 
