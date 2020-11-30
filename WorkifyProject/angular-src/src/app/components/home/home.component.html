@@ -57,14 +57,12 @@
           <label>
             <div class="form-label">Member email</div>
             <select formControlName="email"  name="assignee" id="assignee" type="text" class="form-input task-input-split">
-              <!-- <option disabled="" value="">abc@gmail.com</option> -->
               <option *ngFor="let user of users" value={{user.email}} >{{user.email}}</option>
             </select>
           </label>
           <label>
             <div class="form-label">Member name</div>
             <select formControlName="name"  name="name" id="assignee" type="text" class="form-input task-input-split">
-              <!-- <option disabled="" value="">abc</option> -->
               <option *ngFor="let user of users" value={{user?.name}} >{{user?.name}}</option>
             </select>
           </label>
@@ -106,14 +104,12 @@
           <label>
             <div class="form-label">Member email</div>
             <select formControlName="email"  name="assignee" id="assignee" type="text" class="form-input task-input-split">
-              <!-- <option disabled="" value="">abc@gmail.com</option> -->
               <option *ngFor="let user of editUsers" value={{user?.email}} >{{user?.email}}</option>
             </select>
           </label>
           <label>
             <div class="form-label">Member name</div>
             <select formControlName="name"  name="name" id="assignee" type="text" class="form-input task-input-split">
-              <!-- <option disabled="" value="">abc</option> -->
               <option *ngFor="let user of editUsers" value={{user?.name}} >{{user?.name}}</option>
             </select>
           </label>

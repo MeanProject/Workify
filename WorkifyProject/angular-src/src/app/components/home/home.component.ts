@@ -90,19 +90,6 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  resetCreateForm(){
-    this.projectForm=this.fb.group({
-      pname:'',
-      members:this.fb.array([]),
-    });
-  }
-
-   resetEditForm(){
-    this.editProjectForm=this.fb.group({
-      pname:'',
-      editMembers:this.fb.array([]),
-    });
-  }
   newMember(): FormGroup {
     return this.fb.group({
       name: '',
@@ -119,23 +106,14 @@ export class HomeComponent implements OnInit {
   removeMember(i:number) {
     this.members().removeAt(i);
   }
+  
+  resetCreateForm(){
+    this.projectForm=this.fb.group({
+      pname:'',
+      members:this.fb.array([]),
+    });
+  }
 
-  //edit modal
-  editMembers() : FormArray {
-    return this.editProjectForm.get("editMembers") as FormArray
-  }
-  
-  addEditMember() {
-    this.editMembers().push(this.newMember());
-  }
-    
-  removeEditMember(i:number) {
-    this.editMembers().removeAt(i);
-  }
-  deleteMember(i:number){
-    delete this.oldMembers[i];
-  }
-  
   //Create Project Modal Open event
   showCreateProj()
   {
@@ -198,22 +176,43 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  
+  //edit modal
+  editMembers() : FormArray {
+    return this.editProjectForm.get("editMembers") as FormArray
+  }
+  
+  addEditMember() {
+    this.editMembers().push(this.newMember());
+  }
+    
+  removeEditMember(i:number) {
+    this.editMembers().removeAt(i);
+  }
+  deleteMember(i:number){
+    delete this.oldMembers[i];
+  }
+  
+  resetEditForm(){
+    this.editProjectForm=this.fb.group({
+      pname:'',
+      editMembers:this.fb.array([]),
+    });
+  }
+
+
 //On submit of update project
   onEditProject() {
     this.pname = this.projectDetails['project']['name'];
     this.projectID=this.projectDetails['project']['_id'];
     const temp=this.editProjectForm.value;
-    console.log(this.pname);
-    console.log(temp.pname);
+
     let array=temp.editMembers;
+
     for(let i in this.oldMembers){
       array.push(this.oldMembers[i]);
     }
     this.projectname=temp.pname;
-    if(temp.pname=''){
-      this.projectname=this.pname;
-      console.log(this.projectname);
-    }
 
     const projectupdate={
       id:this.projectID,

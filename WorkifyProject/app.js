@@ -53,13 +53,5 @@ app.listen(port, () => {
 
 
 
-//angular
-//npm install @angular/cli --save
-//ng new angular-src
-//ng serve    to run inside angular-src dir
-
-//ng g component navbar
-
-
 
 

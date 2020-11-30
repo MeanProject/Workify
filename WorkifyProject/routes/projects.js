@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
 const Project = require("../models/Project");
 const MailSender = require('../mail')
 
@@ -73,7 +72,6 @@ router.post(
     NEW_PROJECT.save().
     then(
       project => {
-        console.log("heyy")
         var msg = 'You\'re added to the project '+ project.name + ' by ' + project.owner.name
         for (let index = 0; index < NEW_PROJECT.teamMembers.length; index++) {
           console.log(index)
@@ -96,8 +94,7 @@ router.patch(
     let projectFields = {};
     projectFields.name = req.body.projectName;
     projectFields.teamMembers = req.body.teamMembers;
-    console.log("ProjectFilelds");
-    console.log(projectFields);
+    
     Project.findById(req.body.id).then(project => {
       if(project.owner.email == req.user.email){
         project.update({ $set: projectFields },

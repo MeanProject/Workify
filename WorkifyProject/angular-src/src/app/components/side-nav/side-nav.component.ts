@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SideNavComponent implements OnInit {
   projects:any;
   user:any
-  constructor(  private authService:AuthService,
+  constructor(  public authService:AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService) { 
   }
