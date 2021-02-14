@@ -43,9 +43,6 @@ app.use('/users',users);
 app.use('/projects',projects);
 app.use('/tasks',tasks);
 
-app.get('/',(req,res)=>{
-    res.send("hello");
-});
 
 app.listen(port, () => {
     console.log('Server started on port '+port);
@@ -53,5 +50,35 @@ app.listen(port, () => {
 
 
 
+<<<<<<< Updated upstream
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+//angular
+//npm install @angular/cli --save
+//ng new angular-src
+//ng serve    to run inside angular-src dir
+
+//ng g component navbar
+
+
+>>>>>>> Stashed changes
 
 

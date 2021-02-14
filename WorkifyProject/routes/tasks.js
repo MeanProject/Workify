@@ -19,15 +19,12 @@ router.get(
     await Task.find({assignee:email}).then(tasks=>{
       tasksArr=tasks;
     });
-    //console.log(tasksArr);
 
     await Project.find({})
     .then(projects => {
       projects.map(project => {
         tasksArr.map(task=>{
-          //console.log(project._id +"   "+task.project)
           if (project._id.equals(task.project)) {
-            //console.log(project)
             allTasks.push({task:task,project:project});                
           }
         });    
@@ -35,18 +32,6 @@ router.get(
       res.json({allTasks: allTasks});
     })
     .catch(err => console.log(err));
-    //console.log("hereeee"+req.user.email);
-    // await Task.find({assignee:email}).then(tasks => {
-    //   tasks.map(task=>{
-    //     console.log(task.project)
-    //     Project.findById(task.project).then(project=>{
-    //       console.log(project['name']);
-    //       tasksArr.push({project: project, task:task});
-    //     });
-    //     console.log(tasksArr);
-    //     res.json({tasksArr: tasksArr});
-    //   });
-    // });
   });
 
 
