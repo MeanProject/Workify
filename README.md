@@ -46,7 +46,7 @@ Workify application
 <br>Sign in:
 
   <a href="" rel="noopener">
- <img width="510px" src="./WorkifyProject/images/signup.PNG"></a>
+ <img src="./WorkifyProject/images/signup.PNG"></a>
  <br>
 
 ![Demo Workify application](./WorkifyProject/images/workify.gif)
