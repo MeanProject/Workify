@@ -1,11 +1,9 @@
-
-
 <div align="center">
 
 [![](https://img.shields.io/badge/Made_with-Nodejs-red?style=for-the-badge&logo=node.js)](https://nodejs.org/en/)
- [![](https://img.shields.io/badge/Made_with-AngularJS-blue?style=for-the-badge&logo=angular)](https://reactjs.org/docs/getting-started.html)
+[![](https://img.shields.io/badge/Made_with-AngularJS-blue?style=for-the-badge&logo=angular)](https://reactjs.org/docs/getting-started.html)
 [![](https://img.shields.io/badge/Database-MongoDB-red?style=for-the-badge&logo=mongodb)](mongodb.com "MongoDB")
-[![](https://img.shields.io/badge/IDE-Visual_Studio_Code-red?style=for-the-badge&logo=visual-studio-code)](https://code.visualstudio.com/  "Visual Studio Code")
+[![](https://img.shields.io/badge/IDE-Visual_Studio_Code-red?style=for-the-badge&logo=visual-studio-code)](https://code.visualstudio.com/ "Visual Studio Code")
 
 </div><p align="center">
   <a href="" rel="noopener">
@@ -14,10 +12,9 @@
 </p>
 <h1 align = 'center'><b>Workify</b></h1>
 
-## Description ##
+## Description
+
 Workify provides a platform for users to create project groups, add their team members and assign tasks to the team members of the project. It also keeps track of these tasks whether they're completed or not before the due date provided.We have a notification feature which notifies users on project creation and also when a task is assigned to a team member via mail. It helps users to manage and do their project submissions on time with a user friendly interface.
-
-
 
 <p>
 For more details-
@@ -26,65 +23,65 @@ Document link
 </a>
 </p>
 
+---
 
-------------------------------------------
-## Features ##
+## Features
 
-<b>Employee</b> 
+<b>Employee</b>
+
 - Sign In and Sign Up
-- Can apply for leave 
+- Can apply for leave
 - Get status of his leave applications
-- Browse  through holidays list 
+- Browse through holidays list
 - Can mark his attendance
 - View his attendance history
 
- <b>Admin</b> 
+<b>Admin</b>
+
 - Sign In
 - Can add holidays for the office
 - View employees
 - Approve or Reject leave applications
 - Get employee details who applied for leave
-- Browse through employee details 
+- Browse through employee details
 - View attendance history of employees
-------------------------------------------
-## Demo ##
-Sign Up/Sign In
 
-![Demo Sign In](images/login.gif)
+---
 
-Admin Panel
+## Demo
 
-![Demo Admin side-Trackology](images/admin.gif)
+Workify application
 
-Employee Panel
+![Demo Admin side-Trackology](images/wokrify.gif)
 
-![Demo Admin side-Trackology](images/employee.gif)
-------------------------------------------
+---
 
 ## How To Use
+
 #### Software Requirements
+
 VSCode or Android Studio
 
 ## Installation
+
 Install the dependencies by running:
-```html  
+
+```html
 flutter pub get
 ```
-
 
 #### Run using Command Prompt
 
 ```html
-    flutter run
+flutter run
 ```
 
 ---
-###             Tech stack
+
+### Tech stack
+
 `Database` : Firestore <br>
-`Frontend` : Flutter  <br>
-
-
-
+`Frontend` : Flutter <br>
 
 <p>
 For more details-
@@ -94,14 +91,14 @@ For more details-
 
 Flutter Documentation-
 <a href="https://flutter.dev/docs">
- Flutter </a> 
+Flutter </a>
+
 </p>
 
 Dart Programming-
 <a href="https://dart.dev/guides">
- Dart </a> 
-</p>
-------------------------------------------
+Dart </a>
+
+## </p>
 
 <h3 align="center"><b>Developed  by <a href="https://github.com/hasti-15">Hasti Shah</a> , <a href="https://github.com/nishigthb">Nishi Shah</a> and <a href="https://github.com/hiral72">Hiral Sheth</a></b></h3>
-

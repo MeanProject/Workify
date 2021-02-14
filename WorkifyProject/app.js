@@ -50,8 +50,6 @@ app.listen(port, () => {
 
 
 
-<<<<<<< Updated upstream
-=======
 
 
 
@@ -79,6 +77,5 @@ app.listen(port, () => {
 //ng g component navbar
 
 
->>>>>>> Stashed changes
 
 
