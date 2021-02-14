@@ -52,7 +52,7 @@ Document link
 
 Workify application
 
-![Demo Admin side-Trackology](images/wokrify.gif)
+![Demo Admin side-Trackology](images/workify.gif)
 
 ---
 
