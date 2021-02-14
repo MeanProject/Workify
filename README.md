@@ -52,7 +52,7 @@ Workify application
  
 
 
-![Demo Workify application](./images/workify.gif)
+![Demo Workify application](./WorkifyProject/images/workify.gif)
 
 ---
 
