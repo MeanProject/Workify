@@ -8,14 +8,14 @@
 </div>
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px src="images/wokify.png"></a>
+ <img width=200px src="./WorkifyProject/images/workify.png"></a>
  
 </p>
 <h1 align = 'center'><b>Workify</b></h1>
 
 ## Description
 
-Workify provides a platform for users to create project groups, add their team members and assign tasks to the team members of the project. It also keeps track of these tasks whether they're completed or not before the due date provided.We have a notification feature which notifies users on project creation and also when a task is assigned to a team member via mail. It helps users to manage and do their project submissions on time with a user friendly interface.
+Workify provides a platform for users to create project groups, add their team members and assign work to the team members of the project. It also keeps track of these tasks whether they're completed or not before the due date provided.We have a notification feature which notifies users on project creation and also when work is assigned to a team member via mail. It helps users to manage and do their project submissions on time with a user friendly interface.
 
 <p>
 For more details-
@@ -33,11 +33,10 @@ Click here
 - Sign In and Sign Up
 - Create, edit, view and delete project
 - Manage members of project
-- Email notifier 
-- View tasks/details of project
-- Manage tasks for specific project 
-- Tasks summary page to view tasks of all projects together
-
+- Email notifier
+- View work/details of project
+- Manage work for specific project
+- Work summary page to view tasks of all projects together
 
 ---
 
@@ -47,10 +46,8 @@ Workify application
 <br>Sign in:
 
   <a href="" rel="noopener">
- <img width="510px" src="./WorkifyProject/Workifyimages/signup.png"></a>
+ <img width="510px" src="./WorkifyProject/images/signup.png"></a>
  <br>
- 
-
 
 ![Demo Workify application](./WorkifyProject/images/workify.gif)
 
@@ -60,23 +57,27 @@ Workify application
 
 #### Software Requirements
 
-VSCode 
+VSCode
 
 ## Installation
 
 Install the dependencies by running:
- On command prompt go to the directory 'Workify/WorkifyProject'
+On command prompt go to the directory 'Workify/WorkifyProject'
+
 ```html
-npm i 
+npm i
 ```
+
 ```html
 node app.js
 ```
- Then go to the directory 'Workify/WorkifyProject/angular-src'
+
+Then go to the directory 'Workify/WorkifyProject/angular-src'
 
 ```html
-npm i 
+npm i
 ```
+
 ```html
 ng serve
 ```
@@ -90,8 +91,4 @@ ng serve
 `Node.js` − Web Server Platform<br>
 `AngularJS` − Front-end Framework<br>
 
-
-
 <h3 align="center"><b>Developed  by <a href="https://github.com/urvinb">Urvi Bheda</a>,<a href="https://github.com/Sakshi107"> Sakshi Shelar</a> and <a href="https://github.com/hiral72"> Hiral Sheth</a></b></h3>
-
-
